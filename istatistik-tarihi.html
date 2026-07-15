@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>İstatistiğin Tarihi — Biyoistatistik Rehberi</title>
+<meta name="description" content="İstatistik nereden çıktı? İlk sayımlardan olasılığın doğuşuna, kelimenin etimolojisinden politik anlamına, testlerin hangi sorunları çözmek için icat edildiğine kadar toplu bir tarih anlatısı.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700&family=Nunito:wght@400;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/stil.css">
+<script defer src="js/menu.js"></script>
+</head>
+<body>
+
+<nav class="ust-menu">
+  <div class="ic">
+    <a class="logo" href="index.html">Biyoistatistik <span>Rehberi</span></a>
+    <button class="menu-ac" id="menuAc" aria-label="Menüyü aç/kapat">☰</button>
+    <ul class="ana-menu" id="anaMenu">
+      <li><a href="index.html" data-sayfa="index.html">Ana Sayfa</a></li>
+      <li><a href="karar-agaci.html" data-sayfa="karar-agaci.html">Karar Ağacı</a></li>
+      <li class="grup">
+        <button class="grup-baslik" type="button">Temeller <span class="ok">▾</span></button>
+        <ul class="alt-menu">
+          <li><a href="veri-yapilari.html" data-sayfa="veri-yapilari.html">Veri Yapıları</a></li>
+          <li><a href="tanimlayici.html" data-sayfa="tanimlayici.html">Tanımlayıcı İstatistik</a></li>
+          <li><a href="korelasyon.html" data-sayfa="korelasyon.html">Korelasyon</a></li>
+          <li><a href="regresyon.html" data-sayfa="regresyon.html">Regresyon</a></li>
+        </ul>
+      </li>
+      <li class="grup">
+        <button class="grup-baslik" type="button">Sayısal Testler <span class="ok">▾</span></button>
+        <ul class="alt-menu">
+          <li class="alt-baslik">İki grup</li>
+          <li><a href="t-testi.html" data-sayfa="t-testi.html">Student t (bağımsız)</a></li>
+          <li><a href="paired-t.html" data-sayfa="paired-t.html">Eşleştirilmiş t</a></li>
+          <li><a href="mann-whitney.html" data-sayfa="mann-whitney.html">Mann-Whitney U</a></li>
+          <li><a href="wilcoxon.html" data-sayfa="wilcoxon.html">Wilcoxon işaretli sıralar</a></li>
+          <li class="alt-baslik">Üç ve daha çok grup</li>
+          <li><a href="anova.html" data-sayfa="anova.html">One-way ANOVA</a></li>
+          <li><a href="repeated-anova.html" data-sayfa="repeated-anova.html">Tekrarlı ölçümler ANOVA</a></li>
+          <li><a href="kruskal-wallis.html" data-sayfa="kruskal-wallis.html">Kruskal-Wallis</a></li>
+          <li><a href="friedman.html" data-sayfa="friedman.html">Friedman</a></li>
+        </ul>
+      </li>
+      <li class="grup">
+        <button class="grup-baslik" type="button">Kategorik Testler <span class="ok">▾</span></button>
+        <ul class="alt-menu">
+          <li><a href="ki-kare.html" data-sayfa="ki-kare.html">Ki-Kare</a></li>
+          <li><a href="fisher.html" data-sayfa="fisher.html">Fisher kesin testi</a></li>
+          <li><a href="mcnemar.html" data-sayfa="mcnemar.html">McNemar</a></li>
+          <li><a href="cochran-q.html" data-sayfa="cochran-q.html">Cochran Q</a></li>
+          <li><a href="marginal-homogenlik.html" data-sayfa="marginal-homogenlik.html">Marginal Homogeneity</a></li>
+        </ul>
+      </li>
+      <li class="grup">
+        <button class="grup-baslik" type="button">Kaynaklar <span class="ok">▾</span></button>
+        <ul class="alt-menu">
+          <li><a href="istatistik-tarihi.html" data-sayfa="istatistik-tarihi.html">İstatistiğin Tarihi</a></li>
+          <li><a href="sozluk.html" data-sayfa="sozluk.html">İstatistik Sözlüğü</a></li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+<main class="icerik">
+
+  <header class="sayfa-giris">
+    <div>
+      <span class="etiket">Toplu bakış · MÖ 3800 – bugün</span>
+      <h1>İstatistiğin Tarihi</h1>
+      <p class="ozet">
+        İstatistik gökten inmedi. Vergi toplamak isteyen devletlerin, kumar masasında kaybetmek istemeyen
+        soyluların, veba ölülerini sayan bir tuhafiyecinin, yıldızların yerini şaşırmadan bulmak isteyen
+        gökbilimcilerin ve bira fıçısının kalitesinden emin olmak isteyen bir kimyagerin
+        <strong>somut dertlerinden</strong> doğdu. Bu sayfa, o hikâyeyi baştan sona anlatıyor.
+      </p>
+    </div>
+    <aside class="zaman-pulu">
+      <span class="yil">Statistik</span>
+      <p class="kisi">status → devlet</p>
+      <p>Kelimenin kökeninde <strong>"devletin hâli"</strong> yatar. İstatistik, doğduğu andan itibaren
+        hem bir bilim hem de bir <strong>iktidar aracı</strong>ydı.</p>
+    </aside>
+  </header>
+
+  <div class="mini-zaman-baslik">Bu sayfadaki testlerin doğduğu anlar</div>
+  <div class="mini-zaman" id="anaZaman"></div>
+
+  <section class="kart vurgu-yesil">
+    <h2 style="margin-top:0">Kısa cevap: İstatistik neden matematikten çok sonra doğdu?</h2>
+    <p>
+      Matematik <strong>kesinliğin</strong> dilidir: bir üçgenin iç açıları toplamı tartışmaya açık değildir.
+      Oysa istatistik <strong>belirsizliğin</strong> dilidir ve belirsizliği hesaplamak, insan zihni için çok daha
+      geç gelen bir fikirdir. Öklid'in geometrisiyle Pascal'ın olasılığı arasında yaklaşık <strong>iki bin yıl</strong> vardır.
+    </p>
+    <p style="margin-bottom:0">
+      Bu gecikmenin nedeni teknik değil, felsefiydi. Antik ve ortaçağ dünyasında rastlantı, ölçülebilir bir şey değil;
+      tanrıların, kaderin ya da bilgisizliğimizin alanıydı. "Şansın kanunu olur mu?" sorusunun sorulabilmesi için
+      önce dünyanın <strong>düzenli ama belirsiz</strong> olabileceği fikrinin doğması gerekti. İstatistik tam olarak
+      o eşikte, 17. yüzyılda ortaya çıktı — ve doğar doğmaz iki ayrı koldan aktı:
+      <strong>devletin sayımları</strong> ile <strong>kumarcının olasılığı</strong>. Bugün bildiğimiz istatistik,
+      bu iki kolun 19. yüzyılda birleşmesinden doğdu.
+    </p>
+  </section>
+
+  <h2 style="border-left:5px solid var(--cam);padding-left:12px;margin-top:34px">1. Saymak: istatistikten önceki istatistik</h2>
+
+  <p>
+    Bilinen en eski "istatistik", bir bilim değil bir <strong>defterdi</strong>. Mezopotamya'da MÖ 3800'lere uzanan
+    çivi yazılı tabletler, tahıl ambarlarını, hayvan sürülerini ve insanları kaydeder. Mısır'da piramitlerin
+    inşası için işgücü ve tahıl sayımları yapıldı. Çin'de Han hanedanı, MS 2 yılında yaklaşık
+    <strong>57,6 milyon kişilik</strong> bir nüfus sayımı kaydetti — bu, insanlık tarihinin
+    büyük ölçüde korunmuş en eski ayrıntılı sayımlarından biridir.
+  </p>
+  <p>
+    Roma bu işi bir kuruma dönüştürdü: <em>censere</em> (değer biçmek, saymak) fiilinden gelen
+    <strong>census</strong>, yurttaşları ve mallarını beş yılda bir kaydediyordu. Amaç masumdu denemez:
+    <strong>vergi ve askerlik</strong>. Aynı mantık 1086'da Norman İngiltere'sinde
+    <em>Domesday Book</em> ile devam etti — kral, fethettiği ülkede kimin neyi olduğunu tek tek yazdırdı.
+    Osmanlı'da bunun karşılığı <strong>tahrir defterleri</strong>ydi: hane hane, dönüm dönüm kayıt.
+  </p>
+
+  <section class="kart vurgu-mercan">
+    <h3 style="margin-top:0">Bu neden henüz istatistik değildi?</h3>
+    <p style="margin-bottom:0">
+      Çünkü ortada <strong>çıkarım</strong> yoktu. Sayım, gördüğünü yazar; istatistik ise
+      <strong>görmediğin hakkında konuşmanı</strong> sağlar. Bir sayım "bu köyde 212 kişi var" der.
+      İstatistik ise "elimdeki 40 hastadan yola çıkarak, hiç görmediğim binlerce hasta için ne söyleyebilirim
+      ve ne kadar yanılabilirim?" der. İşte bu sıçrama için olasılık gerekiyordu.
+    </p>
+  </section>
+
+  <h2 style="border-left:5px solid var(--gunes);padding-left:12px;margin-top:34px">2. Olasılığın doğuşu: kumar masasından bilime</h2>
+
+  <p>
+    Dönüm noktası <strong>1654</strong>'tür. Kumarbaz bir soylu olan Chevalier de Méré, yarıda kesilen bir kumar
+    oyununda paranın nasıl paylaşılacağını sordu: "Oyun yarıda kalırsa, ortadaki para kime, ne kadar gider?"
+    Bu soru <strong>Blaise Pascal</strong> ile <strong>Pierre de Fermat</strong> arasında bir mektuplaşma başlattı ve
+    o mektuplarda <strong>olasılık teorisi</strong> doğdu. İnsanlık ilk kez "henüz olmamış şeyin şansını"
+    matematikle ölçüyordu.
+  </p>
+  <p>
+    Ardından gelenler bu fidanı ağaca çevirdi:
+  </p>
+  <ul>
+    <li><strong>Jacob Bernoulli (1713, <em>Ars Conjectandi</em>)</strong> — <strong>Büyük sayılar yasası</strong>:
+      deney sayısı arttıkça gözlenen oran, gerçek olasılığa yaklaşır. Yani "yeterince gözlersen gerçeği görürsün".
+      Bu, tüm örnekleme fikrinin temel taşıdır.</li>
+    <li><strong>Abraham de Moivre (1733)</strong> — <strong>Çan eğrisi</strong>nin ilk türetimi
+      (binom dağılımına yaklaşım olarak). Normal dağılım, dünyaya bir kumar hesabı olarak geldi.</li>
+    <li><strong>Thomas Bayes (1763, ölümünden sonra)</strong> — Kanıt geldikçe inancını
+      <strong>güncelleme</strong> kuralı. Yüzyıllarca kenarda kaldı; bugün tıbbi tanının (test sonrası olasılık)
+      ve modern yapay zekânın kalbinde.</li>
+    <li><strong>Carl Friedrich Gauss (1809) & Pierre-Simon Laplace (1810–1812)</strong> —
+      <strong>En küçük kareler</strong> ve <strong>merkezi limit teoremi</strong>. İlgilendikleri konu insan değil,
+      <strong>gökcisimleriydi</strong>: her ölçüm biraz hatalıydı, hataların dağılımı çan eğrisine uyuyordu ve
+      ortalama alarak gerçeğe yaklaşılıyordu.</li>
+  </ul>
+  <p>
+    Dikkat: bu noktada çan eğrisi bir <strong>hata kuramıdır</strong>. "Doğru bir değer vardır, ölçümlerimiz
+    onun etrafında saçılır" der. Birazdan bu fikrin insana uygulanması, her şeyi değiştirecek.
+  </p>
+
+  <h2 style="border-left:5px solid var(--leylak);padding-left:12px;margin-top:34px">3. Kelimenin kendisi: "istatistik" ne demek?</h2>
+
+  <div class="konusma">
+    <p><strong>status</strong> (Latince) → durum, hâl, <em>devlet</em> &nbsp;·&nbsp;
+    <strong>ragione di stato</strong> (İtalyanca, 16. yy) → "devlet aklı" &nbsp;·&nbsp;
+    <strong>Statistik</strong> (Almanca, 1749) → devlet bilgisi &nbsp;·&nbsp;
+    <strong>statistics</strong> (İngilizce, 1791) → halkın hâline dair sayılar</p>
+  </div>
+
+  <p>
+    Kelimeyi bugünkü anlamıyla ilk kullanan kişi, Göttingen'li Alman iktisatçı <strong>Gottfried Achenwall</strong>'dır
+    (1749). Onun <em>Statistik</em>'i, bizim anladığımız gibi bir hesap yöntemi değil,
+    <strong>devletin tanımlayıcı bilgisiydi</strong>: bir ülkenin nüfusu, orduları, gelirleri, iklimi, kurumları —
+    çoğu zaman <strong>sayısız</strong>, düz yazıyla anlatılan bir "devlet bilgisi". Bu kola bugün
+    <em>Alman üniversite istatistiği</em> denir.
+  </p>
+  <p>
+    Kelimeyi İngilizceye taşıyan <strong>Sir John Sinclair</strong> ise (İskoçya'nın <em>Statistical Account</em>'ı,
+    1791–1799) anlamı bilinçli olarak kaydırdı. Kendi ifadesiyle, Almanya'da bu kelime devletin gücünü ölçmek için
+    kullanılıyordu; o ise onu <strong>halkın refahının ve mutluluğunun</strong> ölçüsü olarak kullanmak istiyordu.
+    Bu, sadece bir kelime tercihi değil, bir <strong>program</strong>dı: bakışı taçtan halka çevirmek.
+  </p>
+
+  <section class="kart vurgu-leylak">
+    <h3 style="margin-top:0">🏛️ Politik anlam: istatistik masum bir sayı değildir</h3>
+    <p>
+      Etimoloji bize şunu söyler: istatistik, <strong>devletin kendi nüfusunu görme çabası</strong> olarak doğdu.
+      Modern devlet, tebaasını saymadan yönetemez — vergi, askerlik, salgın, kıtlık, hepsi sayıya bağlıdır.
+      Bu yüzden istatistik tarihi, aynı zamanda bir <strong>iktidar tarihi</strong>dir. Şu üç soru her zaman politiktir:
+    </p>
+    <ul>
+      <li><strong>Ne sayılıyor?</strong> Bir şeyi ölçmeye karar vermek, onu "önemli" ilan etmektir.
+        İşsizliğin tanımı değişince işsiz sayısı da değişir. Bebek ölümlerini ayrı saymaya başlamak,
+        onları politik bir mesele hâline getirmiştir.</li>
+      <li><strong>Kim sayılıyor?</strong> Sayılmayan görünmez olur. Kayıt dışı çalışanlar, göçmenler, mevsimlik işçiler
+        istatistikte yoksa, politikada da yoktur.</li>
+      <li><strong>Kim sayıyor?</strong> Aynı veri, farklı kategorilerle bambaşka bir hikâye anlatır.
+        Nüfus sayımlarındaki etnik ya da dinsel kategoriler tarihte hem hak talebinin hem de ayrımcılığın
+        aracı olabilmiştir.</li>
+    </ul>
+    <p style="margin-bottom:0">
+      Ama madalyonun diğer yüzü de gerçektir: istatistik, iktidarın elinde bir denetim aracı olabildiği gibi,
+      <strong>iktidara karşı en güçlü kanıt</strong> da olabilmiştir. Chadwick'in yoksulluk raporları, Snow'un kolera
+      haritası, Nightingale'in ölüm grafikleri, Doll ve Hill'in sigara verileri — hepsi
+      <strong>sayılarla yönetenlere itiraz etti</strong> ve kazandı. Halk sağlığının bütün tarihi bu gerilimde geçer.
+    </p>
+  </section>
+
+  <h2 style="border-left:5px solid var(--cam);padding-left:12px;margin-top:34px">4. Ölümü saymak: istatistik bir bilime dönüşüyor (1662)</h2>
+
+  <p>
+    Londra'da <strong>John Graunt</strong> adında bir tuhafiyeci vardı. Kilise, veba yıllarında haftalık
+    <em>Bills of Mortality</em> (ölüm bültenleri) yayımlıyordu; kimse bunları ciddiye almıyordu.
+    Graunt aldı, yıllara göre topladı ve düzenli örüntüler buldu:
+    her yıl kabaca aynı oranda erkek ve kız doğuyordu, ölüm nedenleri istikrarlı dağılıyordu,
+    kazalar bile "düzenliydi". <strong>1662</strong>'de yayımladığı
+    <em>Natural and Political Observations Made upon the Bills of Mortality</em> ile
+    ilk <strong>yaşam tablosu</strong>nu kurdu ve Londra'nın nüfusunu bültenlerden yola çıkarak tahmin etti.
+  </p>
+  <p>
+    Bu kitap bir milattır: ilk kez birileri, <strong>kaotik görünen insan olaylarının toplu düzeyde yasalara
+    uyduğunu</strong> gösterdi. Modern <strong>demografi</strong> ve <strong>epidemiyoloji</strong> tam burada doğdu.
+    Arkadaşı <strong>William Petty</strong> bu yaklaşıma <em>Political Arithmetick</em> ("Politik Aritmetik") adını verdi —
+    isim bile, işin devletle ilişkisini açıkça söylüyordu.
+  </p>
+  <p>
+    Otuz yıl sonra gökbilimci <strong>Edmond Halley</strong> (kuyruklu yıldızın Halley'i), Breslau şehrinin
+    doğum-ölüm kayıtlarından <strong>1693</strong>'te çok daha sağlam bir yaşam tablosu üretti. Sonuç?
+    Bugün bildiğimiz <strong>hayat sigortası</strong> ve aktüerya bu tablodan doğdu. Yani istatistik,
+    doğduktan otuz yıl sonra bir sektör kurmuştu bile.
+  </p>
+
+  <h2 style="border-left:5px solid var(--gunes);padding-left:12px;margin-top:34px">5. İki kol birleşiyor: Quetelet ve "ortalama insan" (1835)</h2>
+
+  <p>
+    Şimdiye kadar iki ayrı dünya vardı: bir yanda <strong>devlet sayımları</strong>, öte yanda
+    gökbilimcilerin <strong>hata kuramı</strong>. Belçikalı gökbilimci <strong>Adolphe Quetelet</strong>
+    bu ikisini birleştirdi ve modern istatistiği başlattı.
+  </p>
+  <p>
+    Fikri şuydu: Astronomlar bir yıldızın konumunu bulmak için defalarca ölçüp ortalama alıyordu, çünkü
+    hatalar çan eğrisine uyuyordu. Quetelet, Fransız askerlerinin göğüs çevresi ölçümlerine baktığında
+    <strong>aynı çan eğrisini</strong> gördü. O hâlde, diye düşündü, doğanın hedeflediği bir
+    <strong>"ortalama insan" (l'homme moyen)</strong> vardır ve bireyler onun etrafındaki "hatalar"dır.
+  </p>
+  <p>
+    Bu fikir bugün felsefî olarak tartışmalıdır (birey bir hata değildir!), ama sonucu devrimciydi:
+    <strong>1835</strong>'te yayımladığı <em>Sur l'homme</em> ile insan topluluklarının ölçülebilir yasalara
+    uyduğunu savundu ve <strong>"sosyal fizik"</strong> dediği alanı kurdu. Suç oranlarının, evlenme yaşının,
+    intiharların yıldan yıla şaşırtıcı istikrarı, çağdaşlarını sarstı. Bugün hâlâ kullandığımız
+    <strong>Vücut Kitle İndeksi</strong>, onun adını taşır: <em>Quetelet indeksi</em>.
+  </p>
+
+  <section class="kart vurgu-yesil">
+    <h3 style="margin-top:0">🩺 Ve istatistik hastaneye giriyor</h3>
+    <p>
+      Aynı yüzyılda, istatistiğin en görkemli zaferleri tıpta yaşandı:
+    </p>
+    <ul>
+      <li><strong>Pierre Louis (1835)</strong> — "Sayısal yöntem" ile <strong>kan almanın</strong> zatürrede işe
+        yaramadığını gösterdi. Yüzyılların tedavisi, sayılar karşısında çöktü. Modern tedavi değerlendirmesinin atası.</li>
+      <li><strong>William Farr (1839'dan itibaren)</strong> — İngiltere'de ölüm kayıtlarını sistematik bir
+        <strong>ulusal veri altyapısına</strong> çevirdi; ölüm nedeni sınıflamasının atası (bugünkü ICD'nin kökeni).</li>
+      <li><strong>John Snow (1854)</strong> — Londra'da kolera salgınında ölümleri haritalayıp su şirketlerine göre
+        ölüm oranlarını karşılaştırdı. Broad Street pompasının kolu söküldü. Mikrop daha keşfedilmemişti;
+        <strong>istatistik, nedeni bakteriden önce buldu.</strong></li>
+      <li><strong>Florence Nightingale (1858)</strong> — Kırım'da askerlerin çoğunun yaralardan değil,
+        <strong>önlenebilir enfeksiyonlardan</strong> öldüğünü gösterdi ve bunu ünlü gül/"coxcomb" diyagramıyla
+        görselleştirdi. Kraliyet İstatistik Derneği'nin ilk kadın üyesidir. Veri görselleştirmenin politik gücünü
+        kanıtlayan ilk isimlerdendir.</li>
+    </ul>
+    <p style="margin-bottom:0">
+      Bu dört isim, halk sağlığının şu ilkesini kurdu: <strong>Sayılmayan sorun, çözülmez.</strong>
+    </p>
+  </section>
+
+  <h2 style="border-left:5px solid var(--leylak);padding-left:12px;margin-top:34px">6. Biyometri okulu: korelasyon, regresyon, ki-kare (1886–1900)</h2>
+
+  <p>
+    <strong>Francis Galton</strong>, Darwin'in kuzeniydi ve kalıtımı ölçmek istiyordu. Ebeveyn boyu ile çocuk boyunu
+    karşılaştırırken tuhaf bir şey gördü: uzun babaların oğulları genelde babadan kısa, kısa babaların oğulları
+    babadan uzundu. Herkes yavaşça ortalamaya doğru "geri çekiliyordu". Bu olguya
+    <strong>"ortalamaya regresyon"</strong> adını verdi (1886) — ve kelime, bugün bambaşka bir anlamda,
+    istatistiğin en çok kullanılan yöntemine ad oldu.
+  </p>
+  <p>
+    Galton ilişkinin varlığını gördü ama ölçemedi. Onu ölçen, öğrencisi <strong>Karl Pearson</strong> oldu:
+    <strong>1896</strong>'da korelasyon katsayısını (<strong>r</strong>) bugünkü formülüne kavuşturdu.
+    Dört yıl sonra, <strong>1900</strong>'de belki de en çok kullanılan testi verdi:
+    <strong>ki-kare</strong>. Artık "gözlenen sayımlar, beklenenden şans eseri mi sapıyor?" sorusunun bir cevabı vardı.
+    Sayım verisi ilk kez sınanabiliyordu.
+  </p>
+
+  <section class="kart vurgu-mercan">
+    <h3 style="margin-top:0">⚠️ Rahatsız edici gerçek: biyometri ve öjeni</h3>
+    <p style="margin-bottom:0">
+      Bu satırları dürüstçe yazmak gerekir. Galton, <strong>"öjeni" kelimesini icat eden kişidir</strong> ve
+      korelasyon-regresyon araçlarını, "iyi soyun" çoğalması gerektiği tezini desteklemek için geliştirdi.
+      Pearson da bu görüşü paylaşıyordu; kurdukları laboratuvarın adı bile <em>Galton Eugenics Laboratory</em>'ydi.
+      Bugün kullandığımız yöntemler, ırkçı ve ayrımcı bir programın içinde doğdu. Bu, yöntemleri geçersiz kılmaz —
+      matematik doğrudur — ama şunu öğretir: <strong>bir aracın teknik geçerliliği, kullanıldığı amacı aklamaz.</strong>
+      Bu yüzden Londra'daki ilgili birimler ve binalar, 2020'den itibaren bu isimleri taşımayı bıraktı.
+      İstatistik tarihinin bu yüzü, halk sağlığı etiğinin en önemli derslerinden biridir.
+    </p>
+  </section>
+
+  <h2 style="border-left:5px solid var(--cam);padding-left:12px;margin-top:34px">7. Küçük örneklem devrimi: bira fabrikasından tıbba (1908)</h2>
+
+  <p>
+    O güne dek istatistik <strong>büyük sayılarla</strong> çalışıyordu: binlerce ölüm kaydı, on binlerce asker.
+    Peki elinizde sadece <strong>8 fıçı</strong> ya da <strong>12 hasta</strong> varsa?
+  </p>
+  <p>
+    Bu sorunu çözen kişi bir akademisyen değil, Dublin'deki <strong>Guinness</strong> bira fabrikasının kimyageri
+    <strong>William Sealy Gosset</strong>'ti. Arpa ve maya kalitesi hakkında küçük örneklerle karar vermek zorundaydı.
+    <strong>1908</strong>'de küçük örneklemler için geçerli olan <strong>t-dağılımını</strong> türetti.
+    Guinness, çalışanlarının yayın yapmasını yasakladığı için makaleyi <strong>"Student"</strong> takma adıyla
+    yayımladı — testin adı buradan gelir.
+  </p>
+  <p>
+    Sonuç, tıp için tarihîdir: artık binlerce değil, <strong>bir avuç hastayla</strong> bile
+    "bu fark gerçek mi, şans mı?" sorusuna geçerli cevap verilebiliyordu. Modern klinik araştırma
+    bu kapıdan girdi.
+  </p>
+
+  <h2 style="border-left:5px solid var(--gunes);padding-left:12px;margin-top:34px">8. Fisher: deneyin icadı ve p&lt;0,05 (1925–1935)</h2>
+
+  <p>
+    <strong>Ronald A. Fisher</strong>, İngiltere'deki Rothamsted tarım istasyonunda gübre denemeleriyle uğraşıyordu.
+    Onlarca çeşidi ikişer ikişer karşılaştırmak hem zahmetliydi hem de yanılma olasılığını şişiriyordu.
+    Çözümü <strong>varyans analiziydi (ANOVA, 1925)</strong>: gruplar <em>arasındaki</em> değişimi,
+    grupların <em>içindeki</em> doğal gürültüye oranla.
+  </p>
+  <p>
+    Ama Fisher'ın asıl mirası daha büyüktür. <em>Statistical Methods for Research Workers</em> (1925) ve
+    <em>The Design of Experiments</em> (1935) ile şunları kurdu:
+  </p>
+  <ul>
+    <li><strong>Randomizasyon</strong> — Grupları kurayla ayır ki, bilmediğin karıştırıcılar bile dengelensin.
+      Bu tek fikir, tıbbın kanıt anlayışını değiştirdi.</li>
+    <li><strong>Sıfır hipotezi (H₀)</strong> — "Fark yoktur" varsayımıyla başla, veriyi ona karşı sına.</li>
+    <li><strong>p-değeri ve 0,05 eşiği</strong> — "Sıfır hipotezi doğruyken, bu kadar uç bir sonucu görme olasılığı."
+      Fisher 0,05'i <em>pratik bir alışkanlık</em> olarak önerdi, kutsal bir sınır olarak değil.
+      Bir asır sonra hâlâ bu rakamla boğuşuyor olmamız, tarihin cilvesidir.</li>
+    <li><strong>"Çay tadan hanım"</strong> — Bir çay partisinde, süt mü çay mı önce konduğunu tadarak
+      ayırt edebildiğini iddia eden bir hanımı sınamak için tasarladığı deneyden
+      <strong>Fisher kesin testi (1935)</strong> doğdu.</li>
+  </ul>
+
+  <h2 style="border-left:5px solid var(--leylak);padding-left:12px;margin-top:34px">9. Neyman–Pearson: karar, hata ve güç (1933–1937)</h2>
+
+  <p>
+    <strong>Jerzy Neyman</strong> ile <strong>Egon Pearson</strong> (Karl'ın oğlu), Fisher'ın çerçevesini
+    bir <strong>karar kuramına</strong> çevirdi. Onlara göre asıl mesele "kanıtın gücü" değil,
+    uzun vadede <strong>ne sıklıkla yanılacağımızı</strong> kontrol etmekti. Böylece bugün her ders kitabında
+    olan kavramlar doğdu:
+  </p>
+  <ul>
+    <li><strong>Alternatif hipotez</strong>, <strong>I. tip hata (α)</strong> — olmayan farkı var sanmak;
+      <strong>II. tip hata (β)</strong> — var olan farkı kaçırmak.</li>
+    <li><strong>Güç (1−β)</strong> — gerçek bir farkı yakalayabilme yeteneği. Bugünkü
+      <strong>örneklem büyüklüğü hesaplarının</strong> tamamı buradan gelir.</li>
+    <li><strong>Güven aralığı (Neyman, 1937)</strong> — Belki de p-değerinden çok daha faydalı olan bu kavram,
+      "sadece anlamlı mı?" sorusundan "<strong>etki ne kadar büyük ve ne kadar belirsiz?</strong>" sorusuna geçişi sağladı.</li>
+  </ul>
+  <p>
+    Fisher ile Neyman arasındaki tartışma ömür boyu sürdü, kişisel ve sert oldu. İşin ironisi:
+    bugün ders kitaplarında öğrettiğimiz "hipotez testi", ikisinin de tam olarak onaylamayacağı bir
+    <strong>melez</strong>dir — Fisher'ın p-değeri ile Neyman-Pearson'un α eşiğinin, tartışma bitmeden
+    birbirine karıştırılmasından doğmuştur.
+  </p>
+
+  <h2 style="border-left:5px solid var(--cam);padding-left:12px;margin-top:34px">10. Varsayımlara isyan: parametrik olmayan testler (1945–1956)</h2>
+
+  <p>
+    Fisher'ın araçları güçlüydü ama bir bedeli vardı: <strong>normal dağılım varsayımı</strong>. Gerçek veriler
+    ise —özellikle tıpta— çoğu zaman çarpıktı: laboratuvar değerleri, bekleme süreleri, maliyetler, ağrı skorları.
+    Üstelik tek bir aşırı hasta, tüm sonucu ele geçirebiliyordu.
+  </p>
+  <p>
+    Çözüm, şaşırtıcı derecede basitti: <strong>ham değerler yerine sıralarıyla çalış.</strong>
+    Bir kimyager olan <strong>Frank Wilcoxon</strong> 1945'te bu kapıyı açtı ve on yıl içinde bugün
+    kullandığımız tüm "ikizler" doğdu:
+  </p>
+
+  <div class="tablo-kaydirici" style="grid-template-columns:1fr">
+    <table class="veri">
+      <thead>
+        <tr><th>Yıl</th><th>Kim</th><th>Test</th><th>Neyin ikizi?</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>1937</td><td>Milton Friedman (evet, Nobelli iktisatçı)</td><td>Friedman testi</td><td>Tekrarlı ölçümler ANOVA</td></tr>
+        <tr><td>1945</td><td>Frank Wilcoxon</td><td>Wilcoxon işaretli sıralar</td><td>Eşleştirilmiş t</td></tr>
+        <tr><td>1947</td><td>Henry Mann & Donald Whitney</td><td>Mann-Whitney U</td><td>Bağımsız t</td></tr>
+        <tr><td>1947</td><td>Quinn McNemar</td><td>McNemar</td><td>Eşleşmiş ikili veri için ki-kare</td></tr>
+        <tr><td>1950</td><td>William Cochran</td><td>Cochran Q</td><td>McNemar'ın çok koşullu hâli</td></tr>
+        <tr><td>1952</td><td>William Kruskal & W. Allen Wallis</td><td>Kruskal-Wallis</td><td>Tek yönlü ANOVA</td></tr>
+        <tr><td>1955–56</td><td>Alan Stuart & A. E. Maxwell</td><td>Marginal homogeneity</td><td>McNemar'ın çok kategorili hâli</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h2 style="border-left:5px solid var(--gunes);padding-left:12px;margin-top:34px">11. Randomizasyon tıbba geliyor: 1948 ve sonrası</h2>
+
+  <p>
+    Fisher tarlada randomizasyonu icat etmişti; onu insana taşıyan <strong>Austin Bradford Hill</strong> oldu.
+    <strong>1948</strong>'de yayımlanan <strong>MRC streptomisin denemesi</strong> (akciğer tüberkülozu),
+    genellikle modern anlamda ilk <strong>randomize kontrollü çalışma (RCT)</strong> kabul edilir.
+    Hastalar, hekimin tercihine göre değil, gizli tutulan rastgele bir listeye göre gruplara ayrıldı.
+    Bu, tıbbın <strong>otorite</strong>den <strong>kanıta</strong> geçişinin sembolik anıdır.
+  </p>
+  <p>
+    Ardından, aynı okuldan çıkan bir başka dev çalışma geldi: <strong>Richard Doll ve Bradford Hill</strong>,
+    1950'den itibaren sigara ile akciğer kanseri ilişkisini gösterdi ve İngiliz hekimleri üzerinde
+    onlarca yıl süren bir <strong>kohort</strong> yürüttü. Sonuç, endüstriyle onlarca yıllık bir savaşa dönüştü.
+    Hill, 1965'te bu tartışmadan damıttığı ünlü <strong>nedensellik ölçütlerini</strong> yayımladı
+    (güç, tutarlılık, zamansallık, doz-yanıt...). Bugün epidemiyoloji derslerinde okuttuğumuz
+    "korelasyon nedensellik değildir, peki ne zaman nedenselliktir?" tartışması buradan gelir.
+  </p>
+
+  <h2 style="border-left:5px solid var(--leylak);padding-left:12px;margin-top:34px">12. Modern dönem: zamanı, riski ve kanıtı modellemek</h2>
+
+  <ul>
+    <li><strong>Kaplan & Meier (1958)</strong> — Herkesin aynı süre izlenemediği durumlarda
+      <strong>sağkalım eğrisi</strong>. Onkolojinin dili oldu.</li>
+    <li><strong>David Cox (1972)</strong> — <strong>Orantılı tehlikeler regresyonu</strong>: sağkalıma
+      aynı anda birçok risk faktörünün etkisini modellemek. Tıptaki en çok atıf alan çalışmalardan biridir.</li>
+    <li><strong>Framingham Kalp Çalışması (1948–)</strong> — "<strong>Risk faktörü</strong>" kavramını
+      dünyaya kazandıran kohort. Bugün kullandığımız risk skorlarının atasıdır.</li>
+    <li><strong>Cornfield (1951)</strong> — Olgu-kontrol çalışmalarındaki <strong>odds oranının</strong>
+      neden göreli riski tahmin ettiğini gösterdi; vaka-kontrol tasarımını meşrulaştırdı.</li>
+    <li><strong>Archie Cochrane (1972)</strong> — <em>Effectiveness and Efficiency</em>: sağlık sisteminin
+      yaptığı işlerin kanıtını sorgulayan manifesto. Adını taşıyan <strong>Cochrane iş birliği</strong> (1993)
+      ve sistematik derleme kültürü buradan doğdu.</li>
+    <li><strong>Gene Glass (1976)</strong> — <strong>"Meta-analiz"</strong> terimini ortaya attı:
+      çalışmaların sonuçlarını istatistiksel olarak birleştirmek. Kanıt piramidinin tepesi böyle oluştu.</li>
+    <li><strong>1990'lar</strong> — <strong>Kanıta dayalı tıp</strong> hareketi (Sackett, Guyatt ve ark.)
+      ve ardından raporlama standartları (CONSORT, STROBE, PRISMA) ile <strong>GRADE</strong>.</li>
+  </ul>
+
+  <section class="kart vurgu-mercan">
+    <h3 style="margin-top:0">🔍 Ve bugün: tekrarlanabilirlik krizi</h3>
+    <p>
+      2010'lardan itibaren rahatsız edici bir gerçek ortaya çıktı: yayımlanmış bulguların önemli bir kısmı
+      <strong>tekrarlanamıyordu</strong>. Suçlu tek bir şey değildi ama merkezde tanıdık bir rakam vardı:
+      <strong>p&lt;0,05</strong>. Anlamlı sonuç yayımlanıyor, anlamsız olan çekmecede kalıyordu
+      (<em>yayın yanlılığı</em>); araştırmacılar farkında olmadan anlamlıya ulaşana kadar analiz deniyordu
+      (<em>p-hacking</em>).
+    </p>
+    <p style="margin-bottom:0">
+      Amerikan İstatistik Derneği <strong>2016</strong>'da tarihî bir açıklama yayımladı: p-değeri,
+      hipotezin doğru olma olasılığı <strong>değildir</strong>; tek başına bilimsel bir sonucun ölçüsü olamaz.
+      Bugünkü yönelim açık: <strong>etki büyüklüğü ve güven aralığını öne çıkarmak</strong>,
+      çalışmaları önceden kaydettirmek (<em>preregistration</em>), veriyi paylaşmak.
+      Yani istatistik, doğduğu günden beri yaptığı şeyi yine yapıyor: <strong>kendi hatasını ölçüyor.</strong>
+    </p>
+  </section>
+
+  <h2 style="border-left:5px solid var(--cam);padding-left:12px;margin-top:34px">Özet: her test bir derde çare olarak doğdu</h2>
+
+  <div class="tablo-kaydirici" style="grid-template-columns:1fr">
+    <table class="veri">
+      <thead>
+        <tr><th>Karşılaşılan sorun</th><th>Doğan çözüm</th><th>Kim / Ne zaman</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Bir yığın sayıyı tek bakışta anlamak</td><td>Ortalama, medyan, standart sapma</td><td>Quetelet 1835; Pearson 1894</td></tr>
+        <tr><td>İki ölçüm birlikte mi değişiyor?</td><td>Korelasyon (r)</td><td>Galton 1888; Pearson 1896</td></tr>
+        <tr><td>Bir değerden diğerini tahmin etmek</td><td>Regresyon</td><td>Galton 1886</td></tr>
+        <tr><td>Sayımlar beklenenden sapıyor mu?</td><td>Ki-kare</td><td>Pearson 1900</td></tr>
+        <tr><td>Elimde sadece birkaç denek var</td><td>t-testi</td><td>"Student" (Gosset) 1908</td></tr>
+        <tr><td>Aynı kişide önce/sonra fark</td><td>Eşleştirilmiş t</td><td>Gosset çerçevesi, 1908</td></tr>
+        <tr><td>Üçten fazla grubu tek testte karşılaştırmak</td><td>ANOVA</td><td>Fisher 1925</td></tr>
+        <tr><td>Az sayıda gözlemde ki-kare yanıltıyor</td><td>Fisher kesin testi</td><td>Fisher 1935</td></tr>
+        <tr><td>Veri çarpık, aykırı değer sonucu ele geçiriyor</td><td>Sıra temelli (parametrik olmayan) testler</td><td>Wilcoxon 1945 ve sonrası</td></tr>
+        <tr><td>Bilmediğim karıştırıcıları nasıl dengelerim?</td><td>Randomizasyon</td><td>Fisher 1935; Hill 1948</td></tr>
+        <tr><td>Herkes aynı süre izlenemiyor</td><td>Kaplan-Meier, Cox regresyonu</td><td>1958; 1972</td></tr>
+        <tr><td>Çalışmalar birbiriyle çelişiyor</td><td>Meta-analiz, sistematik derleme</td><td>Glass 1976; Cochrane geleneği</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <section class="kart vurgu-yesil" style="margin-top:24px">
+    <h2 style="margin-top:0">Son söz</h2>
+    <p style="margin-bottom:0">
+      İstatistik, devletin sayma arzusuyla kumarcının merakının kesiştiği yerde doğdu; gökbilimden hata kuramını,
+      biyolojiden değişkenlik fikrini, tarımdan deney tasarımını, bira fabrikasından küçük örneklemi ödünç aldı.
+      Halk sağlığı ise onu bir hesap yönteminden çok daha fazlası hâline getirdi:
+      <strong>görünmeyeni görünür kılan bir dil.</strong> Bu yüzden bir p-değerine bakarken aslında
+      üç yüz yıllık bir tartışmanın içindesin. Formülü ezberlemek kolaydır; asıl mesele,
+      o formülün hangi soruya cevap vermek için doğduğunu bilmektir.
+    </p>
+  </section>
+
+  <nav class="sayfa-gezinme">
+    <a href="veri-yapilari.html">← Veri Yapıları</a>
+    <a href="sozluk.html">İstatistik Sözlüğü →</a>
+  </nav>
+
+</main>
+
+<footer class="dipnot">
+  <a class="ileri" href="#" title="Yakında">🚧 İleri Biyoistatistik Rehberi — yakında</a><br>
+  Biyoistatistik Rehberi · Tarihsel anlatı öğretim amaçlıdır; ayrıntılı kaynaklar için sözlük sayfasındaki kaynakçaya bakınız.
+</footer>
+
+<script src="js/ortak.js"></script>
+<script>Ist.zamanCizgisi("anaZaman", "");</script>
+</body>
+</html>

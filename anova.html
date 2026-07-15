@@ -3,28 +3,66 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Varyans Analizi (ANOVA) — Biyoistatistik Atlası</title>
+<title>Varyans Analizi (ANOVA) — Biyoistatistik Rehberi</title>
 <meta name="description" content="İkiden fazla grubu tek testle karşılaştırmak. Fisher'ın ANOVA yöntemini interaktif olarak öğren.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700&family=Nunito:wght@400;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/stil.css">
+<script defer src="js/menu.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
 </head>
 <body>
 
 <nav class="ust-menu">
   <div class="ic">
-    <a class="logo" href="index.html">Biyoistatistik <span>Atlası</span></a>
-    <div class="menu-serit">
-      <a href="index.html">Ana Sayfa</a>
-      <a href="tanimlayici.html">Tanımlayıcı</a>
-      <a href="korelasyon.html">Korelasyon</a>
-      <a href="regresyon.html">Regresyon</a>
-      <a href="ki-kare.html">Ki-Kare</a>
-      <a href="t-testi.html">t-Testi</a>
-      <a href="anova.html" class="aktif">ANOVA</a>
-    </div>
+    <a class="logo" href="index.html">Biyoistatistik <span>Rehberi</span></a>
+    <button class="menu-ac" id="menuAc" aria-label="Menüyü aç/kapat">☰</button>
+    <ul class="ana-menu" id="anaMenu">
+      <li><a href="index.html" data-sayfa="index.html">Ana Sayfa</a></li>
+      <li><a href="karar-agaci.html" data-sayfa="karar-agaci.html">Karar Ağacı</a></li>
+      <li class="grup">
+        <button class="grup-baslik" type="button">Temeller <span class="ok">▾</span></button>
+        <ul class="alt-menu">
+          <li><a href="veri-yapilari.html" data-sayfa="veri-yapilari.html">Veri Yapıları</a></li>
+          <li><a href="tanimlayici.html" data-sayfa="tanimlayici.html">Tanımlayıcı İstatistik</a></li>
+          <li><a href="korelasyon.html" data-sayfa="korelasyon.html">Korelasyon</a></li>
+          <li><a href="regresyon.html" data-sayfa="regresyon.html">Regresyon</a></li>
+        </ul>
+      </li>
+      <li class="grup">
+        <button class="grup-baslik" type="button">Sayısal Testler <span class="ok">▾</span></button>
+        <ul class="alt-menu">
+          <li class="alt-baslik">İki grup</li>
+          <li><a href="t-testi.html" data-sayfa="t-testi.html">Student t (bağımsız)</a></li>
+          <li><a href="paired-t.html" data-sayfa="paired-t.html">Eşleştirilmiş t</a></li>
+          <li><a href="mann-whitney.html" data-sayfa="mann-whitney.html">Mann-Whitney U</a></li>
+          <li><a href="wilcoxon.html" data-sayfa="wilcoxon.html">Wilcoxon işaretli sıralar</a></li>
+          <li class="alt-baslik">Üç ve daha çok grup</li>
+          <li><a href="anova.html" data-sayfa="anova.html">One-way ANOVA</a></li>
+          <li><a href="repeated-anova.html" data-sayfa="repeated-anova.html">Tekrarlı ölçümler ANOVA</a></li>
+          <li><a href="kruskal-wallis.html" data-sayfa="kruskal-wallis.html">Kruskal-Wallis</a></li>
+          <li><a href="friedman.html" data-sayfa="friedman.html">Friedman</a></li>
+        </ul>
+      </li>
+      <li class="grup">
+        <button class="grup-baslik" type="button">Kategorik Testler <span class="ok">▾</span></button>
+        <ul class="alt-menu">
+          <li><a href="ki-kare.html" data-sayfa="ki-kare.html">Ki-Kare</a></li>
+          <li><a href="fisher.html" data-sayfa="fisher.html">Fisher kesin testi</a></li>
+          <li><a href="mcnemar.html" data-sayfa="mcnemar.html">McNemar</a></li>
+          <li><a href="cochran-q.html" data-sayfa="cochran-q.html">Cochran Q</a></li>
+          <li><a href="marginal-homogenlik.html" data-sayfa="marginal-homogenlik.html">Marginal Homogeneity</a></li>
+        </ul>
+      </li>
+      <li class="grup">
+        <button class="grup-baslik" type="button">Kaynaklar <span class="ok">▾</span></button>
+        <ul class="alt-menu">
+          <li><a href="istatistik-tarihi.html" data-sayfa="istatistik-tarihi.html">İstatistiğin Tarihi</a></li>
+          <li><a href="sozluk.html" data-sayfa="sozluk.html">İstatistik Sözlüğü</a></li>
+        </ul>
+      </li>
+    </ul>
   </div>
 </nav>
 
@@ -43,15 +81,17 @@
     </aside>
   </header>
 
+  <div class="mini-zaman-baslik">İstatistik tarihinde bu test</div>
+  <div class="mini-zaman" id="miniZaman"></div>
+
   <section class="kart vurgu-yesil">
-    <h2 style="margin-top:0">Tarihte neyi değiştirdi?</h2>
-    <p>
-      Fisher, bilime iki büyük armağan verdi: <strong>rastgele atama</strong> (hastaları gruplara şansa bağlı dağıtmak)
-      ve <strong>ANOVA</strong>. Bu ikisi bir araya gelince, modern <strong>kontrollü klinik araştırma</strong> doğdu.
-      Bugün üç, dört, beş tedaviyi aynı anda adil biçimde karşılaştırabiliyorsak, bu büyük ölçüde Fisher'ın tarlada
-      geliştirdiği fikirler sayesindedir. Aynı zamanda <strong>p &lt; 0,05</strong> geleneğini de yaygınlaştıran kişidir.
-    </p>
+    <h2 style="margin-top:0">Tarihçe — Fisher, tarlalar ve deneyin icadı (1925)</h2>
+    <p>1920'lerde <strong>Ronald A. Fisher</strong>, İngiltere'deki Rothamsted tarım istasyonunda onlarca gübre ve ürün çeşidini aynı anda karşılaştırmak zorundaydı. İkişer ikişer t-testi yapmak hem yorucuydu hem de yanılma olasılığını şişiriyordu. Fisher'ın çözümü dâhiceydi: gruplar <em>arasındaki</em> değişimi, grupların <em>içindeki</em> doğal gürültüye oranla. <strong>Varyans analizi (ANOVA)</strong> böyle doğdu.</p>
+    <p>Fisher aynı eserde (<em>Statistical Methods for Research Workers</em>, 1925) <strong>randomizasyon</strong> ve <strong>deney tasarımı</strong> fikirlerini de kurdu — bugün modern klinik araştırmanın omurgası olan kavramlar. Tarlada doğan bu yöntem hızla tıbba taşındı: üç, dört, beş tedaviyi tek testte, hata oranını kontrol ederek karşılaştırmanın standart yolu oldu.</p>
   </section>
+
+
+  
 
   <h2>Fikir: gruplar arası fark mı, grup içi gürültü mü?</h2>
   <div class="konusma">
@@ -85,6 +125,7 @@
     </div>
 
     <div class="grafik-kutu"><canvas id="anovaGrafik"></canvas></div>
+    <div class="veri-seti" id="veriSeti"></div>
 
     <div class="sonuc-panosu">
       <div class="sonuc-kutusu"><div class="deger" id="cF">–</div><div class="ad">F değeri</div></div>
@@ -103,6 +144,15 @@
     </p>
   </section>
 
+  <div class="ikiz-kart">
+    <div class="rozet">👯</div>
+    <div class="ic">
+      <h3>İkizi: Kruskal-Wallis testi</h3>
+      <p>Gruplar normal dağılmıyorsa, ham ortalamalar yerine sıra toplamlarını karşılaştıran sıra temelli ikizini kullan.</p>
+    </div>
+    <a class="dugme-ikiz" href="kruskal-wallis.html">Kruskal-Wallis →</a>
+  </div>
+
   <nav class="sayfa-gezinme">
     <a href="t-testi.html">← t-Testi</a>
     <a href="index.html">Başa dön →</a>
@@ -112,14 +162,14 @@
     <h2 style="margin-top:0">🎓 Yolculuğu tamamladın!</h2>
     <p>Quetelet'in ortalamasından Fisher'ın ANOVA'sına kadar 90 yıllık bir keşif turunu bitirdin.
       Daha derini — lojistik regresyon, sağkalım analizi, güç hesabı — kardeş projede seni bekliyor.</p>
-    <p><a class="ileri" href="#" title="Yakında" style="background:#ECE8FB;color:#7C6BD9;border-radius:999px;padding:8px 20px;font-weight:800;text-decoration:none;">🚧 İleri Biyoistatistik Atlası — yakında</a></p>
+    <p><a class="ileri" href="#" title="Yakında" style="background:#ECE8FB;color:#7C6BD9;border-radius:999px;padding:8px 20px;font-weight:800;text-decoration:none;">🚧 İleri Biyoistatistik Rehberi — yakında</a></p>
   </section>
 
 </main>
 
 <footer class="dipnot">
-  <a class="ileri" href="#" title="Yakında">🚧 İleri Biyoistatistik Atlası — yakında</a><br>
-  Biyoistatistik Atlası · Grafiklerdeki veriler öğretim için üretilmiş örnek verilerdir.
+  <a class="ileri" href="#" title="Yakında">🚧 İleri Biyoistatistik Rehberi — yakında</a><br>
+  Biyoistatistik Rehberi · Grafiklerdeki veriler öğretim için üretilmiş örnek verilerdir.
 </footer>
 
 <script src="js/ortak.js"></script>
@@ -185,6 +235,13 @@ function guncelle() {
   grafik.update();
 
   // Tek yönlü ANOVA
+  const satirGrup = (ad, g) => [{ deger: ad, sinif: "etiket" }, ...g.map(v => Ist.bicim(v, 1)), { deger: Ist.bicim(Ist.ortalama(g), 1), sinif: "vurgu-artis" }];
+  Ist.veriTablosu("veriSeti", {
+    aciklama: "Üç ilaç grubunun hasta değerleri ve grup ortalaması (ağrı skoru)",
+    basliklar: ["İlaç", ...gA.map((_, i) => i + 1), "Ort."],
+    satirlar: [satirGrup("A", gA), satirGrup("B", gB), satirGrup("C", gC)]
+  });
+
   const hepsi = [...gA, ...gB, ...gC];
   const genelOrt = Ist.ortalama(hepsi);
   const gruplar = [gA, gB, gC];
@@ -214,5 +271,6 @@ function guncelle() {
 window.addEventListener("load", kur);
 </script>
 
+<script>Ist.zamanCizgisi("miniZaman", "anova.html");</script>
 </body>
 </html>

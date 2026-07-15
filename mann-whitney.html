@@ -3,29 +3,66 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Mann-Whitney U Testi — Biyoistatistik Atlası</title>
+<title>Mann-Whitney U Testi — Biyoistatistik Rehberi</title>
 <meta name="description" content="İki bağımsız grubu sıralayarak karşılaştırmak. Student t'nin sıra temelli ikizi Mann-Whitney U'yu interaktif öğren.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700&family=Nunito:wght@400;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/stil.css">
+<script defer src="js/menu.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
 </head>
 <body>
 
 <nav class="ust-menu">
   <div class="ic">
-    <a class="logo" href="index.html">Biyoistatistik <span>Atlası</span></a>
-    <div class="menu-serit">
-      <a href="index.html">Ana Sayfa</a>
-      <a href="karar-agaci.html">Karar Ağacı</a>
-      <a href="tanimlayici.html">Tanımlayıcı</a>
-      <a href="korelasyon.html">Korelasyon</a>
-      <a href="regresyon.html">Regresyon</a>
-      <a href="ki-kare.html">Ki-Kare</a>
-      <a href="t-testi.html">t-Testi</a>
-      <a href="anova.html">ANOVA</a>
-    </div>
+    <a class="logo" href="index.html">Biyoistatistik <span>Rehberi</span></a>
+    <button class="menu-ac" id="menuAc" aria-label="Menüyü aç/kapat">☰</button>
+    <ul class="ana-menu" id="anaMenu">
+      <li><a href="index.html" data-sayfa="index.html">Ana Sayfa</a></li>
+      <li><a href="karar-agaci.html" data-sayfa="karar-agaci.html">Karar Ağacı</a></li>
+      <li class="grup">
+        <button class="grup-baslik" type="button">Temeller <span class="ok">▾</span></button>
+        <ul class="alt-menu">
+          <li><a href="veri-yapilari.html" data-sayfa="veri-yapilari.html">Veri Yapıları</a></li>
+          <li><a href="tanimlayici.html" data-sayfa="tanimlayici.html">Tanımlayıcı İstatistik</a></li>
+          <li><a href="korelasyon.html" data-sayfa="korelasyon.html">Korelasyon</a></li>
+          <li><a href="regresyon.html" data-sayfa="regresyon.html">Regresyon</a></li>
+        </ul>
+      </li>
+      <li class="grup">
+        <button class="grup-baslik" type="button">Sayısal Testler <span class="ok">▾</span></button>
+        <ul class="alt-menu">
+          <li class="alt-baslik">İki grup</li>
+          <li><a href="t-testi.html" data-sayfa="t-testi.html">Student t (bağımsız)</a></li>
+          <li><a href="paired-t.html" data-sayfa="paired-t.html">Eşleştirilmiş t</a></li>
+          <li><a href="mann-whitney.html" data-sayfa="mann-whitney.html">Mann-Whitney U</a></li>
+          <li><a href="wilcoxon.html" data-sayfa="wilcoxon.html">Wilcoxon işaretli sıralar</a></li>
+          <li class="alt-baslik">Üç ve daha çok grup</li>
+          <li><a href="anova.html" data-sayfa="anova.html">One-way ANOVA</a></li>
+          <li><a href="repeated-anova.html" data-sayfa="repeated-anova.html">Tekrarlı ölçümler ANOVA</a></li>
+          <li><a href="kruskal-wallis.html" data-sayfa="kruskal-wallis.html">Kruskal-Wallis</a></li>
+          <li><a href="friedman.html" data-sayfa="friedman.html">Friedman</a></li>
+        </ul>
+      </li>
+      <li class="grup">
+        <button class="grup-baslik" type="button">Kategorik Testler <span class="ok">▾</span></button>
+        <ul class="alt-menu">
+          <li><a href="ki-kare.html" data-sayfa="ki-kare.html">Ki-Kare</a></li>
+          <li><a href="fisher.html" data-sayfa="fisher.html">Fisher kesin testi</a></li>
+          <li><a href="mcnemar.html" data-sayfa="mcnemar.html">McNemar</a></li>
+          <li><a href="cochran-q.html" data-sayfa="cochran-q.html">Cochran Q</a></li>
+          <li><a href="marginal-homogenlik.html" data-sayfa="marginal-homogenlik.html">Marginal Homogeneity</a></li>
+        </ul>
+      </li>
+      <li class="grup">
+        <button class="grup-baslik" type="button">Kaynaklar <span class="ok">▾</span></button>
+        <ul class="alt-menu">
+          <li><a href="istatistik-tarihi.html" data-sayfa="istatistik-tarihi.html">İstatistiğin Tarihi</a></li>
+          <li><a href="sozluk.html" data-sayfa="sozluk.html">İstatistik Sözlüğü</a></li>
+        </ul>
+      </li>
+    </ul>
   </div>
 </nav>
 
@@ -49,6 +86,16 @@
     </aside>
   </header>
 
+  <div class="mini-zaman-baslik">İstatistik tarihinde bu test</div>
+  <div class="mini-zaman" id="miniZaman"></div>
+
+  <section class="kart vurgu-yesil">
+    <h2 style="margin-top:0">Tarihçe — Wilcoxon'ın fikrini iki gruba taşımak (1947)</h2>
+    <p>1947'de <strong>Henry Mann</strong> ve <strong>Donald Whitney</strong>, Wilcoxon'ın sıra fikrini <strong>iki bağımsız gruba</strong> ve eşit olmayan örneklem büyüklüklerine genelledi. Ortaya koydukları <strong>U istatistiği</strong> şu sezgiyi ölçer: "A grubundan rastgele seçtiğim kişi, B grubundan seçtiğimden büyük olma eğiliminde mi?"</p>
+    <p>Yöntem, tüm değerleri tek bir sıraya dizip grupların sıra toplamlarını karşılaştırır. Normal dağılım varsayımı gerektirmediği için, <strong>çarpık biyobelirteç verilerinin</strong> (laboratuvar değerleri, bekleme süreleri, maliyetler) vazgeçilmez aracı oldu. Student t-testinin sıra temelli ikizidir.</p>
+  </section>
+
+
   <section class="kart vurgu-yesil">
     <h2 style="margin-top:0">Fikir: "kim kimi yeniyor?"</h2>
     <p>
@@ -71,6 +118,7 @@
     <button class="dugme ikincil" id="yeni">🎲 Yeni hasta grubu çek</button>
 
     <div class="grafik-kutu"><canvas id="mwGrafik"></canvas></div>
+    <div class="veri-seti" id="veriSeti"></div>
 
     <div class="sonuc-panosu">
       <div class="sonuc-kutusu"><div class="deger" id="cU">–</div><div class="ad">U istatistiği</div></div>
@@ -96,8 +144,8 @@
 </main>
 
 <footer class="dipnot">
-  <a class="ileri" href="#" title="Yakında">🚧 İleri Biyoistatistik Atlası — yakında</a><br>
-  Biyoistatistik Atlası · Grafiklerdeki veriler öğretim için üretilmiş örnek verilerdir.
+  <a class="ileri" href="#" title="Yakında">🚧 İleri Biyoistatistik Rehberi — yakında</a><br>
+  Biyoistatistik Rehberi · Grafiklerdeki veriler öğretim için üretilmiş örnek verilerdir.
 </footer>
 
 <script src="js/ortak.js"></script>
@@ -143,6 +191,12 @@ function guncelle() {
   grafik.data.datasets[1].data = B.map(x => ({ x, y: 2 }));
   grafik.update();
 
+  Ist.veriTablosu("veriSeti", {
+    aciklama: "İki hastanenin bekleme süreleri (gün) — sıralamaya giren ham değerler",
+    basliklar: ["Hastane", ...A.map((_, i) => i + 1)],
+    satirlar: [[{ deger: "A", sinif: "etiket" }, ...A.map(x => Ist.bicim(x, 1))], [{ deger: "B", sinif: "etiket" }, ...B.map(x => Ist.bicim(x, 1))]]
+  });
+
   const r = Ist.mannWhitney(A, B);
   document.getElementById("cU").textContent = Ist.bicim(r.U, 0);
   document.getElementById("cP").textContent = Ist.pYazi(r.p);
@@ -154,5 +208,6 @@ document.getElementById("yeni").addEventListener("click", () => { tohum = (tohum
 window.addEventListener("load", kur);
 </script>
 
+<script>Ist.zamanCizgisi("miniZaman", "mann-whitney.html");</script>
 </body>
 </html>

@@ -3,28 +3,65 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Biyoistatistik Atlası — İstatistiği Hikâyesiyle Öğren</title>
-<meta name="description" content="Lise öğrencileri için sağlık örnekleriyle, interaktif grafiklerle ve tarihiyle iç içe temel biyoistatistik eğitimi.">
+<title>Biyoistatistik Rehberi — İstatistiği Hikâyesiyle Öğren</title>
+<meta name="description" content="İstatistik testlerini sağlık örnekleriyle, canlı veri setleriyle, interaktif grafiklerle ve tarihiyle öğren. Karar ağacıyla doğru testi seç.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700&family=Nunito:wght@400;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/stil.css">
+<script defer src="js/menu.js"></script>
 </head>
 <body>
 
 <nav class="ust-menu">
   <div class="ic">
-    <a class="logo" href="index.html">Biyoistatistik <span>Atlası</span></a>
-    <div class="menu-serit">
-      <a href="index.html" class="aktif">Ana Sayfa</a>
-      <a href="karar-agaci.html">Karar Ağacı</a>
-      <a href="tanimlayici.html">Tanımlayıcı</a>
-      <a href="korelasyon.html">Korelasyon</a>
-      <a href="regresyon.html">Regresyon</a>
-      <a href="ki-kare.html">Ki-Kare</a>
-      <a href="t-testi.html">t-Testi</a>
-      <a href="anova.html">ANOVA</a>
-    </div>
+    <a class="logo" href="index.html">Biyoistatistik <span>Rehberi</span></a>
+    <button class="menu-ac" id="menuAc" aria-label="Menüyü aç/kapat">☰</button>
+    <ul class="ana-menu" id="anaMenu">
+      <li><a href="index.html" data-sayfa="index.html">Ana Sayfa</a></li>
+      <li><a href="karar-agaci.html" data-sayfa="karar-agaci.html">Karar Ağacı</a></li>
+      <li class="grup">
+        <button class="grup-baslik" type="button">Temeller <span class="ok">▾</span></button>
+        <ul class="alt-menu">
+          <li><a href="veri-yapilari.html" data-sayfa="veri-yapilari.html">Veri Yapıları</a></li>
+          <li><a href="tanimlayici.html" data-sayfa="tanimlayici.html">Tanımlayıcı İstatistik</a></li>
+          <li><a href="korelasyon.html" data-sayfa="korelasyon.html">Korelasyon</a></li>
+          <li><a href="regresyon.html" data-sayfa="regresyon.html">Regresyon</a></li>
+        </ul>
+      </li>
+      <li class="grup">
+        <button class="grup-baslik" type="button">Sayısal Testler <span class="ok">▾</span></button>
+        <ul class="alt-menu">
+          <li class="alt-baslik">İki grup</li>
+          <li><a href="t-testi.html" data-sayfa="t-testi.html">Student t (bağımsız)</a></li>
+          <li><a href="paired-t.html" data-sayfa="paired-t.html">Eşleştirilmiş t</a></li>
+          <li><a href="mann-whitney.html" data-sayfa="mann-whitney.html">Mann-Whitney U</a></li>
+          <li><a href="wilcoxon.html" data-sayfa="wilcoxon.html">Wilcoxon işaretli sıralar</a></li>
+          <li class="alt-baslik">Üç ve daha çok grup</li>
+          <li><a href="anova.html" data-sayfa="anova.html">One-way ANOVA</a></li>
+          <li><a href="repeated-anova.html" data-sayfa="repeated-anova.html">Tekrarlı ölçümler ANOVA</a></li>
+          <li><a href="kruskal-wallis.html" data-sayfa="kruskal-wallis.html">Kruskal-Wallis</a></li>
+          <li><a href="friedman.html" data-sayfa="friedman.html">Friedman</a></li>
+        </ul>
+      </li>
+      <li class="grup">
+        <button class="grup-baslik" type="button">Kategorik Testler <span class="ok">▾</span></button>
+        <ul class="alt-menu">
+          <li><a href="ki-kare.html" data-sayfa="ki-kare.html">Ki-Kare</a></li>
+          <li><a href="fisher.html" data-sayfa="fisher.html">Fisher kesin testi</a></li>
+          <li><a href="mcnemar.html" data-sayfa="mcnemar.html">McNemar</a></li>
+          <li><a href="cochran-q.html" data-sayfa="cochran-q.html">Cochran Q</a></li>
+          <li><a href="marginal-homogenlik.html" data-sayfa="marginal-homogenlik.html">Marginal Homogeneity</a></li>
+        </ul>
+      </li>
+      <li class="grup">
+        <button class="grup-baslik" type="button">Kaynaklar <span class="ok">▾</span></button>
+        <ul class="alt-menu">
+          <li><a href="istatistik-tarihi.html" data-sayfa="istatistik-tarihi.html">İstatistiğin Tarihi</a></li>
+          <li><a href="sozluk.html" data-sayfa="sozluk.html">İstatistik Sözlüğü</a></li>
+        </ul>
+      </li>
+    </ul>
   </div>
 </nav>
 
@@ -32,151 +69,185 @@
 
   <header class="sayfa-giris">
     <div>
-      <span class="etiket">Lise düzeyi · Sağlık örnekleri · İnteraktif</span>
+      <span class="etiket">Sağlık örnekleri · İnteraktif · Tarihiyle</span>
       <h1>Her istatistik testin bir hikâyesi var.</h1>
       <p class="ozet">
         Bira fabrikasında çalışan bir kimyager, hastane koğuşlarını grafiklerle değiştiren bir hemşire,
-        tarlaların ortasında hesap yapan bir bilim insanı... Temel istatistik testlerini,
-        onları icat eden insanların hikâyeleriyle ve sağlıktan gerçekçi örneklerle,
-        <strong>kaydırıcılarla oynayarak</strong> öğreneceksin.
+        tarlaların ortasında hesap yapan bir bilim insanı... İstatistik testlerini,
+        onları icat eden insanların hikâyeleriyle ve sağlıktan gerçek örneklerle,
+        <strong>veri setini gözünün önünde değiştirerek</strong> öğren. Formül ezberi yok; önce sezgi.
       </p>
       <p>
-        <a href="tanimlayici.html"><button class="dugme">Yolculuğa Başla →</button></a>
+        <a href="karar-agaci.html"><button class="dugme">Hangi testi seçmeliyim? →</button></a>
       </p>
     </div>
     <aside class="zaman-pulu" aria-label="Site hakkında pul">
-      <span class="yil">1835–1925</span>
-      <p class="kisi">90 yıllık bir keşif yolculuğu</p>
-      <p>Bu sitedeki 6 durak, modern tıbbın "kanıt" dediği şeyin nasıl doğduğunu anlatıyor.</p>
+      <span class="yil">1835–1956</span>
+      <p class="kisi">120 yıllık bir keşif</p>
+      <p>Buradaki testler, modern tıbbın "kanıt" dediği şeyin nasıl adım adım inşa edildiğini anlatır.</p>
     </aside>
   </header>
 
   <section class="kart vurgu-yesil">
     <h2 style="margin-top:0">Bu site nasıl çalışır?</h2>
     <ol class="adimlar">
-      <li><strong>Hikâyeyle başla.</strong> Her sayfanın başındaki "Zaman Pulu", testi bulan kişiyi ve hangi derdi çözmeye çalıştığını anlatır.</li>
-      <li><strong>Mantığı kap.</strong> Test, günlük dilde ve sağlıktan basit bir örnekle anlatılır. Formül ezberi yok; önce fikir.</li>
-      <li><strong>Deney Masası'nda oyna.</strong> Kaydırıcıları uçlara çek, abartılı örnekler yarat ve testin doğruyu nasıl yakaladığını kendi gözlerinle gör.</li>
+      <li><strong>Hikâyeyle ve tarihle başla.</strong> Her sayfada testi bulan kişiyi, hangi derdi çözdüğünü ve testin küçük bir zaman şeridinde nereye düştüğünü görürsün.</li>
+      <li><strong>Mantığı kap.</strong> Test, günlük dilde ve sağlıktan bir örnekle anlatılır. Karar ağacı hangi durumda hangi testin gerektiğini gösterir.</li>
+      <li><strong>Veri setini izle.</strong> Deney Masası'nda kaydırıcıyı oynat; hem grafiği hem de <strong>ham veri tablosunu</strong> canlı değişirken gör, testin doğruyu nasıl yakaladığını kendi gözlerinle takip et.</li>
     </ol>
   </section>
 
-  <h2>Zaman Şeridi: 6 Durak</h2>
-  <p class="ozet">Duraklar hem öğrenme sırasına hem de tarihe göre dizildi — istatistik, tam da bu sırayla adım adım inşa edildi.</p>
-
-  <div class="zaman-seridi">
-
-    <a class="serit-karti" href="tanimlayici.html">
-      <span class="yil-rozet">1835 · Adolphe Quetelet</span>
-      <h3>Tanımlayıcı İstatistik</h3>
-      <p>Ortalama, medyan, mod ve standart sapma. Bir yığın sayıyı tek bakışta anlatma sanatı — ve "ortalama insan" fikrinin doğuşu.</p>
-    </a>
-
-    <a class="serit-karti" href="korelasyon.html">
-      <span class="yil-rozet">1896 · Karl Pearson</span>
-      <h3>Korelasyon</h3>
-      <p>İki şey birlikte mi değişiyor? Boy ile kilo, sigara ile öksürük... İlişkinin gücünü tek bir sayıyla (r) ölçmek.</p>
-    </a>
-
-    <a class="serit-karti" href="regresyon.html">
-      <span class="yil-rozet">1886 · Francis Galton</span>
-      <h3>Basit Doğrusal Regresyon</h3>
-      <p>İlişkiyi bir doğruya dönüştürüp <em>tahmin</em> yapmak: yaşı bilinen bir kişinin tansiyonunu kestirebilir miyiz?</p>
-    </a>
-
-    <a class="serit-karti" href="ki-kare.html">
-      <span class="yil-rozet">1900 · Karl Pearson</span>
-      <h3>Ki-Kare Testi</h3>
-      <p>Aşı olanlar gerçekten daha az mı hastalanıyor, yoksa bu fark şans eseri mi? Sayım verileri için ilk büyük test.</p>
-    </a>
-
-    <a class="serit-karti" href="t-testi.html">
-      <span class="yil-rozet">1908 · William Gosset ("Student")</span>
-      <h3>t-Testi</h3>
-      <p>Bira fabrikasında doğan test: iki grubun ortalaması arasındaki fark gerçek mi? Az sayıda hastayla bile karar vermek.</p>
-    </a>
-
-    <a class="serit-karti" href="anova.html">
-      <span class="yil-rozet">1925 · Ronald Fisher</span>
-      <h3>Varyans Analizi (ANOVA)</h3>
-      <p>İki değil üç, dört, beş grup varsa? Tarlada doğup hastaneye taşınan yöntem: tek testle hepsini karşılaştırmak.</p>
-    </a>
-
-  </div>
-
   <section class="kart" style="background:linear-gradient(135deg,#E8F6F3,#FDF3EE);border:2px solid var(--cam-acik)">
     <h2 style="margin-top:0">🧭 Hangi testi seçmeliyim?</h2>
-    <p>
-      Altı temel duraktan sonra iş "doğru testi seçmeye" gelir. Bunun bir haritası var: verin <strong>sayı mı kategori mi</strong>,
-      <strong>kaç grup</strong> var ve gruplar <strong>bağımlı mı</strong>? Bu üç–dört soru seni tam 13 testin arasından doğru olana götürür.
-      İnteraktif karar ağacında sorulara tıkla, önerilen teste ve onun sayfasına anında ulaş.
+    <p style="margin-bottom:14px">
+      İşin özü doğru testi seçmektir ve bunun bir haritası var: verin <strong>sayı mı kategori mi</strong>,
+      <strong>kaç grup</strong> var ve gruplar <strong>bağımlı mı</strong>? Bu birkaç soru seni doğru teste götürür.
+      İnteraktif karar ağacında sorulara tıkla, önerilen teste anında ulaş.
     </p>
-    <p style="margin-bottom:0">
-      <a href="karar-agaci.html" style="background:var(--cam);color:#fff;border-radius:999px;padding:10px 22px;font-weight:800;text-decoration:none;display:inline-block">Karar Ağacını Aç →</a>
-    </p>
+    <a href="karar-agaci.html" style="background:var(--cam);color:#fff;border-radius:999px;padding:10px 22px;font-weight:800;text-decoration:none;display:inline-block">Karar Ağacını Aç →</a>
   </section>
 
-  <h2>Tüm Testler Kataloğu</h2>
-  <p class="ozet">Karar ağacındaki her test için ayrı bir sayfa: hikâyesi, sağlıktan bir örnek ve interaktif deney masası. Parametrik testlerin sıra temelli <strong>ikizleri</strong> yan yana anlatılır.</p>
 
+  <h2 style="border-left:5px solid var(--murekkep);padding-left:12px;margin-top:34px">Arka plan — bağlam ve referans</h2>
+  <p class="ozet">Testleri ezberlemeden önce (ya da sonra) okunacak iki sayfa: nereden geldikleri ve ne anlama geldikleri.</p>
   <div class="zaman-seridi">
+    <a class="serit-karti" href="istatistik-tarihi.html">
+      <span class="yil-rozet">MÖ 3800 – bugün</span>
+      <h3>📜 İstatistiğin Tarihi</h3>
+      <p>İlk sayımlardan olasılığın doğuşuna, kelimenin etimolojisinden politik anlamına: istatistik neden ve nasıl ortaya çıktı? Her testin hangi derde çare olarak icat edildiği.</p>
+    </a>
+    <a class="serit-karti" href="sozluk.html">
+      <span class="yil-rozet">20 kavram · interaktif</span>
+      <h3>📖 İstatistik Sözlüğü</h3>
+      <p>p-değeri, güven aralığı, güç, duyarlılık, odds oranı... Her kavramın yanında oynanabilir bir grafik ve onu bilime kazandıran özgün akademik kaynak.</p>
+    </a>
+  </div>
+
+  <h2>İstatistiğin 120 yıllık gelişimi</h2>
+  <p class="ozet">Aşağıdaki her test bu zaman şeridinin bir noktasında doğdu. Her testin kendi sayfasında, o testin şerit üzerindeki yeri işaretlenir.</p>
+  <div class="mini-zaman" id="anaZaman"></div>
+
+  <h2 style="border-left:5px solid var(--cam);padding-left:12px;margin-top:34px">Temeller — betimleme ve ilişki</h2>
+  <p class="ozet">Veriyi özetlemek ve iki ölçüm arasındaki bağı görmek. Her testin çıkış noktası burasıdır.</p>
+  <div class="zaman-seridi">
+    <a class="serit-karti" href="veri-yapilari.html">
+      <span class="yil-rozet">Başlangıç · Stevens 1946</span>
+      <h3>Veri Yapıları</h3>
+      <p>Sürekli, kesikli, sıralı, kategorik... Testi seçmeden önce elindekinin ne olduğunu bil. Buradan başla.</p>
+    </a>
+    <a class="serit-karti" href="tanimlayici.html">
+      <span class="yil-rozet">1835 · Quetelet</span>
+      <h3>Tanımlayıcı İstatistik</h3>
+      <p>Ortalama, medyan ve standart sapma: bir sayı yığınını tek bakışta özetlemek ve "ortalama insan" fikri.</p>
+    </a>
+    <a class="serit-karti" href="korelasyon.html">
+      <span class="yil-rozet">1896 · Pearson</span>
+      <h3>Korelasyon</h3>
+      <p>İki ölçüm birlikte mi değişiyor? Boy ile kilo, sigara ile öksürük... İlişkinin gücünü tek bir sayıyla (r).</p>
+    </a>
+    <a class="serit-karti" href="regresyon.html">
+      <span class="yil-rozet">1886 · Galton</span>
+      <h3>Basit Doğrusal Regresyon</h3>
+      <p>İlişkiyi bir doğruya çevirip tahmin yapmak: yaşı bilinen birinin tansiyonunu kestirebilir miyiz?</p>
+    </a>
+  </div>
+
+  <h2 style="border-left:5px solid var(--gunes);padding-left:12px;margin-top:34px">Sayısal karşılaştırmalar</h2>
+  <p class="ozet"><strong>İki grup:</strong> ortalamaları (ya da sıralarını) karşılaştıran testler. Her parametrik testin, çarpık veriye dayanıklı sıra temelli bir <strong>ikizi</strong> vardır.</p>
+  <div class="zaman-seridi">
+    <a class="serit-karti" href="t-testi.html">
+      <span class="yil-rozet">1908 · Gosset</span>
+      <h3>Student t (bağımsız)</h3>
+      <p>İki ayrı grubun ortalaması arasındaki fark gerçek mi? Az sayıda hastayla bile karar vermek.</p>
+    </a>
     <a class="serit-karti" href="paired-t.html">
-      <span class="yil-rozet">Sayısal · 2 grup · bağımlı</span>
-      <h3>Paired t · Wilcoxon</h3>
-      <p>Aynı hastalarda önce/sonra karşılaştırması. Her hasta kendi kontrolüdür; Wilcoxon ise aykırı değere dayanıklı ikizi.</p>
+      <span class="yil-rozet">1908 · Gosset</span>
+      <h3>Eşleştirilmiş t</h3>
+      <p>Aynı hastalarda önce/sonra karşılaştırması. Her hasta kendi kontrolü olduğundan çok daha hassas.</p>
     </a>
     <a class="serit-karti" href="mann-whitney.html">
-      <span class="yil-rozet">Sayısal · 2 grup · bağımsız</span>
-      <h3>Student t · Mann-Whitney</h3>
-      <p>İki ayrı grubu karşılaştırmak. Mann-Whitney, değerleri birlikte sıralayarak dağılım varsayımı olmadan çalışır.</p>
+      <span class="yil-rozet">1947 · Mann & Whitney</span>
+      <h3>Mann-Whitney U</h3>
+      <p>Student t'nin ikizi. Değerleri birlikte sıralayarak dağılım varsayımı olmadan karşılaştırır.</p>
+    </a>
+    <a class="serit-karti" href="wilcoxon.html">
+      <span class="yil-rozet">1945 · Wilcoxon</span>
+      <h3>Wilcoxon İşaretli Sıralar</h3>
+      <p>Eşleştirilmiş t'nin ikizi. Değişimlerin sırasına bakar; tek bir aşırı hastadan sarsılmaz.</p>
+    </a>
+  </div>
+  <p class="ozet" style="margin-top:20px"><strong>Üç ve daha çok grup:</strong> ikiden fazla grubu ya da ölçümü tek testte karşılaştırmak.</p>
+  <div class="zaman-seridi">
+    <a class="serit-karti" href="anova.html">
+      <span class="yil-rozet">1925 · Fisher</span>
+      <h3>One-way ANOVA</h3>
+      <p>Üç, dört, beş bağımsız grup varsa? Tek testle hepsini birden karşılaştırmak.</p>
     </a>
     <a class="serit-karti" href="repeated-anova.html">
-      <span class="yil-rozet">Sayısal · &gt;2 grup · bağımlı</span>
-      <h3>Repeated ANOVA · Friedman</h3>
-      <p>Aynı hastaları birçok kez ölçmek. Hastalar arası farkı ayırıp zaman etkisini net görmek; Friedman sıra temelli ikizi.</p>
+      <span class="yil-rozet">1925 · Fisher</span>
+      <h3>Tekrarlı Ölçümler ANOVA</h3>
+      <p>Aynı hastaları birçok kez ölçmek. Hastalar arası farkı ayırıp zaman etkisini net görmek.</p>
     </a>
     <a class="serit-karti" href="kruskal-wallis.html">
-      <span class="yil-rozet">Sayısal · &gt;2 grup · bağımsız</span>
-      <h3>One-way ANOVA · Kruskal-Wallis</h3>
-      <p>Üç ve daha çok bağımsız grup. Kruskal-Wallis hepsini tek sıraya dizip grup sıra toplamlarını karşılaştırır.</p>
+      <span class="yil-rozet">1952 · Kruskal & Wallis</span>
+      <h3>Kruskal-Wallis</h3>
+      <p>One-way ANOVA'nın ikizi. Tüm değerleri tek sıraya dizip grup sıra toplamlarını karşılaştırır.</p>
     </a>
-    <a class="serit-karti" href="mcnemar.html">
-      <span class="yil-rozet">Kategorik · 2×2 · bağımlı</span>
-      <h3>McNemar</h3>
-      <p>Aynı kişilerde önce/sonra ikili sonuç. Sadece fikir değiştirenler bilgi taşır; program işe yaradı mı?</p>
+    <a class="serit-karti" href="friedman.html">
+      <span class="yil-rozet">1937 · Friedman</span>
+      <h3>Friedman</h3>
+      <p>Tekrarlı ANOVA'nın ikizi. Her hasta kendi içinde sıralanır; dağılımdan bağımsız çalışır.</p>
+    </a>
+  </div>
+
+  <h2 style="border-left:5px solid var(--leylak);padding-left:12px;margin-top:34px">Kategorik karşılaştırmalar</h2>
+  <p class="ozet">Sayı değil <strong>etiket</strong> sayarken (hasta/sağlıklı, evet/hayır, evre): oranlar gruplar arasında ya da zaman içinde farklı mı?</p>
+  <div class="zaman-seridi">
+    <a class="serit-karti" href="ki-kare.html">
+      <span class="yil-rozet">1900 · Pearson</span>
+      <h3>Ki-Kare Testi</h3>
+      <p>Bağımsız gruplarda oranlar farklı mı? Aşı olanlar daha mı az hastalanıyor? Sayım verisinin ilk büyük testi.</p>
     </a>
     <a class="serit-karti" href="fisher.html">
-      <span class="yil-rozet">Kategorik · 2×2 · küçük örneklem</span>
+      <span class="yil-rozet">1935 · Fisher</span>
       <h3>Fisher Kesin Testi</h3>
       <p>Az sayıda hastada ki-kare yanıltır. Fisher olasılığı bir yaklaşımla değil, tam olarak hesaplar.</p>
     </a>
+    <a class="serit-karti" href="mcnemar.html">
+      <span class="yil-rozet">1947 · McNemar</span>
+      <h3>McNemar</h3>
+      <p>Aynı kişilerde önce/sonra ikili sonuç. Sadece fikir değiştirenler bilgi taşır; program işe yaradı mı?</p>
+    </a>
     <a class="serit-karti" href="cochran-q.html">
-      <span class="yil-rozet">Kategorik · &gt;2 koşul · bağımlı</span>
+      <span class="yil-rozet">1950 · Cochran</span>
       <h3>Cochran Q</h3>
-      <p>Aynı hastalarda üç ikili koşul (ör. üç tanı testi). McNemar'ın çok koşullu genellemesi.</p>
+      <p>McNemar'ın üç ve daha çok ikili koşula genellemesi (ör. aynı hastalara üç tanı testi).</p>
     </a>
     <a class="serit-karti" href="marginal-homogenlik.html">
-      <span class="yil-rozet">Kategorik · &gt;2 kategori · bağımlı</span>
+      <span class="yil-rozet">1956 · Stuart & Maxwell</span>
       <h3>Marginal Homogeneity</h3>
-      <p>Aynı kişilerde çok kategorili dağılımın kayması (ör. hastalık evresi). Stuart-Maxwell testi.</p>
+      <p>Aynı kişilerde çok kategorili dağılımın kayması (ör. hastalık evresinin bir yılda değişimi).</p>
     </a>
   </div>
 
-  <section class="kart vurgu-leylak">
+  <section class="kart vurgu-leylak" style="margin-top:34px">
     <h2 style="margin-top:0">Peki ya sonrası?</h2>
     <p>
-      Bu atlas bilerek <strong>temel</strong> tutuldu: tanımlayıcı istatistikler, temel hipotez testleri ve basit regresyon.
+      Bu rehber bilerek <strong>temel</strong> tutuldu: betimleyici istatistikler, hipotez testleri ve basit regresyon.
       Lojistik regresyon, sağkalım analizi, güç analizi ve çok değişkenli yöntemler gibi ileri konular,
       inşa edilmekte olan kardeş projede yer alacak:
     </p>
-    <p><a class="ileri" href="#" title="Yakında" style="background:#ECE8FB;color:#7C6BD9;border-radius:999px;padding:6px 16px;font-weight:800;text-decoration:none;">🚧 İleri Biyoistatistik Atlası — yakında</a></p>
+    <p style="margin-bottom:0"><a class="ileri" href="#" title="Yakında" style="background:#ECE8FB;color:#7C6BD9;border-radius:999px;padding:6px 16px;font-weight:800;text-decoration:none;">🚧 İleri Biyoistatistik Rehberi — yakında</a></p>
   </section>
 
 </main>
 
 <footer class="dipnot">
-  <a class="ileri" href="#" title="Yakında">🚧 İleri Biyoistatistik Atlası — yakında</a><br>
-  Biyoistatistik Atlası · Eğitim amaçlıdır; grafiklerdeki veriler öğretim için üretilmiş örnek verilerdir.
+  <a class="ileri" href="#" title="Yakında">🚧 İleri Biyoistatistik Rehberi — yakında</a><br>
+  Biyoistatistik Rehberi · Eğitim amaçlıdır; grafiklerdeki veriler öğretim için üretilmiş örnek verilerdir.
 </footer>
 
+<script src="js/ortak.js"></script>
+<script>Ist.zamanCizgisi("anaZaman", "");</script>
 </body>
 </html>

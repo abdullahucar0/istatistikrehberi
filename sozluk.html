@@ -1,0 +1,1211 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>İstatistik Sözlüğü — Biyoistatistik Rehberi</title>
+<meta name="description" content="Ortalama, standart sapma, p-değeri, güven aralığı, güç, duyarlılık, odds oranı... Temel istatistik kavramlarını interaktif görselleştirmeler ve ilk akademik kaynaklarıyla öğren.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700&family=Nunito:wght@400;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/stil.css">
+<script defer src="js/menu.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+</head>
+<body>
+
+<nav class="ust-menu">
+  <div class="ic">
+    <a class="logo" href="index.html">Biyoistatistik <span>Rehberi</span></a>
+    <button class="menu-ac" id="menuAc" aria-label="Menüyü aç/kapat">☰</button>
+    <ul class="ana-menu" id="anaMenu">
+      <li><a href="index.html" data-sayfa="index.html">Ana Sayfa</a></li>
+      <li><a href="karar-agaci.html" data-sayfa="karar-agaci.html">Karar Ağacı</a></li>
+      <li class="grup">
+        <button class="grup-baslik" type="button">Temeller <span class="ok">▾</span></button>
+        <ul class="alt-menu">
+          <li><a href="veri-yapilari.html" data-sayfa="veri-yapilari.html">Veri Yapıları</a></li>
+          <li><a href="tanimlayici.html" data-sayfa="tanimlayici.html">Tanımlayıcı İstatistik</a></li>
+          <li><a href="korelasyon.html" data-sayfa="korelasyon.html">Korelasyon</a></li>
+          <li><a href="regresyon.html" data-sayfa="regresyon.html">Regresyon</a></li>
+        </ul>
+      </li>
+      <li class="grup">
+        <button class="grup-baslik" type="button">Sayısal Testler <span class="ok">▾</span></button>
+        <ul class="alt-menu">
+          <li class="alt-baslik">İki grup</li>
+          <li><a href="t-testi.html" data-sayfa="t-testi.html">Student t (bağımsız)</a></li>
+          <li><a href="paired-t.html" data-sayfa="paired-t.html">Eşleştirilmiş t</a></li>
+          <li><a href="mann-whitney.html" data-sayfa="mann-whitney.html">Mann-Whitney U</a></li>
+          <li><a href="wilcoxon.html" data-sayfa="wilcoxon.html">Wilcoxon işaretli sıralar</a></li>
+          <li class="alt-baslik">Üç ve daha çok grup</li>
+          <li><a href="anova.html" data-sayfa="anova.html">One-way ANOVA</a></li>
+          <li><a href="repeated-anova.html" data-sayfa="repeated-anova.html">Tekrarlı ölçümler ANOVA</a></li>
+          <li><a href="kruskal-wallis.html" data-sayfa="kruskal-wallis.html">Kruskal-Wallis</a></li>
+          <li><a href="friedman.html" data-sayfa="friedman.html">Friedman</a></li>
+        </ul>
+      </li>
+      <li class="grup">
+        <button class="grup-baslik" type="button">Kategorik Testler <span class="ok">▾</span></button>
+        <ul class="alt-menu">
+          <li><a href="ki-kare.html" data-sayfa="ki-kare.html">Ki-Kare</a></li>
+          <li><a href="fisher.html" data-sayfa="fisher.html">Fisher kesin testi</a></li>
+          <li><a href="mcnemar.html" data-sayfa="mcnemar.html">McNemar</a></li>
+          <li><a href="cochran-q.html" data-sayfa="cochran-q.html">Cochran Q</a></li>
+          <li><a href="marginal-homogenlik.html" data-sayfa="marginal-homogenlik.html">Marginal Homogeneity</a></li>
+        </ul>
+      </li>
+      <li class="grup">
+        <button class="grup-baslik" type="button">Kaynaklar <span class="ok">▾</span></button>
+        <ul class="alt-menu">
+          <li><a href="istatistik-tarihi.html" data-sayfa="istatistik-tarihi.html">İstatistiğin Tarihi</a></li>
+          <li><a href="sozluk.html" data-sayfa="sozluk.html">İstatistik Sözlüğü</a></li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+<main class="icerik">
+
+  <header class="sayfa-giris">
+    <div>
+      <span class="etiket">Referans · 20 kavram · İnteraktif</span>
+      <h1>İstatistik Sözlüğü</h1>
+      <p class="ozet">
+        Tanım ezberlemek kolay, <strong>görmek</strong> zordur. Bu sözlükte her kavramın yanında ya
+        oynayabileceğin bir grafik ya da canlı bir tablo var. Her kavramın altında da onu bilime ilk kez
+        kazandıran <strong>özgün akademik kaynak</strong> yazıyor — çünkü bir fikrin nereden geldiğini bilmek,
+        onu anlamanın yarısıdır.
+      </p>
+    </div>
+    <aside class="zaman-pulu">
+      <span class="yil">Nasıl?</span>
+      <p class="kisi">Ara, filtrele, oyna</p>
+      <p>Aşağıdaki kutuya yazarak kavram ara ya da etiketlere basarak filtrele. Grafikli kavramlarda
+        <strong>kaydırıcıyı oynat</strong>.</p>
+    </aside>
+  </header>
+
+  <input type="search" class="sozluk-arama" id="arama" placeholder="🔍 Kavram ara: ortalama, p-değeri, güç, duyarlılık..." autocomplete="off">
+  <div class="sozluk-etiketler" id="etiketler">
+    <button class="aktif" data-e="hepsi">Hepsi</button>
+    <button data-e="betimleme">Betimleme</button>
+    <button data-e="dagilim">Dağılım</button>
+    <button data-e="cikarim">Çıkarım</button>
+    <button data-e="tasarim">Araştırma tasarımı</button>
+    <button data-e="tani">Tanı & risk</button>
+  </div>
+  <p class="ozet" id="sayac" style="margin-top:0"></p>
+
+  <div id="kavramlar">
+
+  <!-- ============ BETİMLEME ============ -->
+  <h2 style="border-left:5px solid var(--cam);padding-left:12px" data-baslik="betimleme">Betimleme — veriyi özetlemek</h2>
+
+  <article class="kavram" data-e="betimleme" id="k-populasyon">
+    <h3>Popülasyon &amp; Örneklem <span class="rozet">Betimleme</span></h3>
+    <p class="ingilizce">population &amp; sample</p>
+    <p>
+      <strong>Popülasyon</strong>, hakkında bilgi edinmek istediğin <em>herkes</em>tir (ör. Türkiye'deki tüm diyabet
+      hastaları). <strong>Örneklem</strong>, gerçekte ölçebildiğin küçük gruptur (ör. 300 hasta).
+      İstatistiğin bütün varlık sebebi şu köprüdür: <strong>300 kişiden yola çıkıp milyonlar hakkında
+      ne söyleyebilirim ve ne kadar yanılabilirim?</strong>
+    </p>
+    <p>
+      Köprünün sağlam olması için örneklemin <strong>temsili</strong> olması gerekir. Temsil, örneklemin
+      büyüklüğünden çok <strong>nasıl seçildiğine</strong> bağlıdır: 3.000 kişilik kötü seçilmiş bir örneklem,
+      300 kişilik rastgele seçilmiş bir örneklemden daha yanıltıcı olabilir. Tarihin en ünlü dersi budur —
+      1936 ABD seçim anketi, 2,4 milyon kişiye sorup yanlış tahmin etti; çünkü örneklem
+      telefonu ve arabası olanlardan seçilmişti.
+    </p>
+    <div class="konusma">
+      <p style="margin:0"><strong>Parametre</strong> (popülasyonun gerçek değeri, bilinmez, μ ve σ ile gösterilir)
+      &nbsp;⟷&nbsp; <strong>İstatistik</strong> (örneklemden hesapladığın tahmin, x̄ ve s ile gösterilir)</p>
+    </div>
+    <p class="kaynak-not">📚 <strong>İlk kaynak:</strong> Neyman, J. (1934). <em>On the two different aspects of the
+      representative method.</em> Journal of the Royal Statistical Society, 97(4), 558–625. —
+      Rastgele örneklemenin kuramsal temelini kuran, "temsili yöntem" tartışmasını bitiren çalışma. <a href="#kaynak-1">[1]</a></p>
+  </article>
+
+  <article class="kavram" data-e="betimleme" id="k-merkez">
+    <h3>Ortalama, Medyan, Mod <span class="rozet">Betimleme</span></h3>
+    <p class="ingilizce">mean, median, mode</p>
+    <p>
+      Üçü de "merkez"i tarif eder ama farklı sorulara cevap verir.
+      <strong>Ortalama</strong> hepsini toplayıp böler — her değerden etkilenir, bu yüzden
+      <em>aykırı değerlere karşı savunmasızdır</em>. <strong>Medyan</strong> sıraya dizip ortadakini alır —
+      uçlardaki değerler onu sarsamaz. <strong>Mod</strong>, en sık tekrarlanan değerdir ve
+      <em>kategorik veride kullanılabilen tek merkez ölçüsüdür</em>.
+    </p>
+    <div class="deney-masasi gorsel">
+      <div class="kaydirici-grubu">
+        <label for="carpiklik">Dağılımı çarpıklaştır (birkaç çok zengin hasta ekle) <output id="carpiklikDeger">0</output></label>
+        <input type="range" id="carpiklik" min="0" max="100" step="5" value="0">
+      </div>
+      <div class="grafik-kutu"><canvas id="gMerkez"></canvas></div>
+      <div class="sonuc-panosu">
+        <div class="sonuc-kutusu"><div class="deger" id="cOrt">–</div><div class="ad">Ortalama</div></div>
+        <div class="sonuc-kutusu"><div class="deger" id="cMed">–</div><div class="ad">Medyan</div></div>
+        <div class="sonuc-kutusu karar"><div class="deger" id="cMerkezKarar">–</div><div class="ad">Hangisini kullanmalı?</div></div>
+      </div>
+    </div>
+    <p style="margin-top:12px">
+      <strong>Kural:</strong> Dağılım simetrikse ortalama; çarpıksa (gelir, hastanede kalış süresi, laboratuvar
+      değerleri) <strong>medyan</strong>. "Ortalama maaş" haberleri tam da bu yüzden yanıltıcıdır.
+    </p>
+    <p class="kaynak-not">📚 <strong>İlk kaynaklar:</strong> Aritmetik ortalama, gökbilimde hata düzeltme aracı
+      olarak antik çağdan beri kullanılır; insana ilk kez Quetelet, A. (1835). <em>Sur l'homme et le développement
+      de ses facultés, ou Essai de physique sociale</em> ile uygulanmıştır <a href="#kaynak-2">[2]</a>.
+      <strong>Medyan</strong> terimini istatistiğe Galton yerleştirdi: Galton, F. (1875).
+      <em>Statistics by intercomparison, with remarks on the law of frequency of error.</em>
+      Philosophical Magazine, 49, 33–46 <a href="#kaynak-3">[3]</a>.
+      <strong>Mod</strong> terimini ise Pearson icat etti: Pearson, K. (1895). <em>Contributions to the mathematical
+      theory of evolution. II. Skew variation in homogeneous material.</em> Phil. Trans. R. Soc. A, 186, 343–414 <a href="#kaynak-4">[4]</a>.</p>
+  </article>
+
+  <article class="kavram" data-e="betimleme dagilim" id="k-ss">
+    <h3>Standart Sapma &amp; Varyans <span class="rozet">Betimleme</span></h3>
+    <p class="ingilizce">standard deviation &amp; variance</p>
+    <p>
+      Merkez tek başına yalan söyleyebilir: ayakları buzda, kafası fırında olan adamın ortalama sıcaklığı normaldir.
+      Eksik olan şey <strong>yayılım</strong>dır. <strong>Standart sapma (s ya da σ)</strong>, değerlerin ortalamadan
+      ortalama olarak ne kadar uzakta durduğudur — <em>verinin kendi birimindedir</em> (mmHg, kg, °C).
+      <strong>Varyans</strong> ise standart sapmanın karesidir; birimi de karelidir (mmHg²), o yüzden yorumlaması zordur
+      ama matematiği çok kolaydır (toplanabilir!). ANOVA'nın adındaki "varyans" tam da budur.
+    </p>
+    <div class="deney-masasi gorsel">
+      <div class="kaydirici-grubu">
+        <label for="sigma">Standart sapma (σ) <output id="sigmaDeger">10</output> mmHg</label>
+        <input type="range" id="sigma" min="4" max="26" step="1" value="10">
+      </div>
+      <div class="grafik-kutu"><canvas id="gNormal"></canvas></div>
+      <div class="sonuc-panosu">
+        <div class="sonuc-kutusu"><div class="deger" id="cAralik68">–</div><div class="ad">%68 buraya düşer (μ±1σ)</div></div>
+        <div class="sonuc-kutusu"><div class="deger" id="cAralik95">–</div><div class="ad">%95 buraya düşer (μ±2σ)</div></div>
+        <div class="sonuc-kutusu karar"><div class="deger" id="cCV">–</div><div class="ad">Değişim katsayısı</div></div>
+      </div>
+    </div>
+    <p style="margin-top:12px">
+      Normal dağılımda ezberlenmesi gereken tek şey <strong>68–95–99,7 kuralı</strong>dır:
+      verinin ~%68'i μ±1σ, ~%95'i μ±2σ, ~%99,7'si μ±3σ içindedir. Laboratuvar "referans aralıkları"
+      genellikle bu %95'ten türetilir — yani <strong>sağlıklı insanların %5'i tanım gereği "anormal" çıkar.</strong>
+    </p>
+    <p class="kaynak-not">📚 <strong>İlk kaynak:</strong> "Standart sapma" terimini ve simgesini bilime kazandıran:
+      Pearson, K. (1894). <em>Contributions to the mathematical theory of evolution.</em>
+      Phil. Trans. R. Soc. A, 185, 71–110 <a href="#kaynak-5">[5]</a>.
+      "Varyans" terimi ise: Fisher, R. A. (1918). <em>The correlation between relatives on the supposition of
+      Mendelian inheritance.</em> Trans. R. Soc. Edinburgh, 52, 399–433 <a href="#kaynak-6">[6]</a>.</p>
+  </article>
+
+  <!-- ============ DAĞILIM ============ -->
+  <h2 style="border-left:5px solid var(--gunes);padding-left:12px;margin-top:34px" data-baslik="dagilim">Dağılım — belirsizliğin şekli</h2>
+
+  <article class="kavram" data-e="dagilim" id="k-normal">
+    <h3>Normal Dağılım (Gauss eğrisi) <span class="rozet">Dağılım</span></h3>
+    <p class="ingilizce">normal / Gaussian distribution</p>
+    <p>
+      Simetrik, çan biçimli, tek tepeli dağılım. Ortalama = medyan = mod. İstatistiğin bu kadar çok
+      kullandığı yer, doğada her şeyin normal dağılmasından değil — <strong>ortalamaların</strong>
+      normal dağılmasından gelir (bkz. merkezi limit teoremi).
+    </p>
+    <p>
+      Önemli bir uyarı: <strong>tıpta veriler çoğu zaman normal DEĞİLDİR.</strong> Kalış süresi, maliyet,
+      CRP, viral yük, bekleme süresi — hepsi sağa çarpıktır. Bu yüzden sıra temelli (parametrik olmayan)
+      testler icat edilmiştir. "Normal" kelimesi burada "olağan/doğru" anlamına gelmez; sadece bir eğrinin adıdır.
+    </p>
+    <p class="kaynak-not">📚 <strong>İlk kaynaklar:</strong> Eğrinin ilk türetimi (binom dağılıma yaklaşım olarak):
+      de Moivre, A. (1733/1738). <em>The Doctrine of Chances</em> <a href="#kaynak-7">[7]</a>.
+      Hata kuramı ve en küçük karelerle birlikte bugünkü hâline getiren:
+      Gauss, C. F. (1809). <em>Theoria Motus Corporum Coelestium</em> <a href="#kaynak-8">[8]</a>.</p>
+  </article>
+
+  <article class="kavram" data-e="dagilim cikarim" id="k-clt">
+    <h3>Merkezi Limit Teoremi <span class="rozet">Dağılım</span></h3>
+    <p class="ingilizce">central limit theorem (CLT)</p>
+    <p>
+      İstatistiğin <strong>en güzel ve en şaşırtıcı</strong> teoremi. Şunu söyler: verinin kendisi ne kadar
+      çirkin dağılırsa dağılsın (çarpık, çift tepeli, garip), <strong>örneklem ortalamalarının</strong> dağılımı,
+      örneklem büyüdükçe normal dağılıma yaklaşır.
+    </p>
+    <p>
+      Bu neden bu kadar önemli? Çünkü t-testi, güven aralığı, ANOVA — hepsi "ortalama normal dağılır"
+      varsayımına dayanır. CLT sayesinde, <strong>ham verimiz normal olmasa bile</strong>, yeterli örneklemle
+      bu araçları kullanabiliriz. Aşağıda kaydırıcıyı oynat: soldaki çirkin dağılımdan örneklem çekiyoruz,
+      sağdaki ortalamaların dağılımı <em>gözünün önünde çana dönüşüyor</em>.
+    </p>
+    <div class="deney-masasi gorsel">
+      <div class="kaydirici-grubu">
+        <label for="cltN">Her örneklemde kaç kişi var? n = <output id="cltNDeger">1</output></label>
+        <input type="range" id="cltN" min="1" max="50" step="1" value="1">
+      </div>
+      <div class="grafik-kutu"><canvas id="gClt"></canvas></div>
+      <div class="sonuc-panosu">
+        <div class="sonuc-kutusu"><div class="deger" id="cCltSS">–</div><div class="ad">Ortalamaların yayılımı (SE)</div></div>
+        <div class="sonuc-kutusu"><div class="deger" id="cCltBeklenen">–</div><div class="ad">Teorik SE = σ/√n</div></div>
+        <div class="sonuc-kutusu karar"><div class="deger" id="cCltKarar">–</div><div class="ad">Şekil</div></div>
+      </div>
+    </div>
+    <p style="margin-top:12px">
+      Dikkat ettin mi: n büyüdükçe dağılım hem <strong>çana benziyor</strong> hem de <strong>daralıyor</strong>.
+      Bu daralmanın adı <strong>standart hata (SE = σ/√n)</strong>'dır ve tüm güven aralıklarının motorudur.
+      Kareköke dikkat: <em>belirsizliği yarıya indirmek için örneklemi dört katına çıkarman gerekir.</em>
+    </p>
+    <p class="kaynak-not">📚 <strong>İlk kaynaklar:</strong> İlk genel biçim: Laplace, P. S. (1810).
+      <em>Mémoire sur les approximations des formules qui sont fonctions de très grands nombres.</em>
+      Mémoires de l'Académie des Sciences de Paris <a href="#kaynak-9">[9]</a>.
+      Bugünkü genel koşullarıyla kesin ispatı: Lyapunov, A. M. (1901).
+      <em>Nouvelle forme du théorème sur la limite de probabilité.</em> Mém. Acad. Sci. St. Pétersbourg <a href="#kaynak-10">[10]</a>.
+      Öncülü olan büyük sayılar yasası: Bernoulli, J. (1713). <em>Ars Conjectandi</em> <a href="#kaynak-11">[11]</a>.</p>
+  </article>
+
+  <!-- ============ ÇIKARIM ============ -->
+  <h2 style="border-left:5px solid var(--leylak);padding-left:12px;margin-top:34px" data-baslik="cikarim">Çıkarım — karar ve belirsizlik</h2>
+
+  <article class="kavram" data-e="cikarim" id="k-h0">
+    <h3>Sıfır Hipotezi (H₀) <span class="rozet">Çıkarım</span></h3>
+    <p class="ingilizce">null hypothesis</p>
+    <p>
+      İstatistiksel test, mahkemeye benzer: sanık <strong>masum sayılarak</strong> başlar.
+      İstatistikteki masumiyet karinesi <strong>H₀</strong>'dır: "fark yoktur, ilişki yoktur, ilaç işe yaramaz."
+      Test, bu varsayımı çürütecek kadar güçlü kanıt olup olmadığına bakar.
+    </p>
+    <p>
+      Buradan çok önemli bir sonuç çıkar: <strong>H₀'ı reddedememek, onu kanıtlamak değildir.</strong>
+      "Beraat", "masumiyetin ispatı" değildir — sadece yeterli kanıt bulunamamıştır.
+      Bu yüzden <em>"p&gt;0,05, demek ki iki tedavi eşit"</em> cümlesi, tıp literatürünün en yaygın hatasıdır.
+      Doğrusu: "fark gösterilemedi" (belki de örneklem küçüktü).
+    </p>
+    <div class="konusma">
+      <p style="margin:0"><strong>Yokluğun kanıtı ≠ kanıtın yokluğu.</strong>
+      Bir farkın <em>olmadığını</em> göstermek istiyorsan, hipotez testi değil
+      <strong>eşdeğerlik/dışlayıcı olmama (non-inferiority)</strong> tasarımı ve güven aralığı gerekir.</p>
+    </div>
+    <p class="kaynak-not">📚 <strong>İlk kaynak:</strong> Fisher, R. A. (1935). <em>The Design of Experiments.</em>
+      Oliver &amp; Boyd, Edinburgh. — "Null hypothesis" terimi ilk kez burada tanımlanmış ve
+      "sıfır hipotezi asla kanıtlanamaz, yalnızca çürütülebilir" ilkesi konmuştur <a href="#kaynak-12">[12]</a>.</p>
+  </article>
+
+  <article class="kavram" data-e="cikarim" id="k-p">
+    <h3>p-değeri <span class="rozet">Çıkarım</span></h3>
+    <p class="ingilizce">p-value</p>
+    <p>
+      Bilimin en çok kullanılan, en çok yanlış anlaşılan sayısı. <strong>Doğru tanım:</strong>
+      "Sıfır hipotezi <em>doğruyken</em>, en az bu kadar uç bir sonuç görme olasılığı."
+    </p>
+    <div class="tablo-kaydirici" style="grid-template-columns:1fr">
+      <table class="veri">
+        <thead><tr><th>p-değeri şu DEĞİLDİR ❌</th><th>Neden?</th></tr></thead>
+        <tbody>
+          <tr><td>"H₀'ın doğru olma olasılığı"</td><td>Tam tersi: H₀'ı doğru <em>varsayarak</em> hesaplanır. Ters çevirmek Bayes gerektirir.</td></tr>
+          <tr><td>"Sonucun şans eseri olma olasılığı"</td><td>Aynı hata; koşullu olasılığın yönünü karıştırır.</td></tr>
+          <tr><td>"Etkinin büyüklüğü"</td><td>p, etkinin büyüklüğünü değil; etki + örneklem büyüklüğünün <em>birleşimini</em> yansıtır.</td></tr>
+          <tr><td>"p=0,049 gerçek, p=0,051 değil"</td><td>0,05 keyfî bir alışkanlıktır. İkisi arasında doğa açısından hiçbir fark yoktur.</td></tr>
+          <tr><td>"Bulgunun önemi"</td><td>Çok büyük örneklemde klinik olarak <em>anlamsız</em> farklar bile p&lt;0,001 çıkar.</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p style="margin-top:12px">
+      Amerikan İstatistik Derneği 2016'da bu kadar yanlış anlaşılma üzerine resmî bir açıklama yayımlamak
+      zorunda kaldı — bir istatistik kavramı için görülmemiş bir şey.
+    </p>
+    <p class="kaynak-not">📚 <strong>İlk kaynaklar:</strong> Hesabın ilk sistematik kullanımı:
+      Pearson, K. (1900). <em>On the criterion that a given system of deviations… can be reasonably supposed to have
+      arisen from random sampling.</em> Philosophical Magazine, 50(302), 157–175 <a href="#kaynak-13">[13]</a>.
+      "p-değeri" kavramını ve 0,05 alışkanlığını yaygınlaştıran: Fisher, R. A. (1925).
+      <em>Statistical Methods for Research Workers.</em> Oliver &amp; Boyd <a href="#kaynak-14">[14]</a>.
+      Modern uyarı metni: Wasserstein, R. L. &amp; Lazar, N. A. (2016). <em>The ASA statement on p-values:
+      context, process, and purpose.</em> The American Statistician, 70(2), 129–133 <a href="#kaynak-15">[15]</a>.</p>
+  </article>
+
+  <article class="kavram" data-e="cikarim" id="k-gp">
+    <h3>Güven Aralığı <span class="rozet">Çıkarım</span></h3>
+    <p class="ingilizce">confidence interval (CI)</p>
+    <p>
+      p-değerinden <strong>çok daha faydalı</strong> olan ama daha az kullanılan araç. p sana sadece
+      "var mı yok mu" der; güven aralığı <strong>"ne kadar ve ne kadar eminiz"</strong> der.
+    </p>
+    <p>
+      Doğru yorum incedir: %95 güven aralığı, "gerçek değerin bu aralıkta olma olasılığı %95" demek
+      <em>değildir</em>. Doğrusu: <strong>"Bu çalışmayı defalarca tekrarlasaydım, kurduğum aralıkların %95'i
+      gerçek değeri içerirdi."</strong> Aşağıda tam olarak bunu görüyorsun: 20 ayrı çalışma yapıyoruz,
+      her biri kendi aralığını kuruyor ve <span style="color:var(--mercan);font-weight:800">bazıları ıskalıyor</span>.
+    </p>
+    <div class="deney-masasi gorsel">
+      <div class="kaydirici-grubu">
+        <label for="ciN">Her çalışmadaki hasta sayısı: n = <output id="ciNDeger">25</output></label>
+        <input type="range" id="ciN" min="5" max="200" step="5" value="25">
+      </div>
+      <button class="dugme ikincil" id="ciYeni">🎲 20 çalışmayı yeniden yap</button>
+      <div class="grafik-kutu"><canvas id="gCI"></canvas></div>
+      <div class="sonuc-panosu">
+        <div class="sonuc-kutusu"><div class="deger" id="cCIgen">–</div><div class="ad">Ortalama aralık genişliği</div></div>
+        <div class="sonuc-kutusu"><div class="deger" id="cCIkapsam">–</div><div class="ad">Gerçeği içeren aralık</div></div>
+        <div class="sonuc-kutusu karar"><div class="deger" id="cCIkarar">–</div><div class="ad">Beklenen</div></div>
+      </div>
+    </div>
+    <p style="margin-top:12px">
+      Kaydırıcıyı büyüt: aralıklar <strong>daralıyor</strong> ama ıskalama oranı ~%5'te kalıyor.
+      Güven düzeyi kapsamı belirler; örneklem büyüklüğü ise <strong>kesinliği</strong>.
+      Bir makalede aralık çok genişse, "anlamlı değil" demeden önce sor: <em>örneklem yeterli miydi?</em>
+    </p>
+    <p class="kaynak-not">📚 <strong>İlk kaynak:</strong> Neyman, J. (1937). <em>Outline of a theory of statistical
+      estimation based on the classical theory of probability.</em> Phil. Trans. R. Soc. A, 236(767), 333–380. —
+      Güven aralığı kavramı ve doğru (sıklıkçı) yorumu ilk kez burada kurulmuştur <a href="#kaynak-16">[16]</a>.</p>
+  </article>
+
+  <article class="kavram" data-e="cikarim tasarim" id="k-guc">
+    <h3>I. Tip Hata, II. Tip Hata ve Güç <span class="rozet">Çıkarım</span></h3>
+    <p class="ingilizce">type I / type II error, power</p>
+    <p>
+      Her testte iki türlü yanılabilirsin ve bu ikisi <strong>birbiriyle çelişir</strong>:
+    </p>
+    <div class="tablo-kaydirici" style="grid-template-columns:1fr">
+      <table class="veri">
+        <thead><tr><th></th><th>Gerçekte fark YOK</th><th>Gerçekte fark VAR</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Test "fark var" dedi</strong></td>
+              <td style="background:var(--mercan-acik)"><strong>I. tip hata (α)</strong><br>Yanlış alarm — olmayan ilacı onaylamak</td>
+              <td style="background:var(--cam-acik)"><strong>Doğru! (Güç = 1−β)</strong><br>Gerçek etkiyi yakaladın</td></tr>
+          <tr><td><strong>Test "fark yok" dedi</strong></td>
+              <td style="background:var(--cam-acik)"><strong>Doğru</strong><br>Boş yere heyecanlanmadın</td>
+              <td style="background:var(--mercan-acik)"><strong>II. tip hata (β)</strong><br>İşe yarayan ilacı kaçırmak</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p style="margin-top:12px">
+      <strong>Güç (1−β)</strong>, var olan bir farkı yakalayabilme yeteneğidir. Konvansiyonel hedef %80'dir —
+      yani gerçek bir etkiyi bile <strong>5 çalışmadan 1'inde kaçırmayı</strong> baştan kabul ederiz.
+      Güç; etki büyüklüğüne, değişkenliğe (σ) ve <strong>örneklem büyüklüğüne</strong> bağlıdır.
+      Tüm örneklem büyüklüğü hesaplarının amacı budur.
+    </p>
+    <div class="deney-masasi gorsel">
+      <div class="kaydirici-grubu">
+        <label for="gucEtki">Gerçek etki büyüklüğü (fark) <output id="gucEtkiDeger">5,0</output> mmHg</label>
+        <input type="range" id="gucEtki" min="0" max="150" step="5" value="50">
+      </div>
+      <div class="kaydirici-grubu">
+        <label for="gucN">Grup başına hasta sayısı: n = <output id="gucNDeger">30</output></label>
+        <input type="range" id="gucN" min="5" max="300" step="5" value="30">
+      </div>
+      <div class="grafik-kutu"><canvas id="gGuc"></canvas></div>
+      <div class="sonuc-panosu">
+        <div class="sonuc-kutusu"><div class="deger" id="cAlfa">%5</div><div class="ad">I. tip hata (α)</div></div>
+        <div class="sonuc-kutusu"><div class="deger" id="cBeta">–</div><div class="ad">II. tip hata (β)</div></div>
+        <div class="sonuc-kutusu karar"><div class="deger" id="cGuc">–</div><div class="ad">Güç (1−β)</div></div>
+      </div>
+    </div>
+    <p style="margin-top:12px">
+      Grafikte iki eğri var: solda H₀ (fark yok), sağda gerçek durum. <span style="color:var(--mercan);font-weight:800">Kırmızı alan</span>
+      yanlış alarm (α), <span style="color:var(--leylak);font-weight:800">mor alan</span> kaçırdıklarındır (β).
+      n'i büyüt: eğriler <em>incelir</em>, örtüşme azalır, güç artar. Etkiyi küçült: güç çöker.
+      <strong>Küçük çalışmalar, gerçek etkileri sistematik olarak kaçırır.</strong>
+    </p>
+    <p class="kaynak-not">📚 <strong>İlk kaynak:</strong> Neyman, J. &amp; Pearson, E. S. (1933).
+      <em>On the problem of the most efficient tests of statistical hypotheses.</em>
+      Phil. Trans. R. Soc. A, 231(694–706), 289–337. — I./II. tip hata ve güç kavramları
+      ilk kez burada tanımlanmıştır <a href="#kaynak-17">[17]</a>.
+      Tıp ve davranış bilimlerinde güç analizini standart hâline getiren:
+      Cohen, J. (1988). <em>Statistical Power Analysis for the Behavioral Sciences</em> (2. baskı) <a href="#kaynak-18">[18]</a>.</p>
+  </article>
+
+  <article class="kavram" data-e="cikarim" id="k-sd">
+    <h3>Serbestlik Derecesi <span class="rozet">Çıkarım</span></h3>
+    <p class="ingilizce">degrees of freedom (df)</p>
+    <p>
+      Öğrencilerin en sevmediği kavram, aslında çok basit bir fikirdir:
+      <strong>verinde kaç tane "gerçekten serbest" bilgi var?</strong>
+    </p>
+    <p>
+      Şöyle düşün: 3 sayının ortalamasının 10 olduğunu biliyorsan, ilk iki sayıyı istediğin gibi seçebilirsin
+      (mesela 7 ve 12) — ama <strong>üçüncüsü artık zorunludur</strong> (11 olmak zorunda). Yani 3 sayıda
+      ortalamayı bildiğinde <strong>2 serbest bilgi</strong> kalır: df = n − 1.
+    </p>
+    <p>
+      Her tahmin ettiğin parametre, bir serbestliği "yer". Bu yüzden standart sapmada n−1'e böleriz,
+      2×2 tabloda df=1'dir, ANOVA'da df = k−1 ve N−k'dır. df küçüldükçe dağılımın kuyrukları kalınlaşır —
+      yani <strong>daha az bilgiyle daha temkinli olursun</strong>. t-dağılımının varlık sebebi tam olarak budur.
+    </p>
+    <p class="kaynak-not">📚 <strong>İlk kaynak:</strong> Fisher, R. A. (1922). <em>On the interpretation of χ² from
+      contingency tables, and the calculation of P.</em> Journal of the Royal Statistical Society, 85(1), 87–94. —
+      Pearson'ın ki-kare için yanlış hesapladığı serbestlik derecesini düzelten ve kavramı yerine oturtan
+      çalışma; iki dev arasındaki ünlü tartışmayı başlatmıştır <a href="#kaynak-19">[19]</a>.</p>
+  </article>
+
+  <article class="kavram" data-e="cikarim betimleme" id="k-etki">
+    <h3>Etki Büyüklüğü <span class="rozet">Çıkarım</span></h3>
+    <p class="ingilizce">effect size</p>
+    <p>
+      "Anlamlı mı?" sorusunun cevabı örneklem büyüklüğüne bağlıdır; "<strong>ne kadar?</strong>" sorusunun cevabı
+      ise değildir. Etki büyüklüğü, farkı <em>standart sapma birimiyle</em> ifade eder ve
+      örneklemden bağımsızdır. En bilineni <strong>Cohen'in d</strong>'sidir:
+      d = (ortalama farkı) / (ortak standart sapma).
+    </p>
+    <div class="tablo-kaydirici" style="grid-template-columns:1fr">
+      <table class="veri">
+        <thead><tr><th>Ölçü</th><th>Nerede?</th><th>Kabaca yorumu</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Cohen d</strong></td><td>İki ortalamanın farkı</td><td>0,2 küçük · 0,5 orta · 0,8 büyük</td></tr>
+          <tr><td><strong>r</strong></td><td>Korelasyon</td><td>0,1 küçük · 0,3 orta · 0,5 büyük</td></tr>
+          <tr><td><strong>η² / ω²</strong></td><td>ANOVA</td><td>Açıklanan varyans oranı</td></tr>
+          <tr><td><strong>OR / RR</strong></td><td>Kategorik sonuç</td><td>1'den uzaklaştıkça etki büyür</td></tr>
+          <tr><td><strong>NNT</strong></td><td>Klinik karar</td><td>Bir kişiye fayda için kaç kişi tedavi edilmeli</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p style="margin-top:12px">
+      <strong>Altın kural:</strong> Bir makalede sadece p varsa, yarısı eksiktir. Her zaman
+      <strong>etki büyüklüğü + güven aralığı</strong> iste. "İstatistiksel anlamlılık" ile
+      "<strong>klinik anlamlılık</strong>" bambaşka şeylerdir: 100.000 kişilik bir çalışmada
+      0,4 mmHg'lik tansiyon farkı p&lt;0,001 çıkar ve hiçbir hastanın hayatını değiştirmez.
+    </p>
+    <p class="kaynak-not">📚 <strong>İlk kaynak:</strong> Cohen, J. (1962). <em>The statistical power of
+      abnormal-social psychological research: A review.</em> Journal of Abnormal and Social Psychology, 65(3), 145–153 —
+      literatürün gücünü ilk kez sistematik olarak ölçen ve etki büyüklüğü ölçütlerini öneren çalışma <a href="#kaynak-20">[20]</a>.
+      Ayrıntılı çerçeve: Cohen, J. (1988) <a href="#kaynak-18">[18]</a>.</p>
+  </article>
+
+  <!-- ============ ARAŞTIRMA TASARIMI ============ -->
+  <h2 style="border-left:5px solid var(--cam);padding-left:12px;margin-top:34px" data-baslik="tasarim">Araştırma tasarımı — kanıtın mimarisi</h2>
+
+  <article class="kavram" data-e="tasarim" id="k-randomizasyon">
+    <h3>Randomizasyon <span class="rozet">Tasarım</span></h3>
+    <p class="ingilizce">randomization</p>
+    <p>
+      İstatistik tarihinin belki de <strong>en güçlü tek fikri</strong>. Hastaları gruplara kurayla ayırırsan,
+      sadece bildiğin değişkenler değil, <strong>hiç bilmediğin ve ölçemediğin</strong> her şey de
+      (genetik yatkınlık, beslenme, motivasyon, ölçemediğin yüzlerce şey) uzun vadede iki grup arasında dengelenir.
+    </p>
+    <p>
+      Başka hiçbir yöntem bunu yapamaz: istatistiksel düzeltme yalnızca <em>ölçtüğün</em> karıştırıcıları
+      düzeltebilir. Randomizasyon ise <strong>bilinmeyen karıştırıcıya karşı da sigortadır.</strong>
+      Kanıt piramidinde RCT'nin gözlemsel çalışmaların üstünde olmasının tek sebebi budur.
+    </p>
+    <p class="kaynak-not">📚 <strong>İlk kaynaklar:</strong> Kuramsal temel: Fisher, R. A. (1935).
+      <em>The Design of Experiments</em> <a href="#kaynak-12">[12]</a>.
+      Tıpta ilk modern uygulaması: Medical Research Council (1948). <em>Streptomycin treatment of pulmonary
+      tuberculosis: a Medical Research Council investigation.</em> BMJ, 2(4582), 769–782 —
+      genellikle ilk gerçek randomize kontrollü klinik çalışma kabul edilir <a href="#kaynak-21">[21]</a>.</p>
+  </article>
+
+  <article class="kavram" data-e="tasarim tani" id="k-karistirici">
+    <h3>Karıştırıcı &amp; Nedensellik <span class="rozet">Tasarım</span></h3>
+    <p class="ingilizce">confounding &amp; causation</p>
+    <p>
+      <strong>Karıştırıcı (confounder)</strong>, hem maruziyetle hem sonuçla ilişkili olan ve aradaki ilişkiyi
+      taklit eden üçüncü değişkendir. Klasik örnek: <em>kahve içenlerde akciğer kanseri daha sık.</em>
+      Sebep kahve mi? Hayır — kahve içenler daha çok <strong>sigara</strong> içiyor. Sigara burada karıştırıcıdır.
+    </p>
+    <p>
+      Peki bir ilişki ne zaman nedensellik sayılır? Bradford Hill, sigara-kanser tartışmasından damıttığı
+      ölçütleri sundu (ölçüt listesi, mekanik bir kontrol listesi değil bir <em>düşünme çerçevesidir</em>):
+    </p>
+    <div class="tablo-kaydirici" style="grid-template-columns:1fr">
+      <table class="veri">
+        <thead><tr><th>Ölçüt</th><th>Ne sorar?</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Güç</strong></td><td>İlişki ne kadar büyük? (RR=10 vs RR=1,1)</td></tr>
+          <tr><td><strong>Tutarlılık</strong></td><td>Farklı yer, zaman ve yöntemlerde tekrarlanıyor mu?</td></tr>
+          <tr><td><strong>Özgüllük</strong></td><td>Maruziyet belirli bir sonuca mı yol açıyor?</td></tr>
+          <tr><td><strong>Zamansallık</strong></td><td>Sebep, sonuçtan <em>önce</em> mi geldi? <strong>(Vazgeçilmez olan tek ölçüt)</strong></td></tr>
+          <tr><td><strong>Doz-yanıt</strong></td><td>Maruziyet arttıkça risk artıyor mu?</td></tr>
+          <tr><td><strong>Akla yatkınlık / uyum</strong></td><td>Bilinen biyolojiyle uyuşuyor mu?</td></tr>
+          <tr><td><strong>Deneysel kanıt</strong></td><td>Maruziyeti kaldırınca risk düşüyor mu?</td></tr>
+          <tr><td><strong>Benzeşim</strong></td><td>Benzer bir etken için benzer sonuç biliniyor mu?</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="kaynak-not">📚 <strong>İlk kaynak:</strong> Hill, A. B. (1965). <em>The environment and disease:
+      association or causation?</em> Proceedings of the Royal Society of Medicine, 58(5), 295–300 <a href="#kaynak-22">[22]</a>.
+      Kaynağını oluşturan kohort: Doll, R. &amp; Hill, A. B. (1954). <em>The mortality of doctors in relation to
+      their smoking habits: a preliminary report.</em> BMJ, 1(4877), 1451–1455 <a href="#kaynak-23">[23]</a>.</p>
+  </article>
+
+  <article class="kavram" data-e="tasarim" id="k-meta">
+    <h3>Meta-analiz &amp; Sistematik Derleme <span class="rozet">Tasarım</span></h3>
+    <p class="ingilizce">meta-analysis &amp; systematic review</p>
+    <p>
+      Tek bir çalışma nadiren son sözdür. <strong>Sistematik derleme</strong>, bir soruyu yanıtlayan tüm
+      çalışmaları önceden belirlenmiş bir yöntemle tarar ve değerlendirir. <strong>Meta-analiz</strong> ise
+      onların sonuçlarını <em>istatistiksel olarak</em> birleştirir — küçük ve tek başına "anlamsız" çalışmalar
+      bir araya gelince net bir cevap verebilir.
+    </p>
+    <p>
+      Ama iki tehlikesi vardır: <strong>yayın yanlılığı</strong> (anlamlı sonuçlar yayımlanır, anlamsızlar
+      çekmecede kalır — huni grafiğiyle sınanır) ve <strong>heterojenlik</strong> (elmalarla armutları toplamak;
+      I² ile ölçülür). "Çöp girer, çöp çıkar" kuralı burada acımasızca işler.
+    </p>
+    <p class="kaynak-not">📚 <strong>İlk kaynaklar:</strong> "Meta-analiz" terimini ortaya atan:
+      Glass, G. V. (1976). <em>Primary, secondary, and meta-analysis of research.</em>
+      Educational Researcher, 5(10), 3–8 <a href="#kaynak-24">[24]</a>.
+      Tıpta kanıt sentezi kültürünü başlatan manifesto: Cochrane, A. L. (1972).
+      <em>Effectiveness and Efficiency: Random Reflections on Health Services.</em>
+      Nuffield Provincial Hospitals Trust <a href="#kaynak-25">[25]</a>.</p>
+  </article>
+
+  <!-- ============ TANI & RİSK ============ -->
+  <h2 style="border-left:5px solid var(--mercan);padding-left:12px;margin-top:34px" data-baslik="tani">Tanı &amp; risk — halk sağlığının aritmetiği</h2>
+
+  <article class="kavram" data-e="tani" id="k-duyarlilik">
+    <h3>Duyarlılık, Özgüllük ve Kestirim Değerleri <span class="rozet">Tanı</span></h3>
+    <p class="ingilizce">sensitivity, specificity, predictive values</p>
+    <p>
+      Tıptaki en pahalı yanlış anlamalardan biri burada saklıdır.
+      <strong>Duyarlılık</strong>: hastaların yüzde kaçına test "pozitif" der (hastayı kaçırmama yeteneği).
+      <strong>Özgüllük</strong>: sağlıklıların yüzde kaçına test "negatif" der (yanlış alarm vermeme yeteneği).
+      Bu ikisi <strong>testin sabit özellikleridir</strong>.
+    </p>
+    <p>
+      Ama hastanın sorduğu soru bu değildir! Hasta şunu sorar: <em>"Testim pozitif çıktı, gerçekten hasta mıyım?"</em>
+      Bunun cevabı <strong>pozitif kestirim değeri (PPV)</strong>'dir ve PPV, testin özelliği değildir —
+      <strong>hastalığın ne kadar yaygın olduğuna (prevalans) bağlıdır.</strong>
+      Kaydırıcıyı oynat ve mükemmel bir testin bile nadir hastalıkta nasıl işe yaramaz hâle geldiğini gör:
+    </p>
+    <div class="deney-masasi gorsel">
+      <div class="kaydirici-grubu">
+        <label for="prev">Hastalığın toplumdaki sıklığı (prevalans) <output id="prevDeger">1,0</output>%</label>
+        <input type="range" id="prev" min="1" max="500" step="1" value="10">
+      </div>
+      <div class="kaydirici-grubu">
+        <label for="sens">Duyarlılık <output id="sensDeger">95</output>%</label>
+        <input type="range" id="sens" min="50" max="100" step="1" value="95">
+      </div>
+      <div class="kaydirici-grubu">
+        <label for="spec">Özgüllük <output id="specDeger">95</output>%</label>
+        <input type="range" id="spec" min="50" max="100" step="1" value="95">
+      </div>
+      <div class="grafik-kutu"><canvas id="gPPV"></canvas></div>
+      <div class="veri-seti" id="veriSetiPPV"></div>
+      <div class="sonuc-panosu">
+        <div class="sonuc-kutusu"><div class="deger" id="cPPV">–</div><div class="ad">Pozitif kestirim (PPV)</div></div>
+        <div class="sonuc-kutusu"><div class="deger" id="cNPV">–</div><div class="ad">Negatif kestirim (NPV)</div></div>
+        <div class="sonuc-kutusu karar"><div class="deger" id="cPPVkarar">–</div><div class="ad">Pozitif çıkanların durumu</div></div>
+      </div>
+    </div>
+    <p style="margin-top:12px">
+      <strong>Bunu mutlaka dene:</strong> Prevalansı %0,1'e indir, duyarlılık ve özgüllüğü %99'da bırak.
+      PPV yaklaşık <strong>%9</strong>'a düşer — yani pozitif çıkanların 10'da 9'u aslında sağlıklıdır!
+      Tarama programlarının neden "herkese uygulanmaz", neden <strong>riskli gruba</strong> yapıldığının
+      matematiksel cevabı tam olarak budur.
+    </p>
+    <p class="kaynak-not">📚 <strong>İlk kaynak:</strong> Yerushalmy, J. (1947). <em>Statistical problems in assessing
+      methods of medical diagnosis, with special reference to X-ray techniques.</em>
+      Public Health Reports, 62(40), 1432–1449. — "Sensitivity" ve "specificity" terimleri
+      tanı testleri için ilk kez burada tanımlanmıştır <a href="#kaynak-26">[26]</a>.</p>
+  </article>
+
+  <article class="kavram" data-e="tani" id="k-or">
+    <h3>Göreli Risk &amp; Odds Oranı <span class="rozet">Tanı</span></h3>
+    <p class="ingilizce">relative risk (RR) &amp; odds ratio (OR)</p>
+    <p>
+      İkisi de "maruz kalanlar ne kadar daha riskli?" sorusuna cevap verir ama <strong>aynı şey değildirler</strong>
+      ve karıştırılmaları, sağlık haberlerindeki abartının başlıca sebebidir.
+    </p>
+    <p>
+      <strong>Risk</strong> = hasta / toplam (sezgisel). <strong>Odds</strong> = hasta / hasta olmayan (bahis dili).
+      <strong>RR</strong> kohort ve RCT'lerde doğrudan hesaplanır. <strong>OR</strong> ise olgu-kontrol
+      çalışmalarında <em>zorunludur</em> (çünkü orada gerçek riski hesaplayamazsın) ve lojistik regresyonun
+      doğal çıktısıdır. Aşağıda 2×2 tabloyu oynat:
+    </p>
+    <div class="deney-masasi gorsel">
+      <div class="kaydirici-grubu">
+        <label for="riskMaruz">Maruz kalanlarda hastalık sıklığı <output id="riskMaruzDeger">40</output>%</label>
+        <input type="range" id="riskMaruz" min="1" max="95" step="1" value="40">
+      </div>
+      <div class="kaydirici-grubu">
+        <label for="riskKontrol">Maruz kalmayanlarda hastalık sıklığı <output id="riskKontrolDeger">20</output>%</label>
+        <input type="range" id="riskKontrol" min="1" max="95" step="1" value="20">
+      </div>
+      <div class="veri-seti" id="veriSetiOR"></div>
+      <div class="sonuc-panosu">
+        <div class="sonuc-kutusu"><div class="deger" id="cRR">–</div><div class="ad">Göreli risk (RR)</div></div>
+        <div class="sonuc-kutusu"><div class="deger" id="cOR">–</div><div class="ad">Odds oranı (OR)</div></div>
+        <div class="sonuc-kutusu karar"><div class="deger" id="cORkarar">–</div><div class="ad">OR, RR'yi ne kadar abartıyor?</div></div>
+      </div>
+    </div>
+    <p style="margin-top:12px">
+      <strong>Kritik ders:</strong> Hastalık <em>nadir</em> olduğunda OR ≈ RR'dir ("nadir hastalık varsayımı").
+      Ama hastalık yaygınlaştıkça <strong>OR, RR'yi abartır.</strong> Yukarıda sıklıkları yükselt ve makası gör.
+      Bir haberde "riski 3 kat artırıyor" deniyorsa ve altında bir OR varsa, gerçek risk artışı
+      çok daha küçük olabilir. Ayrıca <strong>göreli risk</strong> ile <strong>mutlak risk</strong> farkını
+      unutma: "riski iki katına çıkarıyor" cümlesi, risk %0,001'den %0,002'ye çıktıysa pratikte hiçbir şey demez.
+    </p>
+    <p class="kaynak-not">📚 <strong>İlk kaynak:</strong> Cornfield, J. (1951). <em>A method of estimating
+      comparative rates from clinical data; applications to cancer of the lung, breast, and cervix.</em>
+      Journal of the National Cancer Institute, 11(6), 1269–1275. — Olgu-kontrol çalışmalarındaki odds oranının,
+      nadir hastalıklarda göreli riski tahmin ettiğini gösteren ve bu tasarımı meşrulaştıran çalışma <a href="#kaynak-27">[27]</a>.</p>
+  </article>
+
+  <article class="kavram" data-e="tani tasarim" id="k-sagkalim">
+    <h3>Sağkalım Analizi <span class="rozet">Tanı</span></h3>
+    <p class="ingilizce">survival analysis</p>
+    <p>
+      Bazı sorularda önemli olan <em>olayın olup olmadığı</em> değil, <strong>ne zaman olduğudur</strong>.
+      Üstelik herkes aynı süre izlenemez: kimi çalışmaya geç girer, kimi takipten çıkar, kimi çalışma bittiğinde
+      hâlâ yaşıyordur. Bu eksik ama değerli bilgiye <strong>sansürleme (censoring)</strong> denir —
+      "en az bu kadar yaşadı" demektir ve çöpe atılamaz.
+    </p>
+    <p>
+      <strong>Kaplan-Meier</strong> eğrisi, sansürlemeyi doğru hesaba katarak zamana göre sağkalım olasılığını çizer.
+      İki eğriyi karşılaştırmak için <strong>log-rank testi</strong>, birden çok risk faktörünü aynı anda
+      modellemek için <strong>Cox orantılı tehlikeler regresyonu</strong> kullanılır (çıktısı: <em>hazard ratio</em>).
+    </p>
+    <p class="kaynak-not">📚 <strong>İlk kaynaklar:</strong> Kaplan, E. L. &amp; Meier, P. (1958).
+      <em>Nonparametric estimation from incomplete observations.</em> Journal of the American Statistical
+      Association, 53(282), 457–481 <a href="#kaynak-28">[28]</a>.
+      Cox, D. R. (1972). <em>Regression models and life-tables.</em> Journal of the Royal Statistical Society,
+      Series B, 34(2), 187–220 — tıp literatürünün en çok atıf alan çalışmalarından biridir <a href="#kaynak-29">[29]</a>.</p>
+  </article>
+
+  <article class="kavram" data-e="cikarim" id="k-bayes">
+    <h3>Bayes Teoremi <span class="rozet">Çıkarım</span></h3>
+    <p class="ingilizce">Bayes' theorem</p>
+    <p>
+      İnancını kanıtla güncelleme kuralı. Hekimlikte her gün, farkında olmadan uygularsın:
+      <strong>ön olasılık</strong> (klinik şüphen) + <strong>test sonucu</strong> = <strong>son olasılık</strong>.
+    </p>
+    <p>
+      Yukarıdaki PPV demosu aslında Bayes teoreminin ta kendisidir: prevalans = ön olasılık, PPV = son olasılık.
+      Bu yüzden "test pozitif, o hâlde hasta" demek Bayesçi olarak yanlıştır; testi hangi ön şüpheyle
+      istediğin, sonucu okumandan daha önemlidir. Frekansçı istatistik "veriyi H₀ altında" değerlendirirken,
+      Bayesçi yaklaşım doğrudan <strong>"hipotezin olasılığını"</strong> hesaplar — p-değerinden beklediğimiz
+      ama alamadığımız şey tam da budur.
+    </p>
+    <p class="kaynak-not">📚 <strong>İlk kaynak:</strong> Bayes, T. (1763). <em>An essay towards solving a problem
+      in the doctrine of chances.</em> Philosophical Transactions of the Royal Society of London, 53, 370–418. —
+      Ölümünden sonra Richard Price tarafından yayımlanmıştır <a href="#kaynak-30">[30]</a>.
+      Bağımsız ve daha genel biçimi: Laplace, P. S. (1812). <em>Théorie Analytique des Probabilités</em> <a href="#kaynak-31">[31]</a>.</p>
+  </article>
+
+  <article class="kavram" data-e="betimleme cikarim" id="k-korelasyon">
+    <h3>Korelasyon &amp; Regresyon <span class="rozet">Betimleme</span></h3>
+    <p class="ingilizce">correlation &amp; regression</p>
+    <p>
+      <strong>Korelasyon (r)</strong>, iki ölçümün birlikte değişme gücünü −1 ile +1 arasında özetler; simetriktir
+      (x ile y'nin korelasyonu = y ile x'inki) ve <strong>birimsizdir</strong>.
+      <strong>Regresyon</strong> ise asimetriktir: bir yön seçer ve <em>tahmin</em> yapar
+      (y'yi x'ten kestir), katsayısı <strong>birimlidir</strong> ("her yıl yaş için +0,8 mmHg").
+    </p>
+    <p>
+      İkisinin ortak tuzağı meşhurdur: <strong>korelasyon nedensellik değildir.</strong> Ama daha az bilinen
+      tuzaklar da var: r yalnızca <em>doğrusal</em> ilişkiyi ölçer (mükemmel bir U ilişkisinde r=0 çıkabilir),
+      aykırı değerlerden çok etkilenir ve <strong>aynı r değerine sahip bambaşka görünen veri setleri</strong>
+      olabilir (Anscombe dörtlüsü). Bu yüzden altın kural: <strong>önce serpme grafiğini çiz, sonra r'ye bak.</strong>
+    </p>
+    <p style="margin-top:12px">
+      🔗 Ayrıntılı interaktif sayfalar: <a href="korelasyon.html"><strong>Korelasyon</strong></a> ·
+      <a href="regresyon.html"><strong>Regresyon</strong></a>
+    </p>
+    <p class="kaynak-not">📚 <strong>İlk kaynaklar:</strong> Regresyon: Galton, F. (1886). <em>Regression towards
+      mediocrity in hereditary stature.</em> Journal of the Anthropological Institute, 15, 246–263 <a href="#kaynak-32">[32]</a>.
+      Korelasyon kavramı: Galton, F. (1888). <em>Co-relations and their measurement, chiefly from anthropometric
+      data.</em> Proceedings of the Royal Society of London, 45, 135–145 <a href="#kaynak-33">[33]</a>.
+      Bugünkü formülü: Pearson, K. (1896). <em>Mathematical contributions to the theory of evolution. III.
+      Regression, heredity and panmixia.</em> Phil. Trans. R. Soc. A, 187, 253–318 <a href="#kaynak-34">[34]</a>.</p>
+  </article>
+
+  <article class="kavram" data-e="cikarim tasarim" id="k-coklu">
+    <h3>Çoklu Karşılaştırma Sorunu <span class="rozet">Çıkarım</span></h3>
+    <p class="ingilizce">multiple comparisons problem</p>
+    <p>
+      α=0,05 demek, <em>her testte</em> %5 yanlış alarm riskini kabul etmek demektir. Peki 20 test yaparsan?
+      Hiçbir gerçek etki olmasa bile, en az bir "anlamlı" sonuç bulma olasılığın
+      <strong>1 − 0,95²⁰ ≈ %64</strong>'tür. 100 test yaparsan bu olasılık <strong>%99'un üstüne</strong> çıkar.
+    </p>
+    <div class="tablo-kaydirici" style="grid-template-columns:1fr">
+      <table class="veri">
+        <thead><tr><th>Kaç test?</th><th>En az bir yanlış alarm olasılığı</th></tr></thead>
+        <tbody>
+          <tr><td>1</td><td>%5</td></tr>
+          <tr><td>5</td><td>%23</td></tr>
+          <tr><td>10</td><td>%40</td></tr>
+          <tr><td>20</td><td>%64</td></tr>
+          <tr><td>50</td><td>%92</td></tr>
+          <tr><td>100</td><td>%99,4</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p style="margin-top:12px">
+      Bu yüzden ANOVA vardır (önce tek testle bak, sonra post-hoc); bu yüzden <strong>Bonferroni</strong>
+      (α'yı test sayısına böl) ve <strong>FDR/Benjamini-Hochberg</strong> düzeltmeleri vardır.
+      Ve bu yüzden <strong>çalışmayı önceden kaydettirmek (preregistration)</strong> önemlidir:
+      hangi analizi yapacağını veriyi görmeden söylersen, "anlamlı çıkana kadar deneme" (p-hacking) yapamazsın.
+    </p>
+    <p class="kaynak-not">📚 <strong>İlk kaynaklar:</strong> Modern çoklu karşılaştırma kuramının kurucu metni:
+      Tukey, J. W. (1953). <em>The Problem of Multiple Comparisons</em> (yayımlanmamış el yazması; sonradan
+      toplu eserlerinde basılmıştır) <a href="#kaynak-35">[35]</a>.
+      Yanlış keşif oranı (FDR) yaklaşımı: Benjamini, Y. &amp; Hochberg, Y. (1995). <em>Controlling the false
+      discovery rate: a practical and powerful approach to multiple testing.</em>
+      Journal of the Royal Statistical Society, Series B, 57(1), 289–300 <a href="#kaynak-36">[36]</a>.</p>
+  </article>
+
+  <article class="kavram" data-e="betimleme tasarim" id="k-guvenilirlik">
+    <h3>Güvenilirlik &amp; Geçerlilik <span class="rozet">Tasarım</span></h3>
+    <p class="ingilizce">reliability &amp; validity</p>
+    <p>
+      Bir ölçme aracının iki ayrı sınavı vardır. <strong>Güvenilirlik</strong>: tekrar ölçtüğünde aynı sonucu
+      veriyor mu? (tutarlılık) <strong>Geçerlilik</strong>: ölçmek istediğin şeyi mi ölçüyor? (doğruluk)
+    </p>
+    <div class="konusma">
+      <p style="margin:0">Hedef tahtası benzetmesi: <strong>Güvenilir ama geçersiz</strong> = atışların hep aynı yere
+      gidiyor, ama merkeze değil (sistematik hata). <strong>Geçerli ama güvenilmez</strong> = ortalaman merkez,
+      ama atışlar her yere saçılmış (rastgele hata). <strong>İdeal</strong> = hem toplu hem merkezde.
+      Ve kritik nokta: <strong>güvenilir olmayan bir araç, geçerli olamaz.</strong></p>
+    </div>
+    <div class="tablo-kaydirici" style="grid-template-columns:1fr">
+      <table class="veri">
+        <thead><tr><th>Ölçüt</th><th>Neyi ölçer?</th><th>Kabul edilen değer</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Cronbach α</strong></td><td>Ölçeğin iç tutarlılığı (maddeler aynı şeyi mi ölçüyor?)</td><td>&gt;0,70 kabul edilebilir</td></tr>
+          <tr><td><strong>ICC</strong></td><td>Tekrarlayan ölçümlerin / gözlemcilerin uyumu (sürekli veri)</td><td>&gt;0,75 iyi</td></tr>
+          <tr><td><strong>Cohen κ (kappa)</strong></td><td>İki gözlemcinin kategorik uyumu (şanstan arındırılmış)</td><td>&gt;0,60 önemli uyum</td></tr>
+          <tr><td><strong>Bland-Altman</strong></td><td>İki ölçüm yöntemi birbirinin yerine geçebilir mi?</td><td>Uyum sınırları klinik olarak değerlendirilir</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="kaynak-not">📚 <strong>İlk kaynaklar:</strong> Cronbach, L. J. (1951). <em>Coefficient alpha and the
+      internal structure of tests.</em> Psychometrika, 16(3), 297–334 <a href="#kaynak-37">[37]</a>.
+      Cohen, J. (1960). <em>A coefficient of agreement for nominal scales.</em> Educational and Psychological
+      Measurement, 20(1), 37–46 <a href="#kaynak-38">[38]</a>.
+      Bland, J. M. &amp; Altman, D. G. (1986). <em>Statistical methods for assessing agreement between two methods
+      of clinical measurement.</em> The Lancet, 327(8476), 307–310 <a href="#kaynak-39">[39]</a>.</p>
+  </article>
+
+  <p class="kavram-yok" id="bulunamadi" style="display:none">🔍 Bu aramaya uyan kavram bulunamadı.</p>
+  </div>
+
+  <!-- ============ KAYNAKÇA ============ -->
+  <section class="kart vurgu-yesil" style="margin-top:34px">
+    <h2 style="margin-top:0" id="kaynakca">📚 Kaynakça — kavramların doğduğu özgün çalışmalar</h2>
+    <p class="ozet">
+      Aşağıdaki liste, yukarıdaki kavramları bilime ilk kez kazandıran (ya da bugünkü hâline getiren)
+      birincil kaynaklardır. Vancouver/APA karışık, okunabilirlik önceliğiyle düzenlenmiştir.
+    </p>
+    <ol class="kaynakca">
+      <li id="kaynak-1">Neyman J. On the two different aspects of the representative method: the method of stratified sampling and the method of purposive selection. <em>Journal of the Royal Statistical Society.</em> 1934;97(4):558–625.</li>
+      <li id="kaynak-2">Quetelet A. <em>Sur l'homme et le développement de ses facultés, ou Essai de physique sociale.</em> Paris: Bachelier; 1835.</li>
+      <li id="kaynak-3">Galton F. Statistics by intercomparison, with remarks on the law of frequency of error. <em>Philosophical Magazine.</em> 1875;49(322):33–46.</li>
+      <li id="kaynak-4">Pearson K. Contributions to the mathematical theory of evolution. II. Skew variation in homogeneous material. <em>Philosophical Transactions of the Royal Society A.</em> 1895;186:343–414.</li>
+      <li id="kaynak-5">Pearson K. Contributions to the mathematical theory of evolution. <em>Philosophical Transactions of the Royal Society A.</em> 1894;185:71–110.</li>
+      <li id="kaynak-6">Fisher RA. The correlation between relatives on the supposition of Mendelian inheritance. <em>Transactions of the Royal Society of Edinburgh.</em> 1918;52(2):399–433.</li>
+      <li id="kaynak-7">de Moivre A. <em>The Doctrine of Chances: or, A Method of Calculating the Probabilities of Events in Play.</em> 2. baskı. London: Woodfall; 1738. (Normal yaklaşım ilk kez 1733 tarihli broşürde.)</li>
+      <li id="kaynak-8">Gauss CF. <em>Theoria Motus Corporum Coelestium in Sectionibus Conicis Solem Ambientium.</em> Hamburg: Perthes &amp; Besser; 1809.</li>
+      <li id="kaynak-9">Laplace PS. Mémoire sur les approximations des formules qui sont fonctions de très grands nombres et sur leur application aux probabilités. <em>Mémoires de l'Académie des Sciences de Paris.</em> 1810.</li>
+      <li id="kaynak-10">Lyapunov AM. Nouvelle forme du théorème sur la limite de probabilité. <em>Mémoires de l'Académie Impériale des Sciences de St. Pétersbourg.</em> 1901;12(5):1–24.</li>
+      <li id="kaynak-11">Bernoulli J. <em>Ars Conjectandi.</em> Basel: Thurneysen Brothers; 1713.</li>
+      <li id="kaynak-12">Fisher RA. <em>The Design of Experiments.</em> Edinburgh: Oliver &amp; Boyd; 1935.</li>
+      <li id="kaynak-13">Pearson K. On the criterion that a given system of deviations from the probable in the case of a correlated system of variables is such that it can be reasonably supposed to have arisen from random sampling. <em>Philosophical Magazine.</em> 1900;50(302):157–175.</li>
+      <li id="kaynak-14">Fisher RA. <em>Statistical Methods for Research Workers.</em> Edinburgh: Oliver &amp; Boyd; 1925.</li>
+      <li id="kaynak-15">Wasserstein RL, Lazar NA. The ASA statement on p-values: context, process, and purpose. <em>The American Statistician.</em> 2016;70(2):129–133.</li>
+      <li id="kaynak-16">Neyman J. Outline of a theory of statistical estimation based on the classical theory of probability. <em>Philosophical Transactions of the Royal Society A.</em> 1937;236(767):333–380.</li>
+      <li id="kaynak-17">Neyman J, Pearson ES. On the problem of the most efficient tests of statistical hypotheses. <em>Philosophical Transactions of the Royal Society A.</em> 1933;231(694–706):289–337.</li>
+      <li id="kaynak-18">Cohen J. <em>Statistical Power Analysis for the Behavioral Sciences.</em> 2. baskı. Hillsdale, NJ: Lawrence Erlbaum; 1988.</li>
+      <li id="kaynak-19">Fisher RA. On the interpretation of χ² from contingency tables, and the calculation of P. <em>Journal of the Royal Statistical Society.</em> 1922;85(1):87–94.</li>
+      <li id="kaynak-20">Cohen J. The statistical power of abnormal-social psychological research: a review. <em>Journal of Abnormal and Social Psychology.</em> 1962;65(3):145–153.</li>
+      <li id="kaynak-21">Medical Research Council. Streptomycin treatment of pulmonary tuberculosis: a Medical Research Council investigation. <em>British Medical Journal.</em> 1948;2(4582):769–782.</li>
+      <li id="kaynak-22">Hill AB. The environment and disease: association or causation? <em>Proceedings of the Royal Society of Medicine.</em> 1965;58(5):295–300.</li>
+      <li id="kaynak-23">Doll R, Hill AB. The mortality of doctors in relation to their smoking habits: a preliminary report. <em>British Medical Journal.</em> 1954;1(4877):1451–1455.</li>
+      <li id="kaynak-24">Glass GV. Primary, secondary, and meta-analysis of research. <em>Educational Researcher.</em> 1976;5(10):3–8.</li>
+      <li id="kaynak-25">Cochrane AL. <em>Effectiveness and Efficiency: Random Reflections on Health Services.</em> London: Nuffield Provincial Hospitals Trust; 1972.</li>
+      <li id="kaynak-26">Yerushalmy J. Statistical problems in assessing methods of medical diagnosis, with special reference to X-ray techniques. <em>Public Health Reports.</em> 1947;62(40):1432–1449.</li>
+      <li id="kaynak-27">Cornfield J. A method of estimating comparative rates from clinical data; applications to cancer of the lung, breast, and cervix. <em>Journal of the National Cancer Institute.</em> 1951;11(6):1269–1275.</li>
+      <li id="kaynak-28">Kaplan EL, Meier P. Nonparametric estimation from incomplete observations. <em>Journal of the American Statistical Association.</em> 1958;53(282):457–481.</li>
+      <li id="kaynak-29">Cox DR. Regression models and life-tables. <em>Journal of the Royal Statistical Society, Series B.</em> 1972;34(2):187–220.</li>
+      <li id="kaynak-30">Bayes T. An essay towards solving a problem in the doctrine of chances. <em>Philosophical Transactions of the Royal Society of London.</em> 1763;53:370–418. (Richard Price tarafından ölümünden sonra sunulmuştur.)</li>
+      <li id="kaynak-31">Laplace PS. <em>Théorie Analytique des Probabilités.</em> Paris: Courcier; 1812.</li>
+      <li id="kaynak-32">Galton F. Regression towards mediocrity in hereditary stature. <em>Journal of the Anthropological Institute of Great Britain and Ireland.</em> 1886;15:246–263.</li>
+      <li id="kaynak-33">Galton F. Co-relations and their measurement, chiefly from anthropometric data. <em>Proceedings of the Royal Society of London.</em> 1888;45:135–145.</li>
+      <li id="kaynak-34">Pearson K. Mathematical contributions to the theory of evolution. III. Regression, heredity, and panmixia. <em>Philosophical Transactions of the Royal Society A.</em> 1896;187:253–318.</li>
+      <li id="kaynak-35">Tukey JW. The problem of multiple comparisons. Yayımlanmamış el yazması, Princeton University; 1953. (Braun HI, ed. <em>The Collected Works of John W. Tukey, Vol. VIII.</em> New York: Chapman &amp; Hall; 1994 içinde basılmıştır.)</li>
+      <li id="kaynak-36">Benjamini Y, Hochberg Y. Controlling the false discovery rate: a practical and powerful approach to multiple testing. <em>Journal of the Royal Statistical Society, Series B.</em> 1995;57(1):289–300.</li>
+      <li id="kaynak-37">Cronbach LJ. Coefficient alpha and the internal structure of tests. <em>Psychometrika.</em> 1951;16(3):297–334.</li>
+      <li id="kaynak-38">Cohen J. A coefficient of agreement for nominal scales. <em>Educational and Psychological Measurement.</em> 1960;20(1):37–46.</li>
+      <li id="kaynak-39">Bland JM, Altman DG. Statistical methods for assessing agreement between two methods of clinical measurement. <em>The Lancet.</em> 1986;327(8476):307–310.</li>
+      <li id="kaynak-40">Stevens SS. On the theory of scales of measurement. <em>Science.</em> 1946;103(2684):677–680. (Nominal-ordinal-aralık-oran sınıflaması; bkz. <a href="veri-yapilari.html">Veri Yapıları</a>.)</li>
+      <li id="kaynak-41">Student (Gosset WS). The probable error of a mean. <em>Biometrika.</em> 1908;6(1):1–25. (bkz. <a href="t-testi.html">t-Testi</a>.)</li>
+      <li id="kaynak-42">Graunt J. <em>Natural and Political Observations Made upon the Bills of Mortality.</em> London: Martyn; 1662. (Demografi ve epidemiyolojinin kurucu metni; bkz. <a href="istatistik-tarihi.html">İstatistiğin Tarihi</a>.)</li>
+    </ol>
+  </section>
+
+  <nav class="sayfa-gezinme">
+    <a href="istatistik-tarihi.html">← İstatistiğin Tarihi</a>
+    <a href="karar-agaci.html">Karar Ağacı →</a>
+  </nav>
+
+</main>
+
+<footer class="dipnot">
+  <a class="ileri" href="#" title="Yakında">🚧 İleri Biyoistatistik Rehberi — yakında</a><br>
+  Biyoistatistik Rehberi · Grafiklerdeki veriler öğretim için üretilmiş örnek verilerdir.
+</footer>
+
+<script src="js/ortak.js"></script>
+<script>
+/* Normal kümülatif dağılım */
+const normalCdf = z => 0.5 * (1 + Ist.erf(z / Math.SQRT2));
+
+/* ============ 1) Ortalama / Medyan / Mod ============ */
+const tabanGelir = [];
+(() => { const u = Ist.rastgele(7); for (let i = 0; i < 60; i++) tabanGelir.push(Math.round(2200 + 380 * Ist.normalSayi(u))); })();
+let gMerkez;
+function merkezKur() {
+  gMerkez = new Chart(document.getElementById("gMerkez"), {
+    type: "bar",
+    data: { labels: [], datasets: [{ label: "Hasta sayısı", data: [], backgroundColor: Renk.cam, borderRadius: 3 }] },
+    options: { plugins: { legend: { display: false } },
+      scales: { y: { beginAtZero: true, title: { display: true, text: "Kişi sayısı" } },
+                x: { title: { display: true, text: "Aylık ilaç harcaması (₺)" } } } }
+  });
+  document.getElementById("carpiklik").addEventListener("input", merkezGuncelle);
+  merkezGuncelle();
+}
+function merkezGuncelle() {
+  const c = +document.getElementById("carpiklik").value;
+  document.getElementById("carpiklikDeger").textContent = c;
+  const veri = [...tabanGelir];
+  const kacKisi = Math.round(c / 100 * 6);
+  for (let i = 0; i < kacKisi; i++) veri.push(2200 + 900 + c * 190 + i * 400);
+
+  const min = 1000, max = 24000, gen = 900, n = Math.ceil((max - min) / gen);
+  const kutu = new Array(n).fill(0), etiket = [];
+  for (let i = 0; i < n; i++) etiket.push(Math.round((min + i * gen) / 1000) + "b");
+  veri.forEach(v => { let k = Math.floor((v - min) / gen); if (k >= n) k = n - 1; if (k < 0) k = 0; kutu[k]++; });
+  gMerkez.data.labels = etiket; gMerkez.data.datasets[0].data = kutu; gMerkez.update();
+
+  const ort = Ist.ortalama(veri), med = Ist.medyan(veri);
+  document.getElementById("cOrt").textContent = "₺" + Ist.bicim(ort, 0);
+  document.getElementById("cMed").textContent = "₺" + Ist.bicim(med, 0);
+  const fark = (ort - med) / med * 100;
+  document.getElementById("cMerkezKarar").textContent =
+    fark < 5 ? "İkisi de olur" : fark < 20 ? "Medyan daha güvenli" : "Kesinlikle medyan!";
+}
+
+/* ============ 2) Standart sapma / normal ============ */
+let gNormal;
+function normalKur() {
+  gNormal = new Chart(document.getElementById("gNormal"), {
+    type: "line",
+    data: { labels: [], datasets: [
+      { label: "μ ± 1σ (%68)", data: [], borderColor: "transparent", backgroundColor: Renk.camAcik, fill: true, pointRadius: 0 },
+      { label: "Dağılım", data: [], borderColor: Renk.cam, borderWidth: 3, fill: false, pointRadius: 0, tension: 0.3 }
+    ] },
+    options: { plugins: { legend: { display: false } },
+      scales: { y: { display: false }, x: { title: { display: true, text: "Sistolik tansiyon (mmHg)" } } } }
+  });
+  document.getElementById("sigma").addEventListener("input", normalGuncelle);
+  normalGuncelle();
+}
+function normalGuncelle() {
+  const s = +document.getElementById("sigma").value, mu = 120;
+  document.getElementById("sigmaDeger").textContent = s;
+  const etiket = [], egri = [], bant = [];
+  for (let x = 60; x <= 180; x += 2) {
+    etiket.push(x);
+    const y = Ist.normalPdf(x, mu, s);
+    egri.push(y);
+    bant.push(Math.abs(x - mu) <= s ? y : 0);
+  }
+  gNormal.data.labels = etiket;
+  gNormal.data.datasets[0].data = bant;
+  gNormal.data.datasets[1].data = egri;
+  gNormal.update();
+  document.getElementById("cAralik68").textContent = (mu - s) + "–" + (mu + s);
+  document.getElementById("cAralik95").textContent = (mu - 2 * s) + "–" + (mu + 2 * s);
+  document.getElementById("cCV").textContent = "%" + Ist.bicim(s / mu * 100, 1);
+}
+
+/* ============ 3) Merkezi limit teoremi ============ */
+let gClt;
+// Çirkin (çift tepeli + çarpık) popülasyon
+function anaKitleCek(u) {
+  const r = u();
+  if (r < 0.55) return 2 + 1.4 * Math.abs(Ist.normalSayi(u));      // sağa çarpık yığın
+  if (r < 0.9) return 12 + 1.6 * Ist.normalSayi(u);                 // ikinci tepe
+  return 20 + 6 * u();                                              // uzun kuyruk
+}
+const anaKitleSigma = (() => {
+  const u = Ist.rastgele(5); const v = [];
+  for (let i = 0; i < 20000; i++) v.push(anaKitleCek(u));
+  return Ist.ss(v);
+})();
+function cltKur() {
+  gClt = new Chart(document.getElementById("gClt"), {
+    type: "bar",
+    data: { labels: [], datasets: [{ label: "Sıklık", data: [], backgroundColor: Renk.leylak, borderRadius: 2 }] },
+    options: { plugins: { legend: { display: false } },
+      scales: { y: { beginAtZero: true, display: false },
+                x: { title: { display: true, text: "2000 örneklemin ortalaması" } } } }
+  });
+  document.getElementById("cltN").addEventListener("input", cltGuncelle);
+  cltGuncelle();
+}
+function cltGuncelle() {
+  const n = +document.getElementById("cltN").value;
+  document.getElementById("cltNDeger").textContent = n;
+  const u = Ist.rastgele(99);
+  const ortalamalar = [];
+  for (let k = 0; k < 2000; k++) {
+    let t = 0; for (let i = 0; i < n; i++) t += anaKitleCek(u);
+    ortalamalar.push(t / n);
+  }
+  const min = 0, max = 26, gen = 0.5, m = Math.round((max - min) / gen);
+  const kutu = new Array(m).fill(0), etiket = [];
+  for (let i = 0; i < m; i++) etiket.push((min + i * gen).toFixed(1));
+  ortalamalar.forEach(v => { let k = Math.floor((v - min) / gen); if (k >= m) k = m - 1; if (k < 0) k = 0; kutu[k]++; });
+  gClt.data.labels = etiket; gClt.data.datasets[0].data = kutu;
+  gClt.data.datasets[0].backgroundColor = n === 1 ? Renk.mercan : n < 10 ? Renk.gunes : Renk.leylak;
+  gClt.update();
+
+  document.getElementById("cCltSS").textContent = Ist.bicim(Ist.ss(ortalamalar), 2);
+  document.getElementById("cCltBeklenen").textContent = Ist.bicim(anaKitleSigma / Math.sqrt(n), 2);
+  document.getElementById("cCltKarar").textContent =
+    n === 1 ? "Ham veri — çirkin!" : n < 5 ? "Düzelmeye başladı" : n < 15 ? "Çana benziyor" : "Neredeyse mükemmel normal";
+}
+
+/* ============ 4) Güven aralığı ============ */
+let gCI, ciTohum = 11;
+function ciKur() {
+  gCI = new Chart(document.getElementById("gCI"), {
+    type: "bar",
+    data: { labels: [], datasets: [{ label: "%95 GA", data: [], backgroundColor: [], borderSkipped: false, borderRadius: 3, barPercentage: 0.55 }] },
+    options: {
+      indexAxis: "y",
+      plugins: { legend: { display: false },
+        tooltip: { callbacks: { label: c => "GA: " + Ist.bicim(c.raw[0], 1) + " – " + Ist.bicim(c.raw[1], 1) } } },
+      scales: {
+        x: { min: 105, max: 135, title: { display: true, text: "Ortalama tansiyon (gerçek değer = 120, kesikli çizgi)" } },
+        y: { title: { display: true, text: "20 ayrı çalışma" }, ticks: { display: false } }
+      }
+    },
+    plugins: [{
+      id: "gercekCizgi",
+      afterDraw(c) {
+        const x = c.scales.x.getPixelForValue(120), a = c.chartArea, ctx = c.ctx;
+        ctx.save(); ctx.strokeStyle = Renk.murekkep || "#1D3C45"; ctx.lineWidth = 2; ctx.setLineDash([6, 4]);
+        ctx.beginPath(); ctx.moveTo(x, a.top); ctx.lineTo(x, a.bottom); ctx.stroke(); ctx.restore();
+      }
+    }]
+  });
+  document.getElementById("ciN").addEventListener("input", ciGuncelle);
+  document.getElementById("ciYeni").addEventListener("click", () => { ciTohum = (ciTohum * 16807 + 13) % 2147483647; ciGuncelle(); });
+  ciGuncelle();
+}
+function ciGuncelle() {
+  const n = +document.getElementById("ciN").value, mu = 120, sigma = 15;
+  document.getElementById("ciNDeger").textContent = n;
+  const u = Ist.rastgele(ciTohum);
+  const veriler = [], renkler = [], etiket = [];
+  let kapsayan = 0, toplamGen = 0;
+  for (let c = 0; c < 20; c++) {
+    const ornek = [];
+    for (let i = 0; i < n; i++) ornek.push(mu + sigma * Ist.normalSayi(u));
+    const m = Ist.ortalama(ornek), se = Ist.ss(ornek) / Math.sqrt(n);
+    const alt = m - 1.96 * se, ust = m + 1.96 * se;
+    const icerir = alt <= mu && mu <= ust;
+    if (icerir) kapsayan++;
+    toplamGen += (ust - alt);
+    veriler.push([alt, ust]);
+    renkler.push(icerir ? Renk.cam : Renk.mercan);
+    etiket.push("Çalışma " + (c + 1));
+  }
+  gCI.data.labels = etiket;
+  gCI.data.datasets[0].data = veriler;
+  gCI.data.datasets[0].backgroundColor = renkler;
+  gCI.update();
+  document.getElementById("cCIgen").textContent = Ist.bicim(toplamGen / 20, 1) + " mmHg";
+  document.getElementById("cCIkapsam").textContent = kapsayan + " / 20";
+  document.getElementById("cCIkarar").textContent = "19 / 20 (%95)";
+}
+
+/* ============ 5) Güç ============ */
+let gGuc;
+function gucKur() {
+  gGuc = new Chart(document.getElementById("gGuc"), {
+    type: "line",
+    data: { labels: [], datasets: [
+      { label: "α — yanlış alarm", data: [], borderColor: "transparent", backgroundColor: Renk.mercanAcik, fill: true, pointRadius: 0 },
+      { label: "β — kaçırdıkların", data: [], borderColor: "transparent", backgroundColor: Renk.leylakAcik, fill: true, pointRadius: 0 },
+      { label: "H₀: fark yok", data: [], borderColor: Renk.murekkep || "#1D3C45", borderWidth: 2.5, borderDash: [6, 4], fill: false, pointRadius: 0, tension: 0.3 },
+      { label: "Gerçek durum", data: [], borderColor: Renk.cam, borderWidth: 3, fill: false, pointRadius: 0, tension: 0.3 }
+    ] },
+    options: { plugins: { legend: { display: true, position: "bottom", labels: { boxWidth: 14, font: { size: 11 } } } },
+      scales: { y: { display: false }, x: { title: { display: true, text: "Gözlenen ortalama fark (mmHg)" } } } }
+  });
+  document.getElementById("gucEtki").addEventListener("input", gucGuncelle);
+  document.getElementById("gucN").addEventListener("input", gucGuncelle);
+  gucGuncelle();
+}
+function gucGuncelle() {
+  const etki = +document.getElementById("gucEtki").value / 10;
+  const n = +document.getElementById("gucN").value;
+  const sigma = 15;
+  document.getElementById("gucEtkiDeger").textContent = Ist.bicim(etki, 1);
+  document.getElementById("gucNDeger").textContent = n;
+
+  const se = sigma * Math.sqrt(2 / n);
+  const kritik = 1.96 * se;                       // iki yönlü, α=0,05
+  const guc = 1 - normalCdf((kritik - etki) / se) + normalCdf((-kritik - etki) / se);
+
+  const etiket = [], h0 = [], h1 = [], alfaAlan = [], betaAlan = [];
+  const sinir = Math.max(14, etki + 4 * se);
+  const adim = sinir / 90;
+  for (let x = -sinir; x <= sinir; x += adim) {
+    etiket.push(Ist.bicim(x, 1));
+    const y0 = Ist.normalPdf(x, 0, se), y1 = Ist.normalPdf(x, etki, se);
+    h0.push(y0); h1.push(y1);
+    alfaAlan.push(Math.abs(x) >= kritik ? y0 : 0);
+    betaAlan.push(Math.abs(x) < kritik ? y1 : 0);
+  }
+  gGuc.data.labels = etiket;
+  gGuc.data.datasets[0].data = alfaAlan;
+  gGuc.data.datasets[1].data = betaAlan;
+  gGuc.data.datasets[2].data = h0;
+  gGuc.data.datasets[3].data = h1;
+  gGuc.update();
+
+  document.getElementById("cBeta").textContent = "%" + Ist.bicim((1 - guc) * 100, 1);
+  const gE = document.getElementById("cGuc");
+  gE.textContent = "%" + Ist.bicim(guc * 100, 1) + (guc >= 0.8 ? " ✓" : "");
+}
+
+/* ============ 6) Duyarlılık / Özgüllük / PPV ============ */
+let gPPV;
+function ppvKur() {
+  gPPV = new Chart(document.getElementById("gPPV"), {
+    type: "bar",
+    data: { labels: ["Test POZİTİF çıkanlar", "Test NEGATİF çıkanlar"], datasets: [
+      { label: "Gerçekten hasta", data: [], backgroundColor: Renk.mercan, borderRadius: 4 },
+      { label: "Aslında sağlıklı", data: [], backgroundColor: Renk.cam, borderRadius: 4 }
+    ] },
+    options: { indexAxis: "y",
+      plugins: { legend: { position: "bottom", labels: { boxWidth: 14 } },
+        tooltip: { callbacks: { label: c => c.dataset.label + ": " + Ist.bicim(c.raw, 0) + " kişi" } } },
+      scales: { x: { stacked: true, title: { display: true, text: "10.000 kişilik toplumda kişi sayısı" } }, y: { stacked: true } } }
+  });
+  ["prev", "sens", "spec"].forEach(id => document.getElementById(id).addEventListener("input", ppvGuncelle));
+  ppvGuncelle();
+}
+function ppvGuncelle() {
+  const N = 10000;
+  const prev = +document.getElementById("prev").value / 10 / 100;   // 0,1% – 50%
+  const sens = +document.getElementById("sens").value / 100;
+  const spec = +document.getElementById("spec").value / 100;
+  document.getElementById("prevDeger").textContent = Ist.bicim(prev * 100, 1);
+  document.getElementById("sensDeger").textContent = Math.round(sens * 100);
+  document.getElementById("specDeger").textContent = Math.round(spec * 100);
+
+  const hasta = N * prev, saglikli = N - hasta;
+  const GP = hasta * sens, YN = hasta - GP;          // gerçek pozitif, yanlış negatif
+  const GN = saglikli * spec, YP = saglikli - GN;    // gerçek negatif, yanlış pozitif
+  const ppv = GP + YP > 0 ? GP / (GP + YP) : 0;
+  const npv = GN + YN > 0 ? GN / (GN + YN) : 0;
+
+  gPPV.data.datasets[0].data = [GP, YN];
+  gPPV.data.datasets[1].data = [YP, GN];
+  gPPV.update();
+
+  document.getElementById("cPPV").textContent = "%" + Ist.bicim(ppv * 100, 1);
+  document.getElementById("cNPV").textContent = "%" + Ist.bicim(npv * 100, 1);
+  const k = document.getElementById("cPPVkarar");
+  k.textContent = ppv < 0.25 ? "Çoğu YANLIŞ ALARM!" : ppv < 0.5 ? "Yarısından çoğu sağlıklı" :
+                  ppv < 0.8 ? "Şüpheli — doğrulama şart" : "Güvenilir";
+
+  Ist.veriTablosu("veriSetiPPV", {
+    aciklama: `10.000 kişi taranıyor · prevalans %${Ist.bicim(prev * 100, 1)} → ${Ist.bicim(hasta, 0)} gerçek hasta`,
+    basliklar: ["", "Gerçekten hasta", "Aslında sağlıklı", "Toplam"],
+    satirlar: [
+      [{ deger: "Test pozitif", sinif: "etiket" }, { deger: Ist.bicim(GP, 0), sinif: "vurgu-azalis" },
+       { deger: Ist.bicim(YP, 0), sinif: "vurgu-artis" }, Ist.bicim(GP + YP, 0)],
+      [{ deger: "Test negatif", sinif: "etiket" }, { deger: Ist.bicim(YN, 0), sinif: "vurgu-artis" },
+       { deger: Ist.bicim(GN, 0), sinif: "vurgu-azalis" }, Ist.bicim(YN + GN, 0)],
+      [{ deger: "Toplam", sinif: "etiket" }, Ist.bicim(hasta, 0), Ist.bicim(saglikli, 0), N]
+    ]
+  });
+}
+
+/* ============ 7) RR / OR ============ */
+function orKur() {
+  document.getElementById("riskMaruz").addEventListener("input", orGuncelle);
+  document.getElementById("riskKontrol").addEventListener("input", orGuncelle);
+  orGuncelle();
+}
+function orGuncelle() {
+  const n = 1000;
+  const p1 = +document.getElementById("riskMaruz").value / 100;
+  const p0 = +document.getElementById("riskKontrol").value / 100;
+  document.getElementById("riskMaruzDeger").textContent = Math.round(p1 * 100);
+  document.getElementById("riskKontrolDeger").textContent = Math.round(p0 * 100);
+
+  const a = Math.round(n * p1), b = n - a;      // maruz: hasta, sağlam
+  const c = Math.round(n * p0), d = n - c;      // maruz değil
+  const rr = p1 / p0;
+  const or = (a / b) / (c / d);
+  const fark = (or - rr) / rr * 100;
+
+  document.getElementById("cRR").textContent = Ist.bicim(rr, 2);
+  document.getElementById("cOR").textContent = Ist.bicim(or, 2);
+  document.getElementById("cORkarar").textContent =
+    fark < 10 ? "Neredeyse aynı (nadir)" : fark < 50 ? "%" + Ist.bicim(fark, 0) + " abartıyor" : "%" + Ist.bicim(fark, 0) + " — çok abartıyor!";
+
+  Ist.veriTablosu("veriSetiOR", {
+    aciklama: `Her grupta 1.000 kişi · mutlak risk farkı = %${Ist.bicim((p1 - p0) * 100, 1)} · NNT = ${p1 !== p0 ? Ist.bicim(1 / Math.abs(p1 - p0), 0) : "—"}`,
+    basliklar: ["", "Hastalandı", "Hastalanmadı", "Risk", "Odds"],
+    satirlar: [
+      [{ deger: "Maruz kaldı", sinif: "etiket" }, { deger: a, sinif: "vurgu-artis" }, b,
+       "%" + Ist.bicim(p1 * 100, 1), Ist.bicim(a / b, 2)],
+      [{ deger: "Maruz kalmadı", sinif: "etiket" }, { deger: c, sinif: "vurgu-azalis" }, d,
+       "%" + Ist.bicim(p0 * 100, 1), Ist.bicim(c / d, 2)]
+    ]
+  });
+}
+
+/* ============ Arama & filtre ============ */
+function aramaKur() {
+  const arama = document.getElementById("arama");
+  const kavramlar = [...document.querySelectorAll(".kavram")];
+  const basliklar = [...document.querySelectorAll("[data-baslik]")];
+  let aktifEtiket = "hepsi";
+
+  function uygula() {
+    const q = arama.value.trim().toLocaleLowerCase("tr");
+    let gorunen = 0;
+    kavramlar.forEach(k => {
+      const metin = k.textContent.toLocaleLowerCase("tr");
+      const etiketUyar = aktifEtiket === "hepsi" || (k.dataset.e || "").includes(aktifEtiket);
+      const aramaUyar = !q || metin.includes(q);
+      const goster = etiketUyar && aramaUyar;
+      k.style.display = goster ? "" : "none";
+      if (goster) gorunen++;
+    });
+    // Bölüm başlıklarını, altında görünen kavram yoksa gizle
+    basliklar.forEach(b => {
+      let el = b.nextElementSibling, var_ = false;
+      while (el && !el.hasAttribute("data-baslik")) {
+        if (el.classList.contains("kavram") && el.style.display !== "none") { var_ = true; break; }
+        el = el.nextElementSibling;
+      }
+      b.style.display = var_ ? "" : "none";
+    });
+    document.getElementById("bulunamadi").style.display = gorunen ? "none" : "block";
+    document.getElementById("sayac").textContent =
+      gorunen === kavramlar.length ? `${kavramlar.length} kavram gösteriliyor.` : `${gorunen} / ${kavramlar.length} kavram gösteriliyor.`;
+  }
+
+  arama.addEventListener("input", uygula);
+  document.querySelectorAll("#etiketler button").forEach(b => {
+    b.addEventListener("click", () => {
+      document.querySelectorAll("#etiketler button").forEach(x => x.classList.remove("aktif"));
+      b.classList.add("aktif");
+      aktifEtiket = b.dataset.e;
+      uygula();
+    });
+  });
+  uygula();
+}
+
+window.addEventListener("load", () => {
+  merkezKur(); normalKur(); cltKur(); ciKur(); gucKur(); ppvKur(); orKur(); aramaKur();
+});
+</script>
+</body>
+</html>

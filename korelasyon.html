@@ -3,28 +3,66 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Korelasyon — Biyoistatistik Atlası</title>
+<title>Korelasyon — Biyoistatistik Rehberi</title>
 <meta name="description" content="İki değişken birlikte mi değişiyor? Pearson korelasyon katsayısını (r) interaktif serpme grafiğiyle öğren.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700&family=Nunito:wght@400;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/stil.css">
+<script defer src="js/menu.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
 </head>
 <body>
 
 <nav class="ust-menu">
   <div class="ic">
-    <a class="logo" href="index.html">Biyoistatistik <span>Atlası</span></a>
-    <div class="menu-serit">
-      <a href="index.html">Ana Sayfa</a>
-      <a href="tanimlayici.html">Tanımlayıcı</a>
-      <a href="korelasyon.html" class="aktif">Korelasyon</a>
-      <a href="regresyon.html">Regresyon</a>
-      <a href="ki-kare.html">Ki-Kare</a>
-      <a href="t-testi.html">t-Testi</a>
-      <a href="anova.html">ANOVA</a>
-    </div>
+    <a class="logo" href="index.html">Biyoistatistik <span>Rehberi</span></a>
+    <button class="menu-ac" id="menuAc" aria-label="Menüyü aç/kapat">☰</button>
+    <ul class="ana-menu" id="anaMenu">
+      <li><a href="index.html" data-sayfa="index.html">Ana Sayfa</a></li>
+      <li><a href="karar-agaci.html" data-sayfa="karar-agaci.html">Karar Ağacı</a></li>
+      <li class="grup">
+        <button class="grup-baslik" type="button">Temeller <span class="ok">▾</span></button>
+        <ul class="alt-menu">
+          <li><a href="veri-yapilari.html" data-sayfa="veri-yapilari.html">Veri Yapıları</a></li>
+          <li><a href="tanimlayici.html" data-sayfa="tanimlayici.html">Tanımlayıcı İstatistik</a></li>
+          <li><a href="korelasyon.html" data-sayfa="korelasyon.html">Korelasyon</a></li>
+          <li><a href="regresyon.html" data-sayfa="regresyon.html">Regresyon</a></li>
+        </ul>
+      </li>
+      <li class="grup">
+        <button class="grup-baslik" type="button">Sayısal Testler <span class="ok">▾</span></button>
+        <ul class="alt-menu">
+          <li class="alt-baslik">İki grup</li>
+          <li><a href="t-testi.html" data-sayfa="t-testi.html">Student t (bağımsız)</a></li>
+          <li><a href="paired-t.html" data-sayfa="paired-t.html">Eşleştirilmiş t</a></li>
+          <li><a href="mann-whitney.html" data-sayfa="mann-whitney.html">Mann-Whitney U</a></li>
+          <li><a href="wilcoxon.html" data-sayfa="wilcoxon.html">Wilcoxon işaretli sıralar</a></li>
+          <li class="alt-baslik">Üç ve daha çok grup</li>
+          <li><a href="anova.html" data-sayfa="anova.html">One-way ANOVA</a></li>
+          <li><a href="repeated-anova.html" data-sayfa="repeated-anova.html">Tekrarlı ölçümler ANOVA</a></li>
+          <li><a href="kruskal-wallis.html" data-sayfa="kruskal-wallis.html">Kruskal-Wallis</a></li>
+          <li><a href="friedman.html" data-sayfa="friedman.html">Friedman</a></li>
+        </ul>
+      </li>
+      <li class="grup">
+        <button class="grup-baslik" type="button">Kategorik Testler <span class="ok">▾</span></button>
+        <ul class="alt-menu">
+          <li><a href="ki-kare.html" data-sayfa="ki-kare.html">Ki-Kare</a></li>
+          <li><a href="fisher.html" data-sayfa="fisher.html">Fisher kesin testi</a></li>
+          <li><a href="mcnemar.html" data-sayfa="mcnemar.html">McNemar</a></li>
+          <li><a href="cochran-q.html" data-sayfa="cochran-q.html">Cochran Q</a></li>
+          <li><a href="marginal-homogenlik.html" data-sayfa="marginal-homogenlik.html">Marginal Homogeneity</a></li>
+        </ul>
+      </li>
+      <li class="grup">
+        <button class="grup-baslik" type="button">Kaynaklar <span class="ok">▾</span></button>
+        <ul class="alt-menu">
+          <li><a href="istatistik-tarihi.html" data-sayfa="istatistik-tarihi.html">İstatistiğin Tarihi</a></li>
+          <li><a href="sozluk.html" data-sayfa="sozluk.html">İstatistik Sözlüğü</a></li>
+        </ul>
+      </li>
+    </ul>
   </div>
 </nav>
 
@@ -43,15 +81,17 @@
     </aside>
   </header>
 
+  <div class="mini-zaman-baslik">İstatistik tarihinde bu test</div>
+  <div class="mini-zaman" id="miniZaman"></div>
+
   <section class="kart vurgu-yesil">
-    <h2 style="margin-top:0">Tarihte neyi değiştirdi?</h2>
-    <p>
-      Pearson'dan önce insanlar "şu şununla ilgili görünüyor" derdi ama bunu <strong>sayıyla</strong> söyleyemezlerdi.
-      Pearson, ilişkinin gücünü –1 ile +1 arasında tek bir sayıya sıkıştırdı. Bu, tıp için devrimdi: artık
-      "kolesterol yüksekliği ile kalp krizi ne kadar ilişkili?" gibi bir soru <strong>ölçülebilir</strong> hale geldi.
-      İstatistiğin ayrı bir bilim dalı olarak doğması büyük ölçüde Pearson'ın laboratuvarında oldu.
-    </p>
+    <h2 style="margin-top:0">Tarihçe — Galton'ın sezgisi, Pearson'ın formülü (1886–1896)</h2>
+    <p>Fikir <strong>Francis Galton</strong>'a ait: kalıtımı incelerken (ebeveyn boyu ile çocuğun boyu), iki ölçümün birlikte değişme eğilimini fark etti ama bunu bir sayıya dökemedi. 1896'da öğrencisi <strong>Karl Pearson</strong>, Londra'daki biyometri okulunda bu ilişkiyi <strong>−1 ile +1 arasında tek bir katsayıya (r)</strong> indirgeyen formülü verdi. İlk kez "ne kadar birlikte?" sorusunun kesin bir cevabı vardı.</p>
+    <p>Korelasyon, modern epidemiyolojinin dilini kurdu: sigara ile akciğer hastalığı, tuz ile tansiyon, gelir ile ömür... "Doz–yanıt ilişkisi" düşüncesinin ölçülebilir hâli budur. (Not: bu okul aynı zamanda dönemin tartışmalı öjeni akımıyla iç içeydi; yöntem kaldı, o bağlam bugün eleştirel okunur.) <strong>Korelasyon nedensellik değildir</strong> uyarısı da tam bu araçla birlikte doğdu.</p>
   </section>
+
+
+  
 
   <h2>r ne anlatır?</h2>
   <div class="konusma">
@@ -73,6 +113,7 @@
     <button class="dugme ikincil" id="yeniOrneklem">🎲 Yeni hasta grubu çek</button>
 
     <div class="grafik-kutu"><canvas id="serpmeGrafik"></canvas></div>
+    <div class="veri-seti" id="veriSeti"></div>
 
     <div class="sonuc-panosu">
       <div class="sonuc-kutusu"><div class="deger" id="cR">–</div><div class="ad">Hesaplanan r</div></div>
@@ -98,8 +139,8 @@
 </main>
 
 <footer class="dipnot">
-  <a class="ileri" href="#" title="Yakında">🚧 İleri Biyoistatistik Atlası — yakında</a><br>
-  Biyoistatistik Atlası · Grafiklerdeki veriler öğretim için üretilmiş örnek verilerdir.
+  <a class="ileri" href="#" title="Yakında">🚧 İleri Biyoistatistik Rehberi — yakında</a><br>
+  Biyoistatistik Rehberi · Grafiklerdeki veriler öğretim için üretilmiş örnek verilerdir.
 </footer>
 
 <script src="js/ortak.js"></script>
@@ -147,6 +188,12 @@ function guncelle() {
   grafik.data.datasets[0].data = noktalar;
   grafik.update();
 
+  Ist.veriTablosu("veriSeti", {
+    aciklama: "İlk 10 gözlem — her satır bir kişi (x, y)",
+    basliklar: ["#", "x", "y"],
+    satirlar: xler.slice(0, 10).map((x, i) => [i + 1, Ist.bicim(x, 1), Ist.bicim(yler[i], 1)])
+  });
+
   const rHes = Ist.korelasyon(xler, yler);
   document.getElementById("cR").textContent = Ist.bicim(rHes, 2);
 
@@ -165,5 +212,6 @@ document.getElementById("yeniOrneklem").addEventListener("click", () => { tohum 
 window.addEventListener("load", kur);
 </script>
 
+<script>Ist.zamanCizgisi("miniZaman", "korelasyon.html");</script>
 </body>
 </html>

@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Veri Yapıları — Biyoistatistik Rehberi</title>
+<meta name="description" content="Sürekli, kesikli, sıralı ve kategorik veri ne demek? Ölçüm düzeylerini sağlık örnekleriyle, interaktif grafiklerle ve canlı veri tablolarıyla öğren.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700&family=Nunito:wght@400;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/stil.css">
+<script defer src="js/menu.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+</head>
+<body>
+
+<nav class="ust-menu">
+  <div class="ic">
+    <a class="logo" href="index.html">Biyoistatistik <span>Rehberi</span></a>
+    <button class="menu-ac" id="menuAc" aria-label="Menüyü aç/kapat">☰</button>
+    <ul class="ana-menu" id="anaMenu">
+      <li><a href="index.html" data-sayfa="index.html">Ana Sayfa</a></li>
+      <li><a href="karar-agaci.html" data-sayfa="karar-agaci.html">Karar Ağacı</a></li>
+      <li class="grup">
+        <button class="grup-baslik" type="button">Temeller <span class="ok">▾</span></button>
+        <ul class="alt-menu">
+          <li><a href="veri-yapilari.html" data-sayfa="veri-yapilari.html">Veri Yapıları</a></li>
+          <li><a href="tanimlayici.html" data-sayfa="tanimlayici.html">Tanımlayıcı İstatistik</a></li>
+          <li><a href="korelasyon.html" data-sayfa="korelasyon.html">Korelasyon</a></li>
+          <li><a href="regresyon.html" data-sayfa="regresyon.html">Regresyon</a></li>
+        </ul>
+      </li>
+      <li class="grup">
+        <button class="grup-baslik" type="button">Sayısal Testler <span class="ok">▾</span></button>
+        <ul class="alt-menu">
+          <li class="alt-baslik">İki grup</li>
+          <li><a href="t-testi.html" data-sayfa="t-testi.html">Student t (bağımsız)</a></li>
+          <li><a href="paired-t.html" data-sayfa="paired-t.html">Eşleştirilmiş t</a></li>
+          <li><a href="mann-whitney.html" data-sayfa="mann-whitney.html">Mann-Whitney U</a></li>
+          <li><a href="wilcoxon.html" data-sayfa="wilcoxon.html">Wilcoxon işaretli sıralar</a></li>
+          <li class="alt-baslik">Üç ve daha çok grup</li>
+          <li><a href="anova.html" data-sayfa="anova.html">One-way ANOVA</a></li>
+          <li><a href="repeated-anova.html" data-sayfa="repeated-anova.html">Tekrarlı ölçümler ANOVA</a></li>
+          <li><a href="kruskal-wallis.html" data-sayfa="kruskal-wallis.html">Kruskal-Wallis</a></li>
+          <li><a href="friedman.html" data-sayfa="friedman.html">Friedman</a></li>
+        </ul>
+      </li>
+      <li class="grup">
+        <button class="grup-baslik" type="button">Kategorik Testler <span class="ok">▾</span></button>
+        <ul class="alt-menu">
+          <li><a href="ki-kare.html" data-sayfa="ki-kare.html">Ki-Kare</a></li>
+          <li><a href="fisher.html" data-sayfa="fisher.html">Fisher kesin testi</a></li>
+          <li><a href="mcnemar.html" data-sayfa="mcnemar.html">McNemar</a></li>
+          <li><a href="cochran-q.html" data-sayfa="cochran-q.html">Cochran Q</a></li>
+          <li><a href="marginal-homogenlik.html" data-sayfa="marginal-homogenlik.html">Marginal Homogeneity</a></li>
+        </ul>
+      </li>
+      <li class="grup">
+        <button class="grup-baslik" type="button">Kaynaklar <span class="ok">▾</span></button>
+        <ul class="alt-menu">
+          <li><a href="istatistik-tarihi.html" data-sayfa="istatistik-tarihi.html">İstatistiğin Tarihi</a></li>
+          <li><a href="sozluk.html" data-sayfa="sozluk.html">İstatistik Sözlüğü</a></li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+<main class="icerik">
+
+  <header class="sayfa-giris">
+    <div>
+      <span class="etiket">Başlangıç · Her şeyden önce</span>
+      <h1>Veri Yapıları</h1>
+      <p class="ozet">
+        İstatistikte yapılan hataların çoğu, testi yanlış hesaplamaktan değil,
+        <strong>elindeki verinin ne tür olduğunu bilmemekten</strong> doğar. Ateş, kan grubu, ağrı skoru ve
+        çocuk sayısı — dördü de "sayı" gibi görünür ama dördüne <strong>farklı davranmak</strong> gerekir.
+        Bu sayfa, o farkı gözünle görmen için var.
+      </p>
+    </div>
+    <aside class="zaman-pulu">
+      <span class="yil">1946</span>
+      <p class="kisi">Stanley S. Stevens</p>
+      <p>Harvardlı psikolog. Ölçmenin dört düzeyi olduğunu söyledi: <strong>nominal, ordinal, aralık, oran.</strong>
+        Bugün hâlâ bu sınıflamayla düşünüyoruz.</p>
+    </aside>
+  </header>
+
+  <section class="kart vurgu-yesil">
+    <h2 style="margin-top:0">Neden bu sayfa hepsinden önce geliyor?</h2>
+    <p>
+      Çünkü <strong>veri türü, kullanacağın testi belirler.</strong> Karar ağacındaki ilk soru her zaman aynıdır:
+      "Verin sayısal mı, kategorik mi?" Bu soruya yanlış cevap verirsen, sonraki her adım yanlış olur —
+      hesap makinen ne kadar doğru çalışırsa çalışsın.
+    </p>
+    <p style="margin-bottom:0">
+      Bir örnek: Kan grubunu 1, 2, 3, 4 diye kodlarsan bilgisayar sana ortalamasını hesaplar ve
+      <strong>"ortalama kan grubu 2,4"</strong> der. Matematik doğrudur; anlam saçmadır.
+      İşte bu sayfa, bilgisayarın seni uyarmayacağı bu tür hataları önlemek için.
+    </p>
+  </section>
+
+  <h2 style="border-left:5px solid var(--cam);padding-left:12px;margin-top:34px">Büyük ayrım: sayısal mı, kategorik mi?</h2>
+
+  <div class="konusma">
+    <p><strong>Sayısal (nicel)</strong> — "Ne kadar?" sorusuna cevap verir. Üzerinde aritmetik yapmak anlamlıdır.
+      <em>Ateş, tansiyon, yaş, çocuk sayısı.</em></p>
+    <p style="margin-bottom:0"><strong>Kategorik (nitel)</strong> — "Hangisi?" sorusuna cevap verir. Sayılar sadece etikettir.
+      <em>Cinsiyet, kan grubu, hastalık evresi, sigara içme durumu.</em></p>
+  </div>
+
+  <p>
+    Bu iki büyük aile de kendi içinde ikiye ayrılır. Toplam <strong>dört tür</strong> ve aralarındaki tek fark,
+    <strong>hangi işlemin anlamlı olduğudur</strong>:
+  </p>
+
+  <div class="tablo-kaydirici" style="grid-template-columns:1fr">
+    <table class="veri">
+      <thead>
+        <tr>
+          <th>Tür</th><th>Soru</th><th>Sağlıktan örnek</th>
+          <th>Sıralanır mı?</th><th>Farkı anlamlı mı?</th><th>Ortalaması alınır mı?</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Nominal</strong><br><span style="opacity:.7">(adlandırma)</span></td>
+          <td>Hangi grup?</td><td>Kan grubu, il, meslek, tanı kodu</td>
+          <td>❌ Hayır</td><td>❌ Hayır</td><td>❌ Hayır — <em>mod</em> kullan</td>
+        </tr>
+        <tr>
+          <td><strong>Ordinal</strong><br><span style="opacity:.7">(sıralı)</span></td>
+          <td>Hangi seviye?</td><td>Evre I-II-III, ağrı skoru, eğitim düzeyi, Likert</td>
+          <td>✅ Evet</td><td>❌ Hayır <span style="opacity:.7">(aralıklar eşit değil)</span></td>
+          <td>⚠️ Tartışmalı — <em>medyan</em> kullan</td>
+        </tr>
+        <tr>
+          <td><strong>Kesikli</strong><br><span style="opacity:.7">(sayısal, tam sayı)</span></td>
+          <td>Kaç tane?</td><td>Çocuk sayısı, atak sayısı, yatak sayısı</td>
+          <td>✅ Evet</td><td>✅ Evet</td><td>✅ Evet</td>
+        </tr>
+        <tr>
+          <td><strong>Sürekli</strong><br><span style="opacity:.7">(sayısal, ölçüm)</span></td>
+          <td>Ne kadar?</td><td>Ateş, tansiyon, boy, kreatinin, süre</td>
+          <td>✅ Evet</td><td>✅ Evet</td><td>✅ Evet</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="deney-masasi">
+    <h3>🔬 Deney Masası 1 — "Türü seç, verinin nasıl davrandığını gör"</h3>
+    <p>Aşağıdaki düğmelere bas. Her tür için hem <strong>uygun grafik</strong> hem de
+      <strong>ham veri tablosu</strong> değişecek. Dikkat et: grafik türü bile veri türüne bağlıdır —
+      nominal veriye histogram çizemezsin, sürekli veriye pasta grafiği yapmak bilgiyi öldürür.</p>
+
+    <div class="secenekler" id="turSecim">
+      <button class="dugme ikincil aktif" data-tur="surekli">📏 Sürekli</button>
+      <button class="dugme ikincil" data-tur="kesikli">🔢 Kesikli</button>
+      <button class="dugme ikincil" data-tur="ordinal">📶 Ordinal (sıralı)</button>
+      <button class="dugme ikincil" data-tur="nominal">🏷️ Nominal</button>
+    </div>
+
+    <div class="kart" id="turAciklama" style="margin:14px 0"></div>
+
+    <div class="grafik-kutu"><canvas id="turGrafik"></canvas></div>
+    <div class="veri-seti" id="veriSeti"></div>
+
+    <div class="sonuc-panosu">
+      <div class="sonuc-kutusu"><div class="deger" id="cMerkez">–</div><div class="ad" id="cMerkezAd">Merkez ölçüsü</div></div>
+      <div class="sonuc-kutusu"><div class="deger" id="cYayilim">–</div><div class="ad" id="cYayilimAd">Yayılım</div></div>
+      <div class="sonuc-kutusu karar"><div class="deger" id="cGrafik">–</div><div class="ad">Uygun grafik</div></div>
+    </div>
+  </div>
+
+  <section class="kart vurgu-mercan">
+    <h2 style="margin-top:0">⚠️ En sık yapılan hata: "sayı gibi görünen" kategoriler</h2>
+    <p>
+      Veri tabanında her şey sayıdır. Cinsiyeti 1/2, kan grubunu 1/2/3/4, ili 06/34/54 diye kodlarsın.
+      Bilgisayar bunların <strong>etiket mi ölçüm mü</strong> olduğunu bilmez ve istersen ortalamasını da alır.
+      "Ortalama il = 31,3" gibi bir sonuç, hiçbir hata mesajı vermeden karşına çıkar.
+    </p>
+    <p style="margin-bottom:0">
+      Basit kural: <strong>Kodu iki katına çıkarınca anlamı iki katına çıkıyor mu?</strong>
+      Ateş 20 °C'den 40 °C'ye çıkınca "iki kat sıcak" demek zaten tartışmalıdır (aralık ölçeği!),
+      ama kan grubu 2'den 4'e çıkınca "iki kat kan grubu" demek düpedüz saçmadır. Cevap "hayır" ise,
+      elindeki veri <strong>kategoriktir</strong>.
+    </p>
+  </section>
+
+  <h2 style="border-left:5px solid var(--gunes);padding-left:12px;margin-top:34px">Ordinal: en kaygan zemin</h2>
+
+  <p>
+    Ordinal veri, öğrencilerin (ve makalelerin) en çok takıldığı yerdir. Sıralamak anlamlıdır:
+    <strong>Evre III &gt; Evre II &gt; Evre I</strong>. Ama <em>aralıklar eşit değildir</em>:
+    Evre I ile II arasındaki fark, II ile III arasındakiyle aynı değildir.
+  </p>
+  <p>
+    Aynı şey ağrı skorunda da geçerli: 2'den 4'e çıkan ağrı ile 6'dan 8'e çıkan ağrı,
+    hastanın yaşadığı açısından aynı miktarda artış mıdır? Bilemeyiz. Bu yüzden
+    ordinal veride <strong>ortalama şüphelidir; medyan güvenlidir</strong> ve testler
+    <strong>sıra temelli</strong> olanlardan seçilir (Mann-Whitney, Kruskal-Wallis, Wilcoxon, Friedman).
+  </p>
+
+  <div class="deney-masasi">
+    <h3>🔬 Deney Masası 2 — "Sürekli veriyi kategoriye çevirince ne kaybediyorsun?"</h3>
+    <p>
+      Aşağıda <strong>60 hastanın sistolik tansiyonu</strong> var — sürekli veri.
+      Klinikte bunu sık sık kategoriye çeviririz: "hipertansif mi, değil mi?"
+      Kaydırıcıyla <strong>kesme noktasını</strong> oynat ve iki şeyi aynı anda izle:
+      sol tarafta gerçek dağılım, sağ tarafta senin yarattığın kategoriler.
+      <strong>Kaç farklı hasta, aynı etikete sıkışıyor?</strong>
+    </p>
+
+    <div class="kaydirici-grubu">
+      <label for="kesme">Hipertansiyon kesme noktası <output id="kesmeDeger">140</output> mmHg</label>
+      <input type="range" id="kesme" min="110" max="170" step="1" value="140">
+    </div>
+    <div class="kaydirici-grubu">
+      <label for="kategoriSayi">Kaç kategoriye böleyim? <output id="kategoriSayiDeger">2</output></label>
+      <input type="range" id="kategoriSayi" min="2" max="4" step="1" value="2">
+    </div>
+
+    <div class="grafik-kutu"><canvas id="kayipGrafik"></canvas></div>
+    <div class="veri-seti" id="veriSeti2"></div>
+
+    <div class="sonuc-panosu">
+      <div class="sonuc-kutusu"><div class="deger" id="cSurekliBilgi">–</div><div class="ad">Sürekli veride farklı değer</div></div>
+      <div class="sonuc-kutusu"><div class="deger" id="cKategorikBilgi">–</div><div class="ad">Kategoriye çevirince kalan</div></div>
+      <div class="sonuc-kutusu karar"><div class="deger" id="cKayip">–</div><div class="ad">Bilgi kaybı</div></div>
+    </div>
+  </div>
+
+  <section class="kart vurgu-leylak">
+    <h3 style="margin-top:0">📉 Az önce ne oldu?</h3>
+    <p>
+      139 mmHg'lik bir hasta ile 141 mmHg'lik bir hasta, <strong>ölçüm hatası kadar</strong> birbirine yakındır.
+      Ama 140 kesme noktasıyla biri "sağlıklı", diğeri "hasta" oldu. Öte yandan 141 ile 200 mmHg'lik hasta,
+      aynı kutuya girdi. Kategorileştirme:
+    </p>
+    <ul>
+      <li><strong>Bilgi kaybettirir</strong> — 60 farklı değer, 2 etikete iner.</li>
+      <li><strong>İstatistiksel gücü düşürür</strong> — Aynı sonucu bulmak için daha çok hasta gerekir.</li>
+      <li><strong>Yapay eşikler yaratır</strong> — Sınırın iki yanındaki hastalar aslında aynıdır.</li>
+    </ul>
+    <p style="margin-bottom:0">
+      Peki neden yaparız? Çünkü <strong>karar vermek</strong> zorundayız: ilaç başlanacak mı, başlanmayacak mı?
+      Klinik hayat kategoriktir. Kural şu: <strong>karar için kategorize et, ama analizi mümkünse
+      sürekli veriyle yap.</strong> Analizde veriyi kategorileştirmek, elindeki bilgiyi gönüllü olarak çöpe atmaktır.
+    </p>
+  </section>
+
+  <h2 style="border-left:5px solid var(--leylak);padding-left:12px;margin-top:34px">Bir de şu ayrımlar var</h2>
+
+  <div class="tablo-kaydirici" style="grid-template-columns:1fr">
+    <table class="veri">
+      <thead><tr><th>Kavram</th><th>Ne demek?</th><th>Örnek</th><th>Neden önemli?</th></tr></thead>
+      <tbody>
+        <tr>
+          <td><strong>Aralık ölçeği</strong></td>
+          <td>Farklar anlamlı, ama <strong>gerçek sıfır yok</strong></td>
+          <td>Santigrat sıcaklık, takvim yılı</td>
+          <td>"İki katı" denemez: 40 °C, 20 °C'nin iki katı sıcak değildir.</td>
+        </tr>
+        <tr>
+          <td><strong>Oran ölçeği</strong></td>
+          <td>Gerçek sıfır <strong>var</strong> (yokluk demek)</td>
+          <td>Boy, kilo, kreatinin, süre, Kelvin</td>
+          <td>"İki katı" denebilir: 80 kg, 40 kg'ın iki katıdır.</td>
+        </tr>
+        <tr>
+          <td><strong>İkili (binary)</strong></td>
+          <td>Nominal'in en özel hâli: iki seçenek</td>
+          <td>Yaşıyor/öldü, pozitif/negatif, aşılı/aşısız</td>
+          <td>Tıbbın en sık veri tipi; ki-kare, Fisher, McNemar burada çalışır.</td>
+        </tr>
+        <tr>
+          <td><strong>Sansürlü (censored)</strong></td>
+          <td>Olay henüz olmadı ya da takip bitti</td>
+          <td>"5 yıl izlendi, hâlâ hayatta"</td>
+          <td>Ne sürekli ne kategorik; sağkalım analizi gerekir (Kaplan-Meier).</td>
+        </tr>
+        <tr>
+          <td><strong>Sayım (count)</strong></td>
+          <td>Kesikli ve çarpık, sıfır çok</td>
+          <td>Yıllık atak sayısı, başvuru sayısı</td>
+          <td>Normal dağılmaz; Poisson/negatif binom modelleri gerekir.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <section class="kart vurgu-yesil" style="margin-top:24px">
+    <h2 style="margin-top:0">🧭 Şimdi ne yapmalı?</h2>
+    <p>Veri türünü belirlediysen, doğru testi seçmek artık kolay:</p>
+    <ul style="margin-bottom:14px">
+      <li><strong>Sürekli/kesikli</strong> + normal dağılım → t-testi, ANOVA, Pearson korelasyon, regresyon</li>
+      <li><strong>Sürekli/kesikli</strong> + çarpık veya küçük n → Mann-Whitney, Kruskal-Wallis, Wilcoxon, Friedman</li>
+      <li><strong>Ordinal</strong> → medyan + sıra temelli testler (yukarıdakiler)</li>
+      <li><strong>Nominal/ikili</strong> → oran, ki-kare, Fisher, McNemar, Cochran Q</li>
+    </ul>
+    <a href="karar-agaci.html" style="background:var(--cam);color:#fff;border-radius:999px;padding:10px 22px;font-weight:800;text-decoration:none;display:inline-block">Karar Ağacını Aç →</a>
+  </section>
+
+  <nav class="sayfa-gezinme">
+    <a href="index.html">← Ana Sayfa</a>
+    <a href="tanimlayici.html">Tanımlayıcı İstatistik →</a>
+  </nav>
+
+</main>
+
+<footer class="dipnot">
+  <a class="ileri" href="#" title="Yakında">🚧 İleri Biyoistatistik Rehberi — yakında</a><br>
+  Biyoistatistik Rehberi · Grafiklerdeki veriler öğretim için üretilmiş örnek verilerdir.
+</footer>
+
+<script src="js/ortak.js"></script>
+<script>
+/* ============ Deney Masası 1: veri türleri ============ */
+const TURLER = {
+  surekli: {
+    ad: "Sürekli",
+    aciklama: `<strong>📏 Sürekli veri</strong> — İki değer arasında <em>sonsuz</em> ara değer vardır; ölçü aletinin
+      hassasiyeti kadar bölebilirsin. 36,5 °C ile 36,6 °C arasında 36,55 vardır.
+      <br><strong>Örnek:</strong> 40 hastanın vücut sıcaklığı (°C).
+      <br><strong>Grafik:</strong> Histogram — değerleri aralıklara bölüp yığını görürsün.
+      <br><strong>Özet:</strong> Ortalama ± standart sapma (dağılım simetrikse).`,
+    grafik: "histogram", merkezAd: "Ortalama", yayilimAd: "Standart sapma", uygun: "Histogram"
+  },
+  kesikli: {
+    ad: "Kesikli",
+    aciklama: `<strong>🔢 Kesikli veri</strong> — Sayılabilir, tam sayıdır; ara değer <em>yoktur</em>.
+      2,5 çocuğu olan bir aile yoktur (ortalaması 2,5 olabilir — dikkat, o başka şey!).
+      <br><strong>Örnek:</strong> 40 ailenin çocuk sayısı.
+      <br><strong>Grafik:</strong> Çubuk grafik — her tam sayı kendi çubuğudur.
+      <br><strong>Özet:</strong> Ortalama anlamlıdır, ama dağılım çarpıksa medyan daha iyi anlatır.`,
+    grafik: "cubuk-sayisal", merkezAd: "Ortalama", yayilimAd: "Standart sapma", uygun: "Çubuk grafik"
+  },
+  ordinal: {
+    ad: "Ordinal",
+    aciklama: `<strong>📶 Ordinal (sıralı) veri</strong> — Sıralaması anlamlı, <em>aralıkları eşit değil</em>.
+      Evre III, Evre II'den ağırdır; ama "ne kadar ağır?" sorusunun sayısal cevabı yoktur.
+      <br><strong>Örnek:</strong> 40 hastanın hastalık evresi (I / II / III / IV).
+      <br><strong>Grafik:</strong> Çubuk grafik — <em>sırayı bozmadan!</em>
+      <br><strong>Özet:</strong> <strong>Medyan</strong> ve yüzdelikler. Ortalama tartışmalıdır.`,
+    grafik: "cubuk-ordinal", merkezAd: "Medyan", yayilimAd: "Çeyrekler arası", uygun: "Sıralı çubuk"
+  },
+  nominal: {
+    ad: "Nominal",
+    aciklama: `<strong>🏷️ Nominal veri</strong> — Sadece <em>etiket</em>. Sıralaması yok, aritmetiği yok.
+      A kan grubu, 0'dan "büyük" değildir. Alfabetik ya da sıklığa göre dizmek serbesttir; bu bir sıra değildir.
+      <br><strong>Örnek:</strong> 40 hastanın kan grubu.
+      <br><strong>Grafik:</strong> Çubuk grafik (ya da pasta — ama az kategori varsa).
+      <br><strong>Özet:</strong> <strong>Mod</strong> (en sık görülen) ve yüzdeler. Ortalama <em>anlamsızdır</em>.`,
+    grafik: "cubuk-nominal", merkezAd: "Mod (en sık)", yayilimAd: "En sık kategori %", uygun: "Çubuk / Pasta"
+  }
+};
+
+// Sabit örnek veriler (öğretim için üretilmiş)
+const ates = [36.4,36.8,37.1,36.6,38.2,37.6,36.9,37.3,36.5,38.9,37.8,36.7,37.0,36.3,39.1,37.4,36.8,38.4,37.2,36.6,
+              37.7,38.1,36.9,37.5,36.4,38.6,37.1,36.8,37.9,36.5,37.3,38.0,36.7,37.6,36.2,38.3,37.0,36.9,37.4,37.2];
+const cocuk = [2,3,1,0,2,4,2,1,3,2,0,5,2,3,1,2,2,4,3,1,0,2,3,2,1,6,2,3,0,2,4,1,2,3,2,1,2,0,3,2];
+const evreAd = ["Evre I","Evre II","Evre III","Evre IV"];
+const evre = [1,2,2,3,1,2,4,3,2,1,3,2,2,3,1,4,2,3,2,2,1,3,2,4,3,2,1,2,3,2,2,1,3,2,4,2,3,1,2,3];
+const kanAd = ["0 Rh+","A Rh+","B Rh+","AB Rh+","0 Rh−","A Rh−"];
+const kan  = [1,0,1,2,0,1,1,3,0,1,2,1,0,1,1,4,1,0,2,1,1,0,3,1,1,2,0,1,1,5,0,1,2,1,1,0,1,3,1,0];
+
+let turGrafik, aktifTur = "surekli";
+
+function histogramKutula(veri, kutuSayi) {
+  const min = Math.floor(Math.min(...veri) * 2) / 2, max = Math.ceil(Math.max(...veri) * 2) / 2;
+  const gen = (max - min) / kutuSayi;
+  const kutular = new Array(kutuSayi).fill(0), etiket = [];
+  for (let i = 0; i < kutuSayi; i++) etiket.push((min + i * gen).toFixed(1) + "–" + (min + (i + 1) * gen).toFixed(1));
+  veri.forEach(v => { let k = Math.floor((v - min) / gen); if (k >= kutuSayi) k = kutuSayi - 1; if (k < 0) k = 0; kutular[k]++; });
+  return { etiket, kutular };
+}
+const sayimYap = (dizi, n) => { const c = new Array(n).fill(0); dizi.forEach(v => c[v]++); return c; };
+
+function turKur() {
+  turGrafik = new Chart(document.getElementById("turGrafik"), {
+    type: "bar",
+    data: { labels: [], datasets: [{ label: "Kişi sayısı", data: [], backgroundColor: Renk.cam, borderRadius: 4 }] },
+    options: {
+      plugins: { legend: { display: false } },
+      scales: { y: { beginAtZero: true, title: { display: true, text: "Kişi sayısı" } }, x: { title: { display: true, text: "" } } }
+    }
+  });
+  document.querySelectorAll("#turSecim button").forEach(b => {
+    b.addEventListener("click", () => {
+      document.querySelectorAll("#turSecim button").forEach(x => x.classList.remove("aktif"));
+      b.classList.add("aktif");
+      aktifTur = b.dataset.tur;
+      turGuncelle();
+    });
+  });
+  turGuncelle();
+}
+
+function turGuncelle() {
+  const T = TURLER[aktifTur];
+  document.getElementById("turAciklama").innerHTML = T.aciklama;
+  document.getElementById("cMerkezAd").textContent = T.merkezAd;
+  document.getElementById("cYayilimAd").textContent = T.yayilimAd;
+  document.getElementById("cGrafik").textContent = T.uygun;
+
+  let etiket = [], deger = [], renk = Renk.cam, xBaslik = "", merkez = "", yayilim = "", tablo = {};
+
+  if (aktifTur === "surekli") {
+    const h = histogramKutula(ates, 10);
+    etiket = h.etiket; deger = h.kutular; xBaslik = "Vücut sıcaklığı (°C)"; renk = Renk.cam;
+    merkez = Ist.bicim(Ist.ortalama(ates), 2) + " °C";
+    yayilim = "± " + Ist.bicim(Ist.ss(ates), 2);
+    tablo = { aciklama: "40 hastanın vücut sıcaklığı (°C) — her hasta ayrı bir ölçüm",
+      basliklar: ates.slice(0, 20).map((_, i) => "H" + (i + 1)),
+      satirlar: [ates.slice(0, 20).map(v => Ist.bicim(v, 1))] };
+  } else if (aktifTur === "kesikli") {
+    const c = sayimYap(cocuk, 7);
+    etiket = c.map((_, i) => i); deger = c; xBaslik = "Çocuk sayısı"; renk = Renk.gunes;
+    merkez = Ist.bicim(Ist.ortalama(cocuk), 2);
+    yayilim = "± " + Ist.bicim(Ist.ss(cocuk), 2);
+    tablo = { aciklama: "Her tam sayı kaç ailede görülüyor? (ara değer yok!)",
+      basliklar: c.map((_, i) => i + " çocuk"),
+      satirlar: [c.map(v => ({ deger: v, sinif: v === Math.max(...c) ? "vurgu-artis" : "" }))] };
+  } else if (aktifTur === "ordinal") {
+    const c = sayimYap(evre.map(v => v - 1), 4);
+    etiket = evreAd; deger = c; xBaslik = "Hastalık evresi (sıralı!)"; renk = Renk.leylak;
+    const sirali = [...evre].sort((a, b) => a - b);
+    merkez = evreAd[Math.round(Ist.medyan(sirali)) - 1];
+    const q1 = sirali[Math.floor(sirali.length * 0.25)], q3 = sirali[Math.floor(sirali.length * 0.75)];
+    yayilim = evreAd[q1 - 1].replace("Evre ", "") + " – " + evreAd[q3 - 1].replace("Evre ", "");
+    tablo = { aciklama: "Sıralaması anlamlı, aralıkları eşit DEĞİL — ortalama almak tartışmalı",
+      basliklar: ["Evre", "Hasta sayısı", "%", "Kümülatif %"],
+      satirlar: (() => { let k = 0; return c.map((v, i) => { k += v; return [{ deger: evreAd[i], sinif: "etiket" }, v, Ist.bicim(v / 40 * 100, 1) + "%", Ist.bicim(k / 40 * 100, 1) + "%"]; }); })() };
+  } else {
+    const c = sayimYap(kan, 6);
+    etiket = kanAd; deger = c; xBaslik = "Kan grubu (sadece etiket)"; renk = Renk.mercan;
+    const enSik = c.indexOf(Math.max(...c));
+    merkez = kanAd[enSik];
+    yayilim = Ist.bicim(Math.max(...c) / 40 * 100, 1) + "%";
+    tablo = { aciklama: "Sıra yok, aritmetik yok — sadece SAY ve YÜZDE al",
+      basliklar: ["Kan grubu", "Hasta sayısı", "%"],
+      satirlar: c.map((v, i) => [{ deger: kanAd[i], sinif: "etiket" }, { deger: v, sinif: i === enSik ? "vurgu-artis" : "" }, Ist.bicim(v / 40 * 100, 1) + "%"]) };
+  }
+
+  turGrafik.data.labels = etiket;
+  turGrafik.data.datasets[0].data = deger;
+  turGrafik.data.datasets[0].backgroundColor = renk;
+  turGrafik.options.scales.x.title.text = xBaslik;
+  turGrafik.update();
+
+  document.getElementById("cMerkez").textContent = merkez;
+  document.getElementById("cYayilim").textContent = yayilim;
+  Ist.veriTablosu("veriSeti", tablo);
+}
+
+/* ============ Deney Masası 2: bilgi kaybı ============ */
+const uretT = Ist.rastgele(2024);
+const tansiyon = [];
+for (let i = 0; i < 60; i++) tansiyon.push(Math.round(138 + 17 * Ist.normalSayi(uretT)));
+let kayipGrafik;
+
+function kayipKur() {
+  kayipGrafik = new Chart(document.getElementById("kayipGrafik"), {
+    type: "bar",
+    data: { labels: [], datasets: [{ label: "Hasta sayısı", data: [], backgroundColor: [], borderRadius: 4 }] },
+    options: {
+      plugins: { legend: { display: false },
+        tooltip: { callbacks: { title: c => c[0].label + " mmHg" } } },
+      scales: {
+        y: { beginAtZero: true, title: { display: true, text: "Hasta sayısı" } },
+        x: { title: { display: true, text: "Sistolik tansiyon (mmHg) — renkler senin kategorilerin" } }
+      }
+    }
+  });
+  document.getElementById("kesme").addEventListener("input", kayipGuncelle);
+  document.getElementById("kategoriSayi").addEventListener("input", kayipGuncelle);
+  kayipGuncelle();
+}
+
+function kayipGuncelle() {
+  const kesme = +document.getElementById("kesme").value;
+  const kSayi = +document.getElementById("kategoriSayi").value;
+  document.getElementById("kesmeDeger").textContent = kesme;
+  document.getElementById("kategoriSayiDeger").textContent = kSayi;
+
+  // kategori sınırları
+  let sinirlar, adlar, renkler;
+  if (kSayi === 2) {
+    sinirlar = [kesme]; adlar = ["Normal", "Hipertansif"]; renkler = [Renk.cam, Renk.mercan];
+  } else if (kSayi === 3) {
+    sinirlar = [kesme - 10, kesme]; adlar = ["Normal", "Sınırda", "Hipertansif"]; renkler = [Renk.cam, Renk.gunes, Renk.mercan];
+  } else {
+    sinirlar = [kesme - 20, kesme - 10, kesme]; adlar = ["Optimal", "Normal", "Sınırda", "Hipertansif"];
+    renkler = [Renk.camAcik || Renk.cam, Renk.cam, Renk.gunes, Renk.mercan];
+  }
+  const kategoriBul = v => { for (let i = 0; i < sinirlar.length; i++) if (v < sinirlar[i]) return i; return sinirlar.length; };
+
+  // 5'lik kutularla histogram, her kutu ait olduğu kategorinin rengiyle
+  const min = 100, max = 185, gen = 5, n = (max - min) / gen;
+  const etiket = [], kutular = new Array(n).fill(0), kutuRenk = [];
+  for (let i = 0; i < n; i++) {
+    const orta = min + i * gen + gen / 2;
+    etiket.push(min + i * gen);
+    kutuRenk.push(renkler[kategoriBul(orta)]);
+  }
+  tansiyon.forEach(v => { let k = Math.floor((v - min) / gen); if (k >= n) k = n - 1; if (k < 0) k = 0; kutular[k]++; });
+
+  kayipGrafik.data.labels = etiket;
+  kayipGrafik.data.datasets[0].data = kutular;
+  kayipGrafik.data.datasets[0].backgroundColor = kutuRenk;
+  kayipGrafik.update();
+
+  // Bilgi kaybı ölçümü
+  const farkliDeger = new Set(tansiyon).size;
+  document.getElementById("cSurekliBilgi").textContent = farkliDeger + " farklı";
+  document.getElementById("cKategorikBilgi").textContent = kSayi + " kategori";
+  const kayip = Ist.bicim((1 - kSayi / farkliDeger) * 100, 1);
+  document.getElementById("cKayip").textContent = "%" + kayip + " ayrım gitti";
+
+  // Kategori dağılımı tablosu + sınıra en yakın "trajik çift"
+  const sayimlar = new Array(kSayi).fill(0);
+  tansiyon.forEach(v => sayimlar[kategoriBul(v)]++);
+  const altinda = tansiyon.filter(v => v < kesme).sort((a, b) => b - a)[0];
+  const ustunde = tansiyon.filter(v => v >= kesme).sort((a, b) => a - b)[0];
+
+  const satirlar = sayimlar.map((s, i) => {
+    const aralik = i === 0 ? "< " + sinirlar[0]
+      : i === sinirlar.length ? "≥ " + sinirlar[sinirlar.length - 1]
+      : sinirlar[i - 1] + "–" + (sinirlar[i] - 1);
+    const uyeler = tansiyon.filter(v => kategoriBul(v) === i).sort((a, b) => a - b);
+    const arali = uyeler.length ? uyeler[0] + " … " + uyeler[uyeler.length - 1] : "—";
+    return [{ deger: adlar[i], sinif: "etiket" }, aralik, s, Ist.bicim(s / 60 * 100, 1) + "%",
+            { deger: arali, sinif: uyeler.length > 1 ? "vurgu-artis" : "" }];
+  });
+  Ist.veriTablosu("veriSeti2", {
+    aciklama: `60 hasta · kesme ${kesme} mmHg → son sütun: aynı etikete sıkışan en uç iki hasta` +
+      (altinda && ustunde ? ` · sınırın iki yanı: ${altinda} vs ${ustunde} mmHg (fark sadece ${ustunde - altinda}!)` : ""),
+    basliklar: ["Kategori", "Aralık", "n", "%", "İçindeki en düşük … en yüksek"],
+    satirlar
+  });
+}
+
+window.addEventListener("load", () => { turKur(); kayipKur(); });
+</script>
+</body>
+</html>
