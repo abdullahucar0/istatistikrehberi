@@ -374,26 +374,45 @@ Object.assign(Ist, {
   zamanCizgisi(containerId, aktifSayfa) {
     const kap = document.getElementById(containerId);
     if (!kap) return;
-    const ilkY = 1835, sonY = 1956, solPad = 55, sagPad = 55, gen = 1000;
+
+    const ilkY = 1835, sonY = 1956;
+    const gen = 1000, solPad = 62, sagPad = 62, yuk = 166;
+    const eksenY = 92;                       // eksen çizgisi
     const x = y => solPad + (y - ilkY) / (sonY - ilkY) * (gen - solPad - sagPad);
-    const eksenY = 74;
-    let ic = `<svg viewBox="0 0 ${gen} 118" preserveAspectRatio="xMidYMid meet" role="img" aria-label="İstatistik testlerinin zaman şeridi">`;
-    // eksen çizgisi
-    ic += `<line x1="${solPad - 15}" y1="${eksenY}" x2="${gen - sagPad + 15}" y2="${eksenY}" stroke="var(--cam-acik)" stroke-width="3"/>`;
-    // ok
-    ic += `<polygon points="${gen - sagPad + 15},${eksenY} ${gen - sagPad + 5},${eksenY - 5} ${gen - sagPad + 5},${eksenY + 5}" fill="var(--cam-acik)"/>`;
-    ZAMAN_CIZGISI.forEach(m => {
+    const MIN_ARA = 46;                      // iki yıl etiketi arası en az piksel
+    const SATIR = [eksenY + 24, eksenY + 45, eksenY + 66];   // etiketlerin y konumları
+
+    // Etiketleri satırlara dağıt: sığdığı ilk satıra yerleştir (çakışmayı önler)
+    const sonX = new Array(SATIR.length).fill(-Infinity);
+    const yerlesim = ZAMAN_CIZGISI.map(m => {
       const px = x(m.yil);
+      let satir = sonX.findIndex(v => px - v >= MIN_ARA);
+      if (satir < 0) satir = sonX.indexOf(Math.min(...sonX));
+      sonX[satir] = px;
+      return { ...m, px, satir };
+    });
+
+    let ic = `<svg viewBox="0 0 ${gen} ${yuk}" preserveAspectRatio="xMidYMid meet" role="img" aria-label="İstatistik testlerinin zaman şeridi">`;
+    ic += `<line x1="${solPad - 18}" y1="${eksenY}" x2="${gen - sagPad + 18}" y2="${eksenY}" stroke="var(--cam-acik)" stroke-width="3"/>`;
+    ic += `<polygon points="${gen - sagPad + 18},${eksenY} ${gen - sagPad + 7},${eksenY - 5.5} ${gen - sagPad + 7},${eksenY + 5.5}" fill="var(--cam-acik)"/>`;
+
+    yerlesim.forEach(m => {
+      const px = m.px;
       const aktif = m.sayfalar.includes(aktifSayfa);
       if (aktif) {
-        // aktif: büyük nokta + üstte balon
-        ic += `<line x1="${px}" y1="${eksenY}" x2="${px}" y2="34" stroke="var(--mercan)" stroke-width="2.5"/>`;
-        ic += `<circle cx="${px}" cy="${eksenY}" r="11" fill="var(--mercan)" stroke="#fff" stroke-width="3"/>`;
-        ic += `<text x="${px}" y="26" text-anchor="middle" font-family="Baloo 2, sans-serif" font-size="21" font-weight="700" fill="var(--mercan)">${m.yil}</text>`;
-        ic += `<text x="${px}" y="98" text-anchor="middle" font-family="Nunito, sans-serif" font-size="17" font-weight="800" fill="var(--murekkep)">${m.ad}</text>`;
+        // Aktif nokta: ad + yıl EKSENİN ÜSTÜNDE durur, alttaki yıl etiketleriyle asla çakışmaz
+        const adX = Math.min(Math.max(px, 92), gen - 92);   // kenardan taşmayı engelle
+        ic += `<line x1="${px}" y1="${eksenY - 9}" x2="${px}" y2="55" stroke="var(--mercan)" stroke-width="2.5"/>`;
+        ic += `<circle cx="${px}" cy="${eksenY}" r="10" fill="var(--mercan)" stroke="#fff" stroke-width="3"/>`;
+        ic += `<text x="${adX}" y="20" text-anchor="middle" font-family="Nunito, sans-serif" font-size="16" font-weight="800" fill="var(--murekkep)">${m.ad}</text>`;
+        ic += `<text x="${adX}" y="48" text-anchor="middle" font-family="Baloo 2, sans-serif" font-size="21" font-weight="700" fill="var(--mercan)">${m.yil}</text>`;
       } else {
-        ic += `<circle cx="${px}" cy="${eksenY}" r="6" fill="#fff" stroke="var(--cam)" stroke-width="2.5"/>`;
-        ic += `<text x="${px}" y="${eksenY + 26}" text-anchor="middle" font-family="Nunito, sans-serif" font-size="13" font-weight="700" fill="var(--murekkep-soluk)">${m.yil}</text>`;
+        const etY = SATIR[m.satir];
+        if (m.satir > 0) {   // alt satırdaysa noktaya ince bir bağ çizgisi çek
+          ic += `<line x1="${px}" y1="${eksenY + 7}" x2="${px}" y2="${etY - 11}" stroke="var(--cam-acik)" stroke-width="1.5"/>`;
+        }
+        ic += `<circle cx="${px}" cy="${eksenY}" r="5.5" fill="#fff" stroke="var(--cam)" stroke-width="2.5"/>`;
+        ic += `<text x="${px}" y="${etY}" text-anchor="middle" font-family="Nunito, sans-serif" font-size="13" font-weight="700" fill="var(--murekkep-soluk)">${m.yil}</text>`;
       }
     });
     ic += `</svg>`;
