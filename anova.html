@@ -235,7 +235,7 @@ function guncelle() {
   grafik.update();
 
   // Tek yönlü ANOVA
-  const satirGrup = (ad, g) => [{ deger: ad, sinif: "etiket" }, ...g.map(v => Ist.bicim(v, 1)), { deger: Ist.bicim(Ist.ortalama(g), 1), sinif: "vurgu-artis" }];
+  const satirGrup = (ad, g) => [{ deger: ad, sinif: "veri-etiket" }, ...g.map(v => Ist.bicim(v, 1)), { deger: Ist.bicim(Ist.ortalama(g), 1), sinif: "vurgu-artis" }];
   Ist.veriTablosu("veriSeti", {
     aciklama: "Üç ilaç grubunun hasta değerleri ve grup ortalaması (ağrı skoru)",
     basliklar: ["İlaç", ...gA.map((_, i) => i + 1), "Ort."],

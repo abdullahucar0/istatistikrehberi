@@ -1114,11 +1114,11 @@ function ppvGuncelle() {
     aciklama: `10.000 kişi taranıyor · prevalans %${Ist.bicim(prev * 100, 1)} → ${Ist.bicim(hasta, 0)} gerçek hasta`,
     basliklar: ["", "Gerçekten hasta", "Aslında sağlıklı", "Toplam"],
     satirlar: [
-      [{ deger: "Test pozitif", sinif: "etiket" }, { deger: Ist.bicim(GP, 0), sinif: "vurgu-azalis" },
+      [{ deger: "Test pozitif", sinif: "veri-etiket" }, { deger: Ist.bicim(GP, 0), sinif: "vurgu-azalis" },
        { deger: Ist.bicim(YP, 0), sinif: "vurgu-artis" }, Ist.bicim(GP + YP, 0)],
-      [{ deger: "Test negatif", sinif: "etiket" }, { deger: Ist.bicim(YN, 0), sinif: "vurgu-artis" },
+      [{ deger: "Test negatif", sinif: "veri-etiket" }, { deger: Ist.bicim(YN, 0), sinif: "vurgu-artis" },
        { deger: Ist.bicim(GN, 0), sinif: "vurgu-azalis" }, Ist.bicim(YN + GN, 0)],
-      [{ deger: "Toplam", sinif: "etiket" }, Ist.bicim(hasta, 0), Ist.bicim(saglikli, 0), N]
+      [{ deger: "Toplam", sinif: "veri-etiket" }, Ist.bicim(hasta, 0), Ist.bicim(saglikli, 0), N]
     ]
   });
 }
@@ -1151,9 +1151,9 @@ function orGuncelle() {
     aciklama: `Her grupta 1.000 kişi · mutlak risk farkı = %${Ist.bicim((p1 - p0) * 100, 1)} · NNT = ${p1 !== p0 ? Ist.bicim(1 / Math.abs(p1 - p0), 0) : "—"}`,
     basliklar: ["", "Hastalandı", "Hastalanmadı", "Risk", "Odds"],
     satirlar: [
-      [{ deger: "Maruz kaldı", sinif: "etiket" }, { deger: a, sinif: "vurgu-artis" }, b,
+      [{ deger: "Maruz kaldı", sinif: "veri-etiket" }, { deger: a, sinif: "vurgu-artis" }, b,
        "%" + Ist.bicim(p1 * 100, 1), Ist.bicim(a / b, 2)],
-      [{ deger: "Maruz kalmadı", sinif: "etiket" }, { deger: c, sinif: "vurgu-azalis" }, d,
+      [{ deger: "Maruz kalmadı", sinif: "veri-etiket" }, { deger: c, sinif: "vurgu-azalis" }, d,
        "%" + Ist.bicim(p0 * 100, 1), Ist.bicim(c / d, 2)]
     ]
   });

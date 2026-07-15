@@ -432,7 +432,7 @@ function turGuncelle() {
     yayilim = evreAd[q1 - 1].replace("Evre ", "") + " – " + evreAd[q3 - 1].replace("Evre ", "");
     tablo = { aciklama: "Sıralaması anlamlı, aralıkları eşit DEĞİL — ortalama almak tartışmalı",
       basliklar: ["Evre", "Hasta sayısı", "%", "Kümülatif %"],
-      satirlar: (() => { let k = 0; return c.map((v, i) => { k += v; return [{ deger: evreAd[i], sinif: "etiket" }, v, Ist.bicim(v / 40 * 100, 1) + "%", Ist.bicim(k / 40 * 100, 1) + "%"]; }); })() };
+      satirlar: (() => { let k = 0; return c.map((v, i) => { k += v; return [{ deger: evreAd[i], sinif: "veri-etiket" }, v, Ist.bicim(v / 40 * 100, 1) + "%", Ist.bicim(k / 40 * 100, 1) + "%"]; }); })() };
   } else {
     const c = sayimYap(kan, 6);
     etiket = kanAd; deger = c; xBaslik = "Kan grubu (sadece etiket)"; renk = Renk.mercan;
@@ -441,7 +441,7 @@ function turGuncelle() {
     yayilim = Ist.bicim(Math.max(...c) / 40 * 100, 1) + "%";
     tablo = { aciklama: "Sıra yok, aritmetik yok — sadece SAY ve YÜZDE al",
       basliklar: ["Kan grubu", "Hasta sayısı", "%"],
-      satirlar: c.map((v, i) => [{ deger: kanAd[i], sinif: "etiket" }, { deger: v, sinif: i === enSik ? "vurgu-artis" : "" }, Ist.bicim(v / 40 * 100, 1) + "%"]) };
+      satirlar: c.map((v, i) => [{ deger: kanAd[i], sinif: "veri-etiket" }, { deger: v, sinif: i === enSik ? "vurgu-artis" : "" }, Ist.bicim(v / 40 * 100, 1) + "%"]) };
   }
 
   turGrafik.data.labels = etiket;
@@ -531,7 +531,7 @@ function kayipGuncelle() {
       : sinirlar[i - 1] + "–" + (sinirlar[i] - 1);
     const uyeler = tansiyon.filter(v => kategoriBul(v) === i).sort((a, b) => a - b);
     const arali = uyeler.length ? uyeler[0] + " … " + uyeler[uyeler.length - 1] : "—";
-    return [{ deger: adlar[i], sinif: "etiket" }, aralik, s, Ist.bicim(s / 60 * 100, 1) + "%",
+    return [{ deger: adlar[i], sinif: "veri-etiket" }, aralik, s, Ist.bicim(s / 60 * 100, 1) + "%",
             { deger: arali, sinif: uyeler.length > 1 ? "vurgu-artis" : "" }];
   });
   Ist.veriTablosu("veriSeti2", {

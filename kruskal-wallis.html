@@ -197,7 +197,7 @@ function guncelle() {
   Ist.veriTablosu("veriSeti", {
     aciklama: "Üç ilin ölçümleri — hepsi tek sıraya dizilen ham değerler",
     basliklar: ["İl", ...A.map((_, i) => i + 1)],
-    satirlar: [[{ deger: "A", sinif: "etiket" }, ...A.map(x => Ist.bicim(x, 1))], [{ deger: "B", sinif: "etiket" }, ...B.map(x => Ist.bicim(x, 1))], [{ deger: "C", sinif: "etiket" }, ...C.map(x => Ist.bicim(x, 1))]]
+    satirlar: [[{ deger: "A", sinif: "veri-etiket" }, ...A.map(x => Ist.bicim(x, 1))], [{ deger: "B", sinif: "veri-etiket" }, ...B.map(x => Ist.bicim(x, 1))], [{ deger: "C", sinif: "veri-etiket" }, ...C.map(x => Ist.bicim(x, 1))]]
   });
 
   const r = Ist.kruskalWallis([A, B, C]);

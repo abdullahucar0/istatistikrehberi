@@ -208,7 +208,7 @@ function guncelle() {
   Ist.veriTablosu("veriSeti", {
     aciklama: "Geçiş tablosu: satır = bir yıl önceki evre, sütun = şimdiki evre (hasta sayısı)",
     basliklar: ["Önce ↓ / Sonra →", "Hafif", "Orta", "Ağır"],
-    satirlar: [0, 1, 2].map(i => [{ deger: ["Hafif", "Orta", "Ağır"][i], sinif: "etiket" }, ...[0, 1, 2].map(j => (i !== j && t[i][j] > 0) ? { deger: t[i][j], sinif: "vurgu-artis" } : t[i][j])])
+    satirlar: [0, 1, 2].map(i => [{ deger: ["Hafif", "Orta", "Ağır"][i], sinif: "veri-etiket" }, ...[0, 1, 2].map(j => (i !== j && t[i][j] > 0) ? { deger: t[i][j], sinif: "vurgu-artis" } : t[i][j])])
   });
 
   const r = Ist.stuartMaxwell3(t);
