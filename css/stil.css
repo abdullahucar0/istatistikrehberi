@@ -544,8 +544,28 @@ table.veri th { background: var(--cam-acik); }
 .sihirbaz .geri { background: none; border: none; color: var(--cam-koyu); font-weight: 700; cursor: pointer; margin-top: 14px; padding: 6px 0; text-decoration: underline; }
 
 /* ---------- Görsel ağaç ---------- */
-.agac-sar { overflow-x: auto; padding: 10px 4px 20px; -webkit-overflow-scrolling: touch; }
-.agac { min-width: 780px; }
+.agac-sar {
+  overflow-x: auto; overflow-y: hidden;
+  padding: 10px 4px 8px; -webkit-overflow-scrolling: touch;
+  transition: height 0.18s ease;
+}
+.agac-olcek { transform-origin: top left; transition: transform 0.18s ease; }
+.agac { min-width: 780px; width: max-content; }
+
+/* Ağaç yakınlaştırma kontrolleri */
+.agac-kontrol { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; flex-wrap: wrap; }
+.agac-kontrol button {
+  font-family: "Nunito", sans-serif; font-weight: 800; font-size: 1rem; line-height: 1;
+  color: var(--murekkep); background: #fff;
+  border: 2px solid var(--cam-acik); border-radius: 10px;
+  padding: 7px 13px; cursor: pointer; transition: all 0.15s ease;
+}
+.agac-kontrol button:hover { border-color: var(--cam); color: var(--cam-koyu); }
+.agac-kontrol button.sigdir { font-size: 0.82rem; border-radius: 999px; }
+.agac-kontrol #agacOran {
+  font-weight: 800; font-size: 0.85rem; color: var(--murekkep-soluk);
+  min-width: 48px; text-align: center;
+}
 .agac ul { display: flex; justify-content: center; padding: 0; margin: 0; list-style: none; position: relative; }
 .agac li {
   position: relative;
@@ -618,7 +638,7 @@ a.agac-kutu.yaprak:hover { background: var(--cam-koyu); border-color: var(--cam-
   border: 2px solid var(--cam-acik); border-radius: var(--radius);
   padding: 10px 10px 6px; overflow-x: auto; margin-bottom: 6px;
 }
-.mini-zaman svg { width: 100%; min-width: 640px; height: auto; display: block; }
+.mini-zaman svg { width: 100%; min-width: 720px; height: auto; display: block; }
 
 .veri-seti {
   margin: 16px 0 4px; background: var(--murekkep);
@@ -633,7 +653,11 @@ a.agac-kutu.yaprak:hover { background: var(--cam-koyu); border-color: var(--cam-
   border-bottom: 1px solid rgba(255, 255, 255, 0.12);
 }
 .veri-seti-tablo th { font-weight: 800; color: var(--gunes); }
-.veri-seti-tablo td.etiket { text-align: left; font-weight: 700; color: #fff; }
+.veri-seti-tablo td.veri-etiket {
+  text-align: left; font-weight: 800; color: #fff;
+  background: none; border-radius: 0; text-transform: none; letter-spacing: normal;
+  padding: 5px 9px; font-size: 0.82rem; display: table-cell;
+}
 .veri-seti-tablo td.vurgu-artis { color: #FFB4A8; font-weight: 800; }
 .veri-seti-tablo td.vurgu-azalis { color: #8FE6D6; font-weight: 800; }
 .veri-seti-tablo tbody tr:last-child td { border-bottom: none; }
@@ -703,3 +727,32 @@ a.agac-kutu.yaprak:hover { background: var(--cam-koyu); border-color: var(--cam-
   border-radius: 6px; padding: 2px 8px; min-width: 26px; text-align: center;
 }
 .kaynakca li:last-child { border-bottom: none; }
+
+/* Ağaç kutularını daralt: yaprak etiketleri sarsın, ağacın gerçek genişliği düşsün */
+.agac li { padding-left: 3px; padding-right: 3px; }
+.agac-kutu {
+  white-space: normal; line-height: 1.25;
+  max-width: 116px; font-size: 0.8rem; padding: 6px 9px;
+}
+.agac-kutu.dal { max-width: 96px; }
+a.agac-kutu.yaprak { max-width: 122px; font-size: 0.78rem; font-weight: 800; }
+
+/* Metin içi kaynak atıfları */
+a.knk {
+  display: inline-block; vertical-align: super;
+  font-size: 0.62rem; font-weight: 800; line-height: 1;
+  color: var(--cam-koyu); background: var(--cam-acik);
+  border-radius: 5px; padding: 2px 4px; margin-left: 2px;
+  text-decoration: none; transition: all 0.12s ease;
+}
+a.knk:hover { background: var(--cam); color: #fff; }
+a.knk-dis {
+  display: inline-block; white-space: nowrap;
+  font-size: 0.74rem; font-weight: 800;
+  color: var(--cam-koyu); background: var(--cam-acik);
+  border-radius: 999px; padding: 2px 9px; margin-left: 6px;
+  text-decoration: none;
+}
+a.knk-dis:hover { background: var(--cam); color: #fff; }
+.kaynakca li { scroll-margin-top: 90px; }
+.kaynakca li:target { background: var(--gunes-acik); border-radius: 8px; }
